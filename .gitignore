@@ -1,0 +1,14 @@
+Podfile.lock
+contents.xcworkspacedata
+Manifest.lock
+project.pbxproj
+Pods-FinancePlanner.xcscheme
+xcschememanagement.plist
+Pods-FinancePlanner-Info.plist
+Pods-FinancePlanner-acknowledgements.markdown
+Pods/Target Support Files/Pods-FinancePlanner/Pods-FinancePlanner-acknowledgements.plist
+Pods/Target Support Files/Pods-FinancePlanner/Pods-FinancePlanner-dummy.m
+Pods/Target Support Files/Pods-FinancePlanner/Pods-FinancePlanner-umbrella.h
+Pods/Target Support Files/Pods-FinancePlanner/Pods-FinancePlanner.debug.xcconfig
+Pods/Target Support Files/Pods-FinancePlanner/Pods-FinancePlanner.modulemap
+Pods/Target Support Files/Pods-FinancePlanner/Pods-FinancePlanner.release.xcconfig
