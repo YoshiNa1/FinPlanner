@@ -8,36 +8,77 @@
 import UIKit
 
 class ListViewController: UIViewController {
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var newNoteField: UITextField!
+    @IBOutlet weak var doneButton: UIButton!
     
-    var initialGestureLocationInCell: CGPoint = .zero
+    let previewParameters: UIDragPreviewParameters = {
+        let parameters = UIDragPreviewParameters()
+        parameters.backgroundColor = .clear
+        return parameters
+    }()
     
-    var list = ["medical insurance 35$<done>", "lenses 10$ + solution 9$<done>", "gift on the mom’s BDay ~100$", "teeth 40$", "autumn coat 200-300$", "new sneakers ~100$", ""]
+    var list = ["medical insurance 35$<done>", "lenses 10$ + solution 9$<done>", "gift on the mom’s BDay ~100$", "teeth 40$", "autumn coat 200-300$", "new sneakers ~100$"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(ListItemCell.self, forCellWithReuseIdentifier: "listItemCell")
         
+        self.addButton.isEnabled = false
+        self.newNoteField.addTarget(self, action: #selector(noteFieldDidChange), for: .editingChanged)
+        self.doneButton.isHidden = true
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        tableView.dragInteractionEnabled = true
+        tableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "listTableViewCell")
+      
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardDidShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+       
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
-        collectionView.addGestureRecognizer(tapGesture)
-        
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
-        collectionView.addGestureRecognizer(longPressGesture)
-        
+        tableView.addGestureRecognizer(tapGesture)
+
         updateUI()
     }
     
     func updateUI() {
-        collectionView.reloadData()
+        tableView.reloadData()
+    }
+    
+    @IBAction func didAddNewNote(_ sender: Any) {
+        if let newNoteString = self.newNoteField.text {
+            self.list.append(newNoteString)
+            self.newNoteField.text = ""
+            self.addButton.isEnabled = false
+            updateUI()
+        }
+    }
+    
+    @IBAction func didEndEditing(_ sender: Any) {
+        view.endEditing(true)
+        doneButton.isHidden = true
     }
 
+    @objc func keyboardDidShow() {
+        doneButton.isHidden = false
+    }
+    
+    @objc func noteFieldDidChange() {
+        self.addButton.isEnabled = (newNoteField.text?.isEmpty == false)
+    }
+ 
     @objc func handleTapGesture(_ gesture: UITapGestureRecognizer) {
-        let gestureLocation = gesture.location(in: collectionView)
-        guard let indexPath = collectionView.indexPathForItem(at: gestureLocation) else { return }
-        if isPressableArea(gesture) {
+        let gestureLocation = gesture.location(in: tableView)
+        guard let indexPath = tableView.indexPathForRow(at: gestureLocation) else { return }
+        let cell = tableView.cellForRow(at: indexPath) as! ListTableViewCell
+
+        let cellIconFrame = tableView.convert(cell.iconView.frame, from:cell)
+        if cellIconFrame.contains(gestureLocation) {
             if(gesture.state == .ended) {
                 let item = list[indexPath.item]
 
@@ -53,75 +94,77 @@ class ListViewController: UIViewController {
             }
         }
     }
-
-    @objc func handleLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
-        let isNeedToRespond = isPressableArea(gesture)
-        switch gesture.state {
-        case .began:
-            if isNeedToRespond {
-                guard let indexPath = self.collectionView.indexPathForItem(at: gesture.location(in: self.collectionView)) else { break }
-                let cell = self.collectionView.cellForItem(at: indexPath)!
-                let gestureLocation_RelativeToOrigin = gesture.location(in: cell)
-                let gestureLocation_RelativeToCentre = CGPoint(x: gestureLocation_RelativeToOrigin.x - cell.frame.size.width/2,
-                                                               y: gestureLocation_RelativeToOrigin.y - cell.frame.size.height/2)
-         
-                self.initialGestureLocationInCell = gestureLocation_RelativeToCentre
-                self.collectionView.beginInteractiveMovementForItem(at: indexPath)
-            }
-        case .changed:
-            let gestureLocationInCollectionView = gesture.location(in: gesture.view)
-            let targetPosition = CGPoint(x: gestureLocationInCollectionView.x - self.initialGestureLocationInCell.x,
-                                         y: gestureLocationInCollectionView.y - self.initialGestureLocationInCell.y)
-            collectionView.updateInteractiveMovementTargetPosition(targetPosition)
-        case .ended:
-            collectionView.endInteractiveMovement()
-        default:
-            collectionView.cancelInteractiveMovement()
-        }
-    }
-    
-    func isPressableArea(_ gesture: UIGestureRecognizer) -> Bool {
-        let gestureLocation = gesture.location(in: collectionView)
-        guard let indexPath = collectionView.indexPathForItem(at: gestureLocation) else { return false }
-        let cell = collectionView.cellForItem(at: indexPath) as! ListItemCell
-
-        let cellIconFrame = collectionView.convert(cell.iconView.frame, from:cell)
-        if cellIconFrame.contains(gestureLocation) {
-            return true
-        }
-        return false
-    }
 }
 
-extension ListViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension ListViewController : UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return list.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 370, height: 24)
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 16;
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listItemCell", for: indexPath as IndexPath) as! ListItemCell
-        let item = list[indexPath.item]
+   
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "listTableViewCell", for: indexPath) as! ListTableViewCell
+        let item = list[indexPath.row]
         cell.configureCell(with: item)
+        cell.indexPath = indexPath
+        cell.delegate = self
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
+   
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let contextItem = UIContextualAction(style: .destructive, title: "Delete") { (contextualAction, view, boolValue) in
+            self.list.remove(at: indexPath.row)
+            self.updateUI()
+        }
+        let swipeActions = UISwipeActionsConfiguration(actions: [contextItem])
+        return swipeActions
+    }
+}
+
+extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate  {
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let item = list[sourceIndexPath.row]
         list.remove(at: sourceIndexPath.item)
         list.insert(item, at: destinationIndexPath.row)
         updateUI()
     }
     
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let dragItem = UIDragItem(itemProvider: NSItemProvider())
+        dragItem.localObject = list[indexPath.row]
+        return [dragItem]
+    }
+    
+    func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        return previewParameters
+    }
+    
+    func tableView(_ tableView: UITableView, dropPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        return previewParameters
+    }
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) { }
+}
+
+extension ListViewController: ListTableViewCellDelegate {
+    func textFieldDidChange(_ textField: UITextField, at indexPath: IndexPath) {
+        if indexPath.item < list.count {
+            guard let text = textField.text else { return }
+            list[indexPath.item] = text
+            
+            if text == "" {
+                self.list.remove(at: indexPath.row)
+                UIView.transition(with: tableView, duration: 0.4) {
+                    self.updateUI()
+                }
+            }
+        }
+    }
 }

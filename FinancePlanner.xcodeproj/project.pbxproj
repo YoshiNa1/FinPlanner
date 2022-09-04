@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5501E15A28B8F03300C486D3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5501E15928B8F03200C486D3 /* HomeViewController.swift */; };
-		5501E15C28B8F04600C486D3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5501E15B28B8F04600C486D3 /* ListViewController.swift */; };
+		5501E15C28B8F04600C486D3 /* ListViewController_First.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5501E15B28B8F04600C486D3 /* ListViewController_First.swift */; };
 		5501E15E28B8F06100C486D3 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5501E15D28B8F06100C486D3 /* CalendarViewController.swift */; };
 		5501E16028B8F07000C486D3 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5501E15F28B8F07000C486D3 /* StatisticsViewController.swift */; };
 		5501E16228B8F07C00C486D3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5501E16128B8F07C00C486D3 /* SettingsViewController.swift */; };
@@ -16,10 +16,14 @@
 		553DBFAE28B930B30030E6C4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553DBFAD28B930B30030E6C4 /* Images.xcassets */; };
 		553DBFB428B937900030E6C4 /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553DBFB228B937900030E6C4 /* ListItemCell.swift */; };
 		553DBFB528B937900030E6C4 /* ListItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553DBFB328B937900030E6C4 /* ListItemCell.xib */; };
+		553F40D128C4E8BF0056760C /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553F40D028C4E8BF0056760C /* ListViewController.swift */; };
 		554DA27928B8CA8A0026FF25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554DA27828B8CA8A0026FF25 /* AppDelegate.swift */; };
 		554DA27B28B8CA8A0026FF25 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554DA27A28B8CA8A0026FF25 /* SceneDelegate.swift */; };
 		554DA28028B8CA8A0026FF25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 554DA27E28B8CA8A0026FF25 /* Main.storyboard */; };
 		554DA28528B8CA8E0026FF25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 554DA28328B8CA8E0026FF25 /* LaunchScreen.storyboard */; };
+		5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5576F63B28C4F77200C6CED3 /* ListTableViewCell.swift */; };
+		5576F63E28C4F77200C6CED3 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */; };
+		55F2F9B528C3C4BB00D3BE48 /* ListTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F2F9B428C3C4BB00D3BE48 /* ListTextField.swift */; };
 		AFE2A65A664B65F0D6087ED5 /* Pods_FinancePlanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA7E4CADAED0B8B9C0F4060 /* Pods_FinancePlanner.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,13 +31,14 @@
 		1BA7E4CADAED0B8B9C0F4060 /* Pods_FinancePlanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FinancePlanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38849F9A4664085A3481A069 /* Pods-FinancePlanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinancePlanner.debug.xcconfig"; path = "Target Support Files/Pods-FinancePlanner/Pods-FinancePlanner.debug.xcconfig"; sourceTree = "<group>"; };
 		5501E15928B8F03200C486D3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		5501E15B28B8F04600C486D3 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		5501E15B28B8F04600C486D3 /* ListViewController_First.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController_First.swift; sourceTree = "<group>"; };
 		5501E15D28B8F06100C486D3 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		5501E15F28B8F07000C486D3 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		5501E16128B8F07C00C486D3 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		553DBFAD28B930B30030E6C4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		553DBFB228B937900030E6C4 /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
 		553DBFB328B937900030E6C4 /* ListItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListItemCell.xib; sourceTree = "<group>"; };
+		553F40D028C4E8BF0056760C /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		554DA27528B8CA8A0026FF25 /* FinancePlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinancePlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		554DA27828B8CA8A0026FF25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		554DA27A28B8CA8A0026FF25 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +46,9 @@
 		554DA28128B8CA8E0026FF25 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		554DA28428B8CA8E0026FF25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		554DA28628B8CA8E0026FF25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5576F63B28C4F77200C6CED3 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
+		55F2F9B428C3C4BB00D3BE48 /* ListTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTextField.swift; sourceTree = "<group>"; };
 		A5B504AC8F7B236E3D0F3F15 /* Pods-FinancePlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinancePlanner.release.xcconfig"; path = "Target Support Files/Pods-FinancePlanner/Pods-FinancePlanner.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,8 +75,9 @@
 		5501E14C28B8EAFC00C486D3 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				553DBFAF28B937130030E6C4 /* ListItemCell */,
-				5501E15B28B8F04600C486D3 /* ListViewController.swift */,
+				5576F63928C4F70E00C6CED3 /* ListTableViewCell */,
+				553F40D028C4E8BF0056760C /* ListViewController.swift */,
+				5576F63A28C4F73400C6CED3 /* Old */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -191,6 +200,33 @@
 			path = FinancePlanner;
 			sourceTree = "<group>";
 		};
+		5576F63928C4F70E00C6CED3 /* ListTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5576F63B28C4F77200C6CED3 /* ListTableViewCell.swift */,
+				5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */,
+			);
+			path = ListTableViewCell;
+			sourceTree = "<group>";
+		};
+		5576F63A28C4F73400C6CED3 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				55F2F9B328C3C47F00D3BE48 /* ListTextField */,
+				553DBFAF28B937130030E6C4 /* ListItemCell */,
+				5501E15B28B8F04600C486D3 /* ListViewController_First.swift */,
+			);
+			path = Old;
+			sourceTree = "<group>";
+		};
+		55F2F9B328C3C47F00D3BE48 /* ListTextField */ = {
+			isa = PBXGroup;
+			children = (
+				55F2F9B428C3C4BB00D3BE48 /* ListTextField.swift */,
+			);
+			path = ListTextField;
+			sourceTree = "<group>";
+		};
 		68315149A7EAA152606EEC3A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				553DBFAA28B92AA10030E6C4 /* Colors.xcassets in Resources */,
+				5576F63E28C4F77200C6CED3 /* ListTableViewCell.xib in Resources */,
 				553DBFB528B937900030E6C4 /* ListItemCell.xib in Resources */,
 				553DBFAE28B930B30030E6C4 /* Images.xcassets in Resources */,
 				554DA28528B8CA8E0026FF25 /* LaunchScreen.storyboard in Resources */,
@@ -307,13 +344,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */,
 				553DBFB428B937900030E6C4 /* ListItemCell.swift in Sources */,
 				5501E15E28B8F06100C486D3 /* CalendarViewController.swift in Sources */,
 				554DA27928B8CA8A0026FF25 /* AppDelegate.swift in Sources */,
+				55F2F9B528C3C4BB00D3BE48 /* ListTextField.swift in Sources */,
 				5501E16228B8F07C00C486D3 /* SettingsViewController.swift in Sources */,
 				554DA27B28B8CA8A0026FF25 /* SceneDelegate.swift in Sources */,
 				5501E16028B8F07000C486D3 /* StatisticsViewController.swift in Sources */,
-				5501E15C28B8F04600C486D3 /* ListViewController.swift in Sources */,
+				5501E15C28B8F04600C486D3 /* ListViewController_First.swift in Sources */,
+				553F40D128C4E8BF0056760C /* ListViewController.swift in Sources */,
 				5501E15A28B8F03300C486D3 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
