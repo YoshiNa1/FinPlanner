@@ -6,5 +6,6 @@ target 'FinancePlanner' do
   use_frameworks!
 
   # Pods for FinancePlanner
+  pod 'RealmSwift'
 
 end

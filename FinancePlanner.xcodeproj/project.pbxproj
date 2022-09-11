@@ -12,6 +12,8 @@
 		5501E15E28B8F06100C486D3 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5501E15D28B8F06100C486D3 /* CalendarViewController.swift */; };
 		5501E16028B8F07000C486D3 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5501E15F28B8F07000C486D3 /* StatisticsViewController.swift */; };
 		5501E16228B8F07C00C486D3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5501E16128B8F07C00C486D3 /* SettingsViewController.swift */; };
+		5504FC7A28CE199F009AA660 /* ItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5504FC7828CE199F009AA660 /* ItemViewCell.swift */; };
+		5504FC7B28CE199F009AA660 /* ItemViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5504FC7928CE199F009AA660 /* ItemViewCell.xib */; };
 		553DBFAA28B92AA10030E6C4 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 554DA28128B8CA8E0026FF25 /* Colors.xcassets */; };
 		553DBFAE28B930B30030E6C4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553DBFAD28B930B30030E6C4 /* Images.xcassets */; };
 		553DBFB428B937900030E6C4 /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553DBFB228B937900030E6C4 /* ListItemCell.swift */; };
@@ -35,6 +37,8 @@
 		5501E15D28B8F06100C486D3 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		5501E15F28B8F07000C486D3 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		5501E16128B8F07C00C486D3 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		5504FC7828CE199F009AA660 /* ItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewCell.swift; sourceTree = "<group>"; };
+		5504FC7928CE199F009AA660 /* ItemViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemViewCell.xib; sourceTree = "<group>"; };
 		553DBFAD28B930B30030E6C4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		553DBFB228B937900030E6C4 /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
 		553DBFB328B937900030E6C4 /* ListItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListItemCell.xib; sourceTree = "<group>"; };
@@ -67,6 +71,7 @@
 		5501E14B28B8EABE00C486D3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				5504FC7728CE197B009AA660 /* ItemViewCell */,
 				5501E15928B8F03200C486D3 /* HomeViewController.swift */,
 			);
 			path = Home;
@@ -75,6 +80,7 @@
 		5501E14C28B8EAFC00C486D3 /* List */ = {
 			isa = PBXGroup;
 			children = (
+				55F2F9B328C3C47F00D3BE48 /* ListTextField */,
 				5576F63928C4F70E00C6CED3 /* ListTableViewCell */,
 				553F40D028C4E8BF0056760C /* ListViewController.swift */,
 				5576F63A28C4F73400C6CED3 /* Old */,
@@ -154,6 +160,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		5504FC7728CE197B009AA660 /* ItemViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5504FC7828CE199F009AA660 /* ItemViewCell.swift */,
+				5504FC7928CE199F009AA660 /* ItemViewCell.xib */,
+			);
+			path = ItemViewCell;
+			sourceTree = "<group>";
+		};
 		553DBFAF28B937130030E6C4 /* ListItemCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,7 +227,6 @@
 		5576F63A28C4F73400C6CED3 /* Old */ = {
 			isa = PBXGroup;
 			children = (
-				55F2F9B328C3C47F00D3BE48 /* ListTextField */,
 				553DBFAF28B937130030E6C4 /* ListItemCell */,
 				5501E15B28B8F04600C486D3 /* ListViewController_First.swift */,
 			);
@@ -255,6 +269,7 @@
 				554DA27128B8CA8A0026FF25 /* Sources */,
 				554DA27228B8CA8A0026FF25 /* Frameworks */,
 				554DA27328B8CA8A0026FF25 /* Resources */,
+				165920E679EDF834FAD39D91 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -304,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				553DBFAA28B92AA10030E6C4 /* Colors.xcassets in Resources */,
+				5504FC7B28CE199F009AA660 /* ItemViewCell.xib in Resources */,
 				5576F63E28C4F77200C6CED3 /* ListTableViewCell.xib in Resources */,
 				553DBFB528B937900030E6C4 /* ListItemCell.xib in Resources */,
 				553DBFAE28B930B30030E6C4 /* Images.xcassets in Resources */,
@@ -337,6 +353,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		165920E679EDF834FAD39D91 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FinancePlanner/Pods-FinancePlanner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FinancePlanner/Pods-FinancePlanner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FinancePlanner/Pods-FinancePlanner-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -347,6 +380,7 @@
 				5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */,
 				553DBFB428B937900030E6C4 /* ListItemCell.swift in Sources */,
 				5501E15E28B8F06100C486D3 /* CalendarViewController.swift in Sources */,
+				5504FC7A28CE199F009AA660 /* ItemViewCell.swift in Sources */,
 				554DA27928B8CA8A0026FF25 /* AppDelegate.swift in Sources */,
 				55F2F9B528C3C4BB00D3BE48 /* ListTextField.swift in Sources */,
 				5501E16228B8F07C00C486D3 /* SettingsViewController.swift in Sources */,
@@ -510,9 +544,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -540,9 +574,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

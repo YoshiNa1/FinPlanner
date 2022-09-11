@@ -8,9 +8,6 @@
 import UIKit
 
 protocol ListTableViewCellDelegate {
-//    func addNewCell(at indexPath: IndexPath)
-//    func removeCurrentCell(at indexPath: IndexPath)
-    
     func textFieldDidChange(_ textField: UITextField, at indexPath: IndexPath)
 }
 

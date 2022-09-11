@@ -6,6 +6,11 @@
 //
 
 import UIKit
+import RealmSwift
+
+class ListItems: Object {
+    var items = List<String>()
+}
 
 class ListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -19,8 +24,24 @@ class ListViewController: UIViewController {
         return parameters
     }()
     
-    var list = ["medical insurance 35$<done>", "lenses 10$ + solution 9$<done>", "gift on the mom’s BDay ~100$", "teeth 40$", "autumn coat 200-300$", "new sneakers ~100$"]
-    
+    let realm = try! Realm()
+    var list : Array<String> {
+        get {
+            if let list = self.realm.objects(ListItems.self).first?.items {
+                return Array(list)
+            }
+            return Array<String>()
+        }
+        set {
+            try! self.realm.write {
+                self.realm.deleteAll()
+                let list = ListItems()
+                list.items.append(objectsIn: newValue)
+                self.realm.add(list)
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
