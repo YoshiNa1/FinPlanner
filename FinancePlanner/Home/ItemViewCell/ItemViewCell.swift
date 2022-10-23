@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ItemViewCellDelegate {
+    func editItemDidClick(_ viewCell: ItemViewCell)
+}
+
 class ItemViewCell: UICollectionViewCell {
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -14,6 +18,9 @@ class ItemViewCell: UICollectionViewCell {
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var moreButton: UIButton!
+    
+    var model = Item()
+    var delegate: ItemViewCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,12 +35,20 @@ class ItemViewCell: UICollectionViewCell {
         Bundle.main.loadNibNamed("ItemViewCell", owner: self)
         contentView.frame = self.bounds
         addSubview(contentView)
+        contentView.isUserInteractionEnabled = false
         
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
+        
+        let deleteItem = UIAction(title: "Delete", image: UIImage(named: "")) { (action) in self.delete() }
+        let editItem = UIAction(title: "Edit", image: UIImage(named: "")) { (action) in self.edit() }
+        let menu = UIMenu(title: "", options: .displayInline, children: [deleteItem, editItem])
+        moreButton.menu = menu
+        moreButton.showsMenuAsPrimaryAction = true
     }
      
     func configureCell(with model: Item) {
+        self.model = model
         if(model.type == "savings") {
             iconView.image = UIImage.init(named: model.isIncome ? "savings_income_image" : "savings_outcome_image")
         } else {
@@ -55,4 +70,15 @@ class ItemViewCell: UICollectionViewCell {
 //    func isDefaultCurrency(_ currency: String) -> Bool {
 //        return currency == UserDefaults.shared.defaultCurrency
 //    }
+    
+    func delete() {
+        DataManager.instance.delete(item: self.model)
+        UIManager.shared.homeViewController?.updateUI()
+    }
+    
+    func edit() {
+        delegate?.editItemDidClick(self)
+    }
+    
+    
 }

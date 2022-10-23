@@ -14,6 +14,11 @@
 		5501E16228B8F07C00C486D3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5501E16128B8F07C00C486D3 /* SettingsViewController.swift */; };
 		5504FC7A28CE199F009AA660 /* ItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5504FC7828CE199F009AA660 /* ItemViewCell.swift */; };
 		5504FC7B28CE199F009AA660 /* ItemViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5504FC7928CE199F009AA660 /* ItemViewCell.xib */; };
+		552AC2E629055A05004B2AB7 /* BalanceEditFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552AC2E529055A05004B2AB7 /* BalanceEditFormViewController.swift */; };
+		552AC2E929055F5C004B2AB7 /* SavingsEditFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552AC2E829055F5C004B2AB7 /* SavingsEditFormViewController.swift */; };
+		552AC2EC2905759B004B2AB7 /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552AC2EB2905759B004B2AB7 /* ConverterViewController.swift */; };
+		552AC2EE2905819D004B2AB7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552AC2ED2905819D004B2AB7 /* DataManager.swift */; };
+		552AC2F12905B3EF004B2AB7 /* UIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552AC2F02905B3EF004B2AB7 /* UIManager.swift */; };
 		553DBFAA28B92AA10030E6C4 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 554DA28128B8CA8E0026FF25 /* Colors.xcassets */; };
 		553DBFAE28B930B30030E6C4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553DBFAD28B930B30030E6C4 /* Images.xcassets */; };
 		553DBFB428B937900030E6C4 /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553DBFB228B937900030E6C4 /* ListItemCell.swift */; };
@@ -25,6 +30,8 @@
 		554DA28528B8CA8E0026FF25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 554DA28328B8CA8E0026FF25 /* LaunchScreen.storyboard */; };
 		5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5576F63B28C4F77200C6CED3 /* ListTableViewCell.swift */; };
 		5576F63E28C4F77200C6CED3 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */; };
+		55B5D01028D7649D00B8A9C9 /* ItemFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B5D00F28D7649D00B8A9C9 /* ItemFormViewController.swift */; };
+		55CD255428D7A57400B50EC5 /* MainTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CD255328D7A57400B50EC5 /* MainTextField.swift */; };
 		55F2F9B528C3C4BB00D3BE48 /* ListTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F2F9B428C3C4BB00D3BE48 /* ListTextField.swift */; };
 		AFE2A65A664B65F0D6087ED5 /* Pods_FinancePlanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA7E4CADAED0B8B9C0F4060 /* Pods_FinancePlanner.framework */; };
 /* End PBXBuildFile section */
@@ -39,6 +46,11 @@
 		5501E16128B8F07C00C486D3 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5504FC7828CE199F009AA660 /* ItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewCell.swift; sourceTree = "<group>"; };
 		5504FC7928CE199F009AA660 /* ItemViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemViewCell.xib; sourceTree = "<group>"; };
+		552AC2E529055A05004B2AB7 /* BalanceEditFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceEditFormViewController.swift; sourceTree = "<group>"; };
+		552AC2E829055F5C004B2AB7 /* SavingsEditFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsEditFormViewController.swift; sourceTree = "<group>"; };
+		552AC2EB2905759B004B2AB7 /* ConverterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewController.swift; sourceTree = "<group>"; };
+		552AC2ED2905819D004B2AB7 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		552AC2F02905B3EF004B2AB7 /* UIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIManager.swift; sourceTree = "<group>"; };
 		553DBFAD28B930B30030E6C4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		553DBFB228B937900030E6C4 /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
 		553DBFB328B937900030E6C4 /* ListItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListItemCell.xib; sourceTree = "<group>"; };
@@ -52,6 +64,8 @@
 		554DA28628B8CA8E0026FF25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5576F63B28C4F77200C6CED3 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
+		55B5D00F28D7649D00B8A9C9 /* ItemFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFormViewController.swift; sourceTree = "<group>"; };
+		55CD255328D7A57400B50EC5 /* MainTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTextField.swift; sourceTree = "<group>"; };
 		55F2F9B428C3C4BB00D3BE48 /* ListTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTextField.swift; sourceTree = "<group>"; };
 		A5B504AC8F7B236E3D0F3F15 /* Pods-FinancePlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinancePlanner.release.xcconfig"; path = "Target Support Files/Pods-FinancePlanner/Pods-FinancePlanner.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,6 +85,10 @@
 		5501E14B28B8EABE00C486D3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				552AC2EA29057582004B2AB7 /* Converter */,
+				552AC2E729055F3D004B2AB7 /* SavingsEditForm */,
+				552AC2E4290559DF004B2AB7 /* BalanceEditForm */,
+				55B5D00E28D7646000B8A9C9 /* ItemForm */,
 				5504FC7728CE197B009AA660 /* ItemViewCell */,
 				5501E15928B8F03200C486D3 /* HomeViewController.swift */,
 			);
@@ -132,6 +150,7 @@
 		5501E15228B8EDC700C486D3 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				55CD255328D7A57400B50EC5 /* MainTextField.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -146,6 +165,8 @@
 		5501E15428B8EE0900C486D3 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				552AC2F02905B3EF004B2AB7 /* UIManager.swift */,
+				552AC2ED2905819D004B2AB7 /* DataManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -167,6 +188,30 @@
 				5504FC7928CE199F009AA660 /* ItemViewCell.xib */,
 			);
 			path = ItemViewCell;
+			sourceTree = "<group>";
+		};
+		552AC2E4290559DF004B2AB7 /* BalanceEditForm */ = {
+			isa = PBXGroup;
+			children = (
+				552AC2E529055A05004B2AB7 /* BalanceEditFormViewController.swift */,
+			);
+			path = BalanceEditForm;
+			sourceTree = "<group>";
+		};
+		552AC2E729055F3D004B2AB7 /* SavingsEditForm */ = {
+			isa = PBXGroup;
+			children = (
+				552AC2E829055F5C004B2AB7 /* SavingsEditFormViewController.swift */,
+			);
+			path = SavingsEditForm;
+			sourceTree = "<group>";
+		};
+		552AC2EA29057582004B2AB7 /* Converter */ = {
+			isa = PBXGroup;
+			children = (
+				552AC2EB2905759B004B2AB7 /* ConverterViewController.swift */,
+			);
+			path = Converter;
 			sourceTree = "<group>";
 		};
 		553DBFAF28B937130030E6C4 /* ListItemCell */ = {
@@ -231,6 +276,14 @@
 				5501E15B28B8F04600C486D3 /* ListViewController_First.swift */,
 			);
 			path = Old;
+			sourceTree = "<group>";
+		};
+		55B5D00E28D7646000B8A9C9 /* ItemForm */ = {
+			isa = PBXGroup;
+			children = (
+				55B5D00F28D7649D00B8A9C9 /* ItemFormViewController.swift */,
+			);
+			path = ItemForm;
 			sourceTree = "<group>";
 		};
 		55F2F9B328C3C47F00D3BE48 /* ListTextField */ = {
@@ -378,15 +431,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */,
+				552AC2F12905B3EF004B2AB7 /* UIManager.swift in Sources */,
+				552AC2EC2905759B004B2AB7 /* ConverterViewController.swift in Sources */,
 				553DBFB428B937900030E6C4 /* ListItemCell.swift in Sources */,
+				552AC2E929055F5C004B2AB7 /* SavingsEditFormViewController.swift in Sources */,
+				552AC2E629055A05004B2AB7 /* BalanceEditFormViewController.swift in Sources */,
 				5501E15E28B8F06100C486D3 /* CalendarViewController.swift in Sources */,
 				5504FC7A28CE199F009AA660 /* ItemViewCell.swift in Sources */,
+				552AC2EE2905819D004B2AB7 /* DataManager.swift in Sources */,
 				554DA27928B8CA8A0026FF25 /* AppDelegate.swift in Sources */,
 				55F2F9B528C3C4BB00D3BE48 /* ListTextField.swift in Sources */,
+				55CD255428D7A57400B50EC5 /* MainTextField.swift in Sources */,
 				5501E16228B8F07C00C486D3 /* SettingsViewController.swift in Sources */,
 				554DA27B28B8CA8A0026FF25 /* SceneDelegate.swift in Sources */,
 				5501E16028B8F07000C486D3 /* StatisticsViewController.swift in Sources */,
 				5501E15C28B8F04600C486D3 /* ListViewController_First.swift in Sources */,
+				55B5D01028D7649D00B8A9C9 /* ItemFormViewController.swift in Sources */,
 				553F40D128C4E8BF0056760C /* ListViewController.swift in Sources */,
 				5501E15A28B8F03300C486D3 /* HomeViewController.swift in Sources */,
 			);

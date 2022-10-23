@@ -13,7 +13,7 @@
         <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="FinancePlanner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Home" id="BYZ-38-t0r" customClass="HomeViewController" customModule="FinancePlanner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -230,7 +230,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="weE-VH-ZhZ" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="706" y="801"/>
+            <point key="canvasLocation" x="4178" y="604"/>
         </scene>
         <!--Calendar View Controller-->
         <scene sceneID="Pbw-4m-MOh">
@@ -239,13 +239,19 @@
                     <view key="view" contentMode="scaleToFill" id="J9c-rk-cMQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GradientBackgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="HC3-Ac-fYY">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="hHb-kR-cqL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="guM-dh-2xb" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1493" y="70"/>
+            <point key="canvasLocation" x="1345" y="70"/>
         </scene>
         <!--Statitics View Controller-->
         <scene sceneID="PPE-Bf-Q6k">
@@ -254,13 +260,19 @@
                     <view key="view" contentMode="scaleToFill" id="UIc-7C-9TM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GradientBackgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="Rsf-pt-c9h">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="YaI-Zp-kTS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qbz-IN-Duh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2203" y="70"/>
+            <point key="canvasLocation" x="2103" y="70"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="AHN-DR-hca">
@@ -269,6 +281,12 @@
                     <view key="view" contentMode="scaleToFill" id="y42-QK-9yx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GradientBackgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="ySm-b8-Fvt">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="pCi-HI-zdR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -350,17 +368,336 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h5j-JK-Ql7" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="706" y="70"/>
+            <point key="canvasLocation" x="600" y="70"/>
+        </scene>
+        <!--Item Form View Controller-->
+        <scene sceneID="wCo-xL-DHD">
+            <objects>
+                <viewController storyboardIdentifier="ItemForm" id="FNU-UE-fT0" customClass="ItemFormViewController" customModule="FinancePlanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aee-Rg-h47">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OdN-sJ-RhC">
+                                <rect key="frame" x="18" y="84" width="378" height="392"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rOT-91-Wqr">
+                                        <rect key="frame" x="334" y="18" width="26" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="cancel_icon"/>
+                                        <connections>
+                                            <action selector="closeClicked:" destination="FNU-UE-fT0" eventType="touchUpInside" id="E9v-fv-Kdb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X2q-AL-DWs">
+                                        <rect key="frame" x="114" y="342" width="150" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="MainGradient_StartColor"/>
+                                        <color key="tintColor" name="TitleFontColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Save"/>
+                                        <connections>
+                                            <action selector="saveClicked:" destination="FNU-UE-fT0" eventType="touchUpInside" id="7qC-4f-0US"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GmS-5S-Q50" customClass="MainTextField" customModule="FinancePlanner" customModuleProvider="target">
+                                        <rect key="frame" x="32" y="94" width="314" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="MainGradient_StartColor"/>
+                                        <color key="textColor" name="TitleFontColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pno-yc-4RC" customClass="MainTextField" customModule="FinancePlanner" customModuleProvider="target">
+                                        <rect key="frame" x="32" y="150" width="314" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="MainGradient_StartColor"/>
+                                        <color key="textColor" name="TitleFontColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Category" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IP4-tN-WzG" customClass="MainTextField" customModule="FinancePlanner" customModuleProvider="target">
+                                        <rect key="frame" x="32" y="206" width="314" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="MainGradient_StartColor"/>
+                                        <color key="textColor" name="TitleFontColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bxM-WQ-jMv" customClass="MainTextField" customModule="FinancePlanner" customModuleProvider="target">
+                                        <rect key="frame" x="32" y="262" width="314" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="MainGradient_StartColor"/>
+                                        <color key="textColor" name="TitleFontColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1tp-1y-Jev">
+                                        <rect key="frame" x="32" y="44" width="220" height="19"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" name="MainBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Ia-Kk-Vgt"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <connections>
+                        <outlet property="amountField" destination="bxM-WQ-jMv" id="Eyg-nC-DwR"/>
+                        <outlet property="categoryField" destination="IP4-tN-WzG" id="BTa-aU-U3C"/>
+                        <outlet property="closeButton" destination="rOT-91-Wqr" id="giz-mz-qeg"/>
+                        <outlet property="descriptionField" destination="pno-yc-4RC" id="Oxa-Pe-knP"/>
+                        <outlet property="formBackground" destination="OdN-sJ-RhC" id="ijf-aT-54i"/>
+                        <outlet property="nameField" destination="GmS-5S-Q50" id="kFY-0X-i2N"/>
+                        <outlet property="saveButton" destination="X2q-AL-DWs" id="Prc-Ck-bgU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gJO-f6-920" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-155.07246376811597" y="752.67857142857144"/>
+        </scene>
+        <!--Balance Edit Form View Controller-->
+        <scene sceneID="mkU-uz-ewQ">
+            <objects>
+                <viewController storyboardIdentifier="BalanceEditForm" id="BS7-k5-ciu" customClass="BalanceEditFormViewController" customModule="FinancePlanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WIS-29-b6i">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CBQ-c1-X7B">
+                                <rect key="frame" x="63" y="200" width="288" height="172"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hV8-5d-5xK">
+                                        <rect key="frame" x="244" y="18" width="26" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="cancel_icon"/>
+                                        <connections>
+                                            <action selector="closeClicked:" destination="BS7-k5-ciu" eventType="touchUpInside" id="4cp-pa-i70"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="duE-hi-UP5">
+                                        <rect key="frame" x="69" y="112" width="150" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="MainGradient_StartColor"/>
+                                        <color key="tintColor" name="TitleFontColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Save"/>
+                                        <connections>
+                                            <action selector="saveClicked:" destination="BS7-k5-ciu" eventType="touchUpInside" id="kvt-f5-Dtd"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NeT-mh-QXY" customClass="MainTextField" customModule="FinancePlanner" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="50" width="248" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="MainGradient_StartColor"/>
+                                        <color key="textColor" name="TitleFontColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" name="MainBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="cSt-aB-Vdz"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <connections>
+                        <outlet property="amountField" destination="NeT-mh-QXY" id="jmY-wo-ojy"/>
+                        <outlet property="closeButton" destination="hV8-5d-5xK" id="3ru-Jr-7rQ"/>
+                        <outlet property="saveButton" destination="duE-hi-UP5" id="llJ-Oo-V3V"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ekG-qi-ZeE" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="599" y="753"/>
+        </scene>
+        <!--Savings Edit Form View Controller-->
+        <scene sceneID="L6p-zH-tFw">
+            <objects>
+                <viewController storyboardIdentifier="SavingsEditForm" id="LnH-DJ-WTc" customClass="SavingsEditFormViewController" customModule="FinancePlanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gaS-Ph-4ZS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YiC-LQ-rb2">
+                                <rect key="frame" x="63" y="200" width="288" height="286"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your savings amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SvR-vb-JW8">
+                                        <rect key="frame" x="20" y="46" width="152" height="17"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qso-iN-htc">
+                                        <rect key="frame" x="244" y="18" width="26" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="cancel_icon"/>
+                                        <connections>
+                                            <action selector="closeClicked:" destination="LnH-DJ-WTc" eventType="touchUpInside" id="Mpl-oq-f6O"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jcg-lB-oHp">
+                                        <rect key="frame" x="69" y="238" width="150" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="MainGradient_StartColor"/>
+                                        <color key="tintColor" name="TitleFontColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Save"/>
+                                        <connections>
+                                            <action selector="saveClicked:" destination="LnH-DJ-WTc" eventType="touchUpInside" id="Npt-BJ-YXh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zk7-2z-Cqy">
+                                        <rect key="frame" x="20" y="192" width="120" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="SavingsButtonColor"/>
+                                        <color key="tintColor" name="TitleFontColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Relpenish">
+                                            <fontDescription key="titleFontDescription" type="system" pointSize="11"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="replenishClicked:" destination="LnH-DJ-WTc" eventType="touchUpInside" id="8wh-KU-RLU"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I9C-wv-b27" customClass="MainTextField" customModule="FinancePlanner" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="66" width="248" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="MainGradient_StartColor"/>
+                                        <color key="textColor" name="TitleFontColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uos-4r-02Q" customClass="MainTextField" customModule="FinancePlanner" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="144" width="248" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="MainGradient_StartColor"/>
+                                        <color key="textColor" name="TitleFontColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter the amount of the transaction" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jec-JG-W3f">
+                                        <rect key="frame" x="28" y="130" width="232" height="10"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27t-yk-7Y5">
+                                        <rect key="frame" x="148" y="192" width="120" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="SavingsButtonColor"/>
+                                        <color key="tintColor" name="TitleFontColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Withdraw">
+                                            <fontDescription key="titleFontDescription" type="system" pointSize="11"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="withdrawClicked:" destination="LnH-DJ-WTc" eventType="touchUpInside" id="hMG-Fi-xhj"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="MainBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="alk-EC-aHw"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <connections>
+                        <outlet property="amountField" destination="I9C-wv-b27" id="42i-54-A80"/>
+                        <outlet property="closeButton" destination="qso-iN-htc" id="Cpz-vG-duo"/>
+                        <outlet property="replenishButton" destination="Zk7-2z-Cqy" id="gAY-AJ-9eq"/>
+                        <outlet property="saveButton" destination="Jcg-lB-oHp" id="Tu0-9X-OKE"/>
+                        <outlet property="transactionAmountField" destination="uos-4r-02Q" id="pI6-Y8-2d7"/>
+                        <outlet property="withdrawButton" destination="27t-yk-7Y5" id="AYK-7X-WXB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="57y-Rh-R3E" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1295.6521739130435" y="752.67857142857144"/>
+        </scene>
+        <!--Converter View Controller-->
+        <scene sceneID="Cbn-JM-wC5">
+            <objects>
+                <viewController storyboardIdentifier="Converter" id="vEt-Ad-aJp" customClass="ConverterViewController" customModule="FinancePlanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zCa-Rh-OpQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P9d-4n-fJ8">
+                                <rect key="frame" x="63" y="200" width="288" height="194"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhD-wg-vKm">
+                                        <rect key="frame" x="244" y="18" width="26" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="cancel_icon"/>
+                                        <connections>
+                                            <action selector="closeClicked:" destination="vEt-Ad-aJp" eventType="touchUpInside" id="QZR-PG-VtB"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NCV-ih-t64" customClass="MainTextField" customModule="FinancePlanner" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="49" width="248" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="MainGradient_StartColor"/>
+                                        <color key="textColor" name="TitleFontColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zio-wH-9qc" customClass="MainTextField" customModule="FinancePlanner" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="105" width="248" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="MainGradient_StartColor"/>
+                                        <color key="textColor" name="TitleFontColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" name="MainBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4uw-Nv-dfg"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="xhD-wg-vKm" id="iSr-FM-gmM"/>
+                        <outlet property="firstField" destination="NCV-ih-t64" id="TwN-sB-4BG"/>
+                        <outlet property="secondField" destination="zio-wH-9qc" id="s2g-jy-DFh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qku-vt-ton" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1984" y="753"/>
         </scene>
     </scenes>
     <resources>
         <image name="GradientBackgroundImage" width="414" height="896"/>
         <image name="GradientBackgroundImage_Illus" width="414" height="896"/>
         <image name="calculator_icon" width="20" height="20.5"/>
+        <image name="cancel_icon" width="26" height="26"/>
         <image name="edit_icon" width="10.5" height="13"/>
         <image name="plus_icon" width="22" height="22"/>
+        <namedColor name="MainBackgroundColor">
+            <color red="0.77254901960784317" green="0.76078431372549016" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="MainGradient_StartColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="SavingsButtonColor">
+            <color red="1" green="1" blue="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TitleFontColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
