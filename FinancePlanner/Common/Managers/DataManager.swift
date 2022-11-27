@@ -11,6 +11,8 @@ import RealmSwift
 class DataManager {
     let realm = try! Realm()
     
+    let defaultCurrency = PreferencesStorage.shared.currencies.first(where: {$0.isDefault})?.name ?? ""
+    
     var account: Account!
     var items : Results<Item>!
     
@@ -23,35 +25,60 @@ class DataManager {
         account = self.realm.objects(Account.self).first
         items = self.realm.objects(Item.self)
     }
-    
+ 
+// Account
     func create(account: Account) {
         try! self.realm.write({
             realm.add(account, update: .all)
         })
     }
     
-    func updateAccount(withAmount amount: Double, isBalance: Bool) {
+    func updateAccount(withAmount amount: Double, currency: String, isBalance: Bool) {
+        let defAmount = self.getDefaultAmount(amount: amount, currency: currency)
         try! self.realm.write({
             if(isBalance) {
-                self.account.balance = amount
+                self.account.balance = defAmount
             } else {
-                self.account.savings = amount
+                self.account.savings = defAmount
             }
         })
     }
     
-    func updateAccount(withTransactionAmount amount: Double, isWithdraw: Bool) {
+    func updateAccount(withTransactionAmount amount: Double, currency: String, isWithdraw: Bool) {
+        let defAmount = self.getDefaultAmount(amount: amount, currency: currency)
         try! self.realm.write({
             if(isWithdraw) {
-                self.account.savings -= amount
-                self.account.balance += amount
+                self.account.savings -= defAmount
+                self.account.balance += defAmount
             } else {
-                self.account.savings += amount
-                self.account.balance -= amount
+                self.account.savings += defAmount
+                self.account.balance -= defAmount
             }
         })
     }
-    
+   
+    func updateAccount(withItem item: Item, amount: Double, isRemoval: Bool = false) {
+        let defAmount = self.getDefaultAmount(amount: amount, currency: item.currency)
+        try! self.realm.write({
+            if(isRemoval) {
+                if(item.type == "outcome") {
+                    self.account.balance += defAmount
+                }
+                if(item.type == "income") {
+                    self.account.balance -= defAmount
+                }
+            } else {
+                if(item.type == "outcome") {
+                    self.account.balance -= defAmount
+                }
+                if(item.type == "income") {
+                    self.account.balance += defAmount
+                }
+            }
+        })
+    }
+
+// Item
     func add(item: Item) {
         try! self.realm.write({
             realm.add(item, update: .all)
@@ -70,6 +97,32 @@ class DataManager {
             item.currency = newItem.currency
             item.category = newItem.category
         })
+    }
+    
+// Default Amount
+    private func getDefaultAmount(amount:Double, currency:String) -> Double {
+        var _amount: Double = 0
+        let amountText = convertAmountToDefault(amount:amount, currency:currency)
+        let formatter = NumberFormatter()
+        formatter.decimalSeparator = ","
+        let grade = formatter.number(from: amountText)
+        if let doubleGrade = grade?.doubleValue {
+            _amount = doubleGrade
+        } else {
+            _amount = Double(amountText) ?? 0
+        }
+        return _amount
+    }
+    
+    func convertAmountToDefault(amount:Double, currency:String) -> String {
+        let valCurr = ConvCurrency.currency(for: currency)
+        let outCurr = ConvCurrency.currency(for: self.defaultCurrency)
+
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            let defAmount = appDelegate.currencyConverter.convertAndFormat(amount, valueCurrency: valCurr, outputCurrency: outCurr, numberStyle: .decimal, decimalPlaces: 2) ?? ""
+            return defAmount
+        }
+        return ""
     }
 }
 

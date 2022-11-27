@@ -22,6 +22,8 @@ class ItemViewCell: UICollectionViewCell {
     var model = Item()
     var delegate: ItemViewCellDelegate?
     
+    let defaultCurrency = PreferencesStorage.shared.currencies.first(where: {$0.isDefault})?.name ?? ""
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -59,19 +61,19 @@ class ItemViewCell: UICollectionViewCell {
         subtitleLabel.text = model.descrpt
         categoryLabel.text = model.category == "none" ? "" : model.category
         
-        let amountString = String(model.amount) + model.currency
-//        let defaultCurrency = UserDefaults.shared.defaultCurrency
-//        if(model.currency != defaultCurrency) {
-//            amountString += "("String(model.amount.toDefault) defaultCurrency")"
-//        }
+        let amountFormatted = format(model.amount)
+        var amountString = "\(amountFormatted)\(symbolForCurrency(currency: model.currency))"
+        let isDefaultCurrency = model.currency == defaultCurrency
+        if(!isDefaultCurrency) {
+            let defAmountString = DataManager.instance.convertAmountToDefault(amount: model.amount, currency: model.currency)
+            amountString += " (\(defAmountString)\(symbolForCurrency(currency: defaultCurrency)))"
+        }
+        amountLabel.font = UIFont.systemFont(ofSize: isDefaultCurrency ? 16 : 14) // TEMPORARY SOLUTION. DO REDESIGN!
         amountLabel.text = amountString
     }
-    
-//    func isDefaultCurrency(_ currency: String) -> Bool {
-//        return currency == UserDefaults.shared.defaultCurrency
-//    }
-    
+        
     func delete() {
+        DataManager.instance.updateAccount(withItem: self.model, amount: self.model.amount, isRemoval: true)
         DataManager.instance.delete(item: self.model)
         UIManager.shared.homeViewController?.updateUI()
     }
@@ -80,5 +82,16 @@ class ItemViewCell: UICollectionViewCell {
         delegate?.editItemDidClick(self)
     }
     
-    
+    func symbolForCurrency(currency:String) -> String {
+        let curr = ConvCurrency.currency(for: currency)
+        return ConvCurrency.symbol(for: curr)
+    }
+
+    public func format(_ value : Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        let formattedString = formatter.string(from: NSNumber(value: value))
+        return formattedString ?? ""
+    }
 }

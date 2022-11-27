@@ -16,11 +16,12 @@ class ItemFormViewController: UIViewController {
     @IBOutlet weak var descriptionField: UITextField!
     @IBOutlet weak var categoryField: UITextField!
     @IBOutlet weak var amountField: UITextField!
-//    @IBOutlet weak var currencyField: UIView!
+    @IBOutlet weak var currencyLabel: UILabel!
+    @IBOutlet weak var currencyButton: UIButton!
     
-    var item: Item?
+    var currItem: Item?
     var type: String = "outcome"
-    var currency: String = "USD"
+    let currencies = PreferencesStorage.shared.currencies
 
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
@@ -35,29 +36,55 @@ class ItemFormViewController: UIViewController {
         formBackground.layer.cornerRadius = 16
         saveButton.layer.cornerRadius = 8
         
-        if item != nil {
-            nameField.text = item?.name
-            descriptionField.text = item?.descrpt
-            categoryField.text = item?.category
-            amountField.text = String(format: "%2.f", item?.amount ?? 0)
+        var currenciesActions = [UIAction]()
+        for currency in currencies {
+            currenciesActions.append(UIAction(title: currency.name, image: nil) { (action) in
+                self.currencyLabel.text = action.title
+            })
+        }
+        let menu = UIMenu(title: "", options: .displayInline, children: currenciesActions)
+        currencyButton.menu = menu
+        currencyButton.showsMenuAsPrimaryAction = true
+        
+        let currency = currencies.first(where: {$0.isDefault})
+        currencyLabel.text = currency?.name
+        if let item = currItem {
+            nameField.text = item.name
+            descriptionField.text = item.descrpt
+            categoryField.text = item.category
+            amountField.text = format(item.amount)
+            currencyLabel.text = currencies.first(where: {$0.name == item.currency})?.name
         }
     }
     
     @IBAction func saveClicked(_ sender: Any) {
         var amount: Double = 0
         if let amountText = amountField.text {
-            amount = Double(amountText) ?? 0
+            let formatter = NumberFormatter()
+            formatter.decimalSeparator = ","
+            let grade = formatter.number(from: amountText)
+            if let doubleGrade = grade?.doubleValue {
+                amount = doubleGrade
+            } else {
+                amount = Double(amountText) ?? 0
+            }
         }
         
         let item = Item(type: type,
                         name: nameField.text ?? "",
                         description: descriptionField.text ?? "",
                         amount: amount,
-                        currency: currency,
+                        currency: currencyLabel.text ?? "",
                         category: categoryField.text ?? "")
-        if let _item = self.item {
+        if let _item = self.currItem {
+            let amountForUpdate = item.amount - _item.amount
+            DataManager.instance.updateAccount(withItem: item, amount: amountForUpdate)
+            
             DataManager.instance.update(item: _item, withNewItem: item)
+            
         } else {
+            DataManager.instance.updateAccount(withItem: item, amount: amount)
+            
             DataManager.instance.add(item: item)
         }
         
@@ -67,6 +94,14 @@ class ItemFormViewController: UIViewController {
     
     @IBAction func closeClicked(_ sender: Any) {
         self.dismiss(animated: true)
+    }
+    
+    public func format(_ value : Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        let formattedString = formatter.string(from: NSNumber(value: value))
+        return formattedString ?? ""
     }
 }
 

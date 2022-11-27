@@ -17,6 +17,14 @@ class SavingsEditFormViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
     
+    @IBOutlet weak var currencyLabel: UILabel!
+    @IBOutlet weak var currencyButton: UIButton!
+    
+    @IBOutlet weak var transactionCurrencyLabel: UILabel!
+    @IBOutlet weak var transactionCurrencyButton: UIButton!
+    
+    let currencies = PreferencesStorage.shared.currencies
+    
     var account: Account! = DataManager.instance.account
     
     override func viewDidLoad() {
@@ -33,8 +41,26 @@ class SavingsEditFormViewController: UIViewController {
         saveButton.layer.cornerRadius = 8
         replenishButton.layer.cornerRadius = 10
         withdrawButton.layer.cornerRadius = 10
+        
+        setupCurrenciesViews(label: self.currencyLabel, button: self.currencyButton)
+        setupCurrenciesViews(label: self.transactionCurrencyLabel, button: self.transactionCurrencyButton)
     }
 
+    func setupCurrenciesViews(label: UILabel, button: UIButton) {
+        var currenciesActions = [UIAction]()
+        for currency in currencies {
+            currenciesActions.append(UIAction(title: currency.name, image: nil) { (action) in
+                label.text = action.title
+            })
+        }
+        let menu = UIMenu(title: "", options: .displayInline, children: currenciesActions)
+        button.menu = menu
+        button.showsMenuAsPrimaryAction = true
+        
+        let currency = currencies.first(where: {$0.isDefault})
+        label.text = currency?.name
+    }
+    
     @IBAction func saveClicked(_ sender: Any) {
         save()
         
@@ -46,7 +72,7 @@ class SavingsEditFormViewController: UIViewController {
         if let amountText = amountField.text {
             let amount = Double(amountText) ?? 0
             if amount != account.savings {
-                DataManager.instance.updateAccount(withAmount: amount, isBalance: false)
+                DataManager.instance.updateAccount(withAmount: amount, currency: currencyLabel.text ?? "", isBalance: false)
             }
         }
     }
@@ -56,7 +82,7 @@ class SavingsEditFormViewController: UIViewController {
         if let amountText = transactionAmountField.text {
             transactionAmount = Double(amountText) ?? 0
         }
-        DataManager.instance.updateAccount(withTransactionAmount: transactionAmount, isWithdraw: false)
+        DataManager.instance.updateAccount(withTransactionAmount: transactionAmount, currency: transactionCurrencyLabel.text ?? "", isWithdraw: false)
         
         UIManager.shared.homeViewController?.updateUI()
         self.dismiss(animated: true)
@@ -68,7 +94,7 @@ class SavingsEditFormViewController: UIViewController {
         if let amountText = transactionAmountField.text {
             transactionAmount = Double(amountText) ?? 0
         }
-        DataManager.instance.updateAccount(withTransactionAmount: transactionAmount, isWithdraw: true)
+        DataManager.instance.updateAccount(withTransactionAmount: transactionAmount, currency: transactionCurrencyLabel.text ?? "", isWithdraw: true)
         
         UIManager.shared.homeViewController?.updateUI()
         self.dismiss(animated: true)

@@ -42,6 +42,15 @@ class HomeViewController: UIViewController, ItemViewCellDelegate {
         balanceLabel.text = String(account.balance)
         savingsLabel.text = String(account.savings)
         collectionView.reloadData()
+        
+        // FOR TEST
+        PreferencesStorage.shared.clearSettings()
+        PreferencesStorage.shared.currencies = [Currency(name: "USD"),
+                                                Currency(name: "UAH", isDefault: true),
+                                                Currency(name: "EUR")]
+        for currency in PreferencesStorage.shared.currencies {
+            print(currency.name)
+        }
     }
     
     
@@ -63,7 +72,7 @@ class HomeViewController: UIViewController, ItemViewCellDelegate {
     
     func editItemDidClick(_ viewCell: ItemViewCell) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ItemForm") as! ItemFormViewController
-        vc.item = viewCell.model
+        vc.currItem = viewCell.model
         present(vc, animated: true)
     }
     

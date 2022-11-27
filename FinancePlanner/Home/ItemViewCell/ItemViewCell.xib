@@ -32,7 +32,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcX-xz-mn6">
-                        <rect key="frame" x="49" y="12" width="197" height="19"/>
+                        <rect key="frame" x="49" y="12" width="143" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" name="TitleFontColor"/>
@@ -59,7 +59,7 @@
                         <buttonConfiguration key="configuration" style="plain" image="more_icon"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kee-ga-drY">
-                        <rect key="frame" x="262" y="12" width="76" height="19"/>
+                        <rect key="frame" x="173" y="12" width="165" height="19"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" name="TitleFontColor"/>
