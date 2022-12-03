@@ -15,6 +15,24 @@ class DataManager {
     
     var account: Account!
     var items : Results<Item>!
+    var list : Array<String> {
+        get {
+            if let list = self.realm.objects(ListItems.self).first?.items {
+                return Array(list)
+            }
+            return Array<String>()
+        }
+        set {
+            try! self.realm.write {
+                if let list = self.realm.objects(ListItems.self).first {
+                    self.realm.delete(list)
+                    let newList = ListItems()
+                    newList.items.append(objectsIn: newValue)
+                    self.realm.add(newList)
+                }
+            }
+        }
+    }
     
     public static var instance: DataManager = {
         let instance = DataManager()
@@ -99,10 +117,27 @@ class DataManager {
         })
     }
     
+// List
+    func listItem(at index: Int) -> String {
+        return list[index]
+    }
+    func append(listItem: String) {
+        list.append(listItem)
+    }
+    func insert(listItem: String, at index: Int) {
+        list.insert(listItem, at: index)
+    }
+    func deleteListItem(at index: Int) {
+        list.remove(at: index)
+    }
+    func updateListItem(at index: Int, withNewListItem newListItem: String) {
+        list[index] = newListItem
+    }
+    
 // Default Amount
     private func getDefaultAmount(amount:Double, currency:String) -> Double {
         var _amount: Double = 0
-        let amountText = convertAmountToDefault(amount:amount, currency:currency)
+        let amountText = convertAmountToDefault(amount:amount, currency:currency, style: .none)
         let formatter = NumberFormatter()
         formatter.decimalSeparator = ","
         let grade = formatter.number(from: amountText)
@@ -114,12 +149,12 @@ class DataManager {
         return _amount
     }
     
-    func convertAmountToDefault(amount:Double, currency:String) -> String {
+    func convertAmountToDefault(amount:Double, currency:String, style:NumberFormatter.Style = .decimal) -> String {
         let valCurr = ConvCurrency.currency(for: currency)
         let outCurr = ConvCurrency.currency(for: self.defaultCurrency)
 
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            let defAmount = appDelegate.currencyConverter.convertAndFormat(amount, valueCurrency: valCurr, outputCurrency: outCurr, numberStyle: .decimal, decimalPlaces: 2) ?? ""
+            let defAmount = appDelegate.currencyConverter.convertAndFormat(amount, valueCurrency: valCurr, outputCurrency: outCurr, numberStyle: style, decimalPlaces: 2) ?? ""
             return defAmount
         }
         return ""
@@ -196,4 +231,8 @@ class Item: Object {
         self.currency = currency
         self.category = category
     }
+}
+
+class ListItems: Object {
+    var items = List<String>()
 }

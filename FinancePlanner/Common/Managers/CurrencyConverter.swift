@@ -39,8 +39,9 @@ enum ConvCurrency : String, CaseIterable {
     }
     
     /** Returns a currency fsymbol ($ for example). */
-    static func symbol(for currency : ConvCurrency) -> String {
-        return ConvCurrency.symbolsByCurrencies[currency] ?? "?"
+    static func symbol(for currency : String) -> String {
+        let curr = ConvCurrency.currency(for: currency)
+        return ConvCurrency.symbolsByCurrencies[curr] ?? "?"
     }
     
     static func currency(for name : String) -> ConvCurrency {

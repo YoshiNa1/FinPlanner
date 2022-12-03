@@ -17,4 +17,10 @@ class UIManager {
         self.homeViewController = homeVC
     }
     
+    public func format(amount: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 2
+        let formattedString = formatter.string(from: NSNumber(value: amount))
+        return formattedString ?? ""
+    }
 }

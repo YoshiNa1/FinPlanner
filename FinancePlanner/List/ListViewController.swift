@@ -6,11 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
-
-class ListItems: Object {
-    var items = List<String>()
-}
 
 class ListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -24,24 +19,6 @@ class ListViewController: UIViewController {
         return parameters
     }()
     
-    let realm = try! Realm()
-    var list : Array<String> {
-        get {
-            if let list = self.realm.objects(ListItems.self).first?.items {
-                return Array(list)
-            }
-            return Array<String>()
-        }
-        set {
-            try! self.realm.write {
-                self.realm.deleteAll()
-                let list = ListItems()
-                list.items.append(objectsIn: newValue)
-                self.realm.add(list)
-            }
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,7 +50,7 @@ class ListViewController: UIViewController {
     
     @IBAction func didAddNewNote(_ sender: Any) {
         if let newNoteString = self.newNoteField.text {
-            self.list.append(newNoteString)
+            DataManager.instance.append(listItem: newNoteString)
             self.newNoteField.text = ""
             self.addButton.isEnabled = false
             updateUI()
@@ -96,12 +73,13 @@ class ListViewController: UIViewController {
     @objc func handleTapGesture(_ gesture: UITapGestureRecognizer) {
         let gestureLocation = gesture.location(in: tableView)
         guard let indexPath = tableView.indexPathForRow(at: gestureLocation) else { return }
+        let index = indexPath.item
         let cell = tableView.cellForRow(at: indexPath) as! ListTableViewCell
 
         let cellIconFrame = tableView.convert(cell.iconView.frame, from:cell)
         if cellIconFrame.contains(gestureLocation) {
             if(gesture.state == .ended) {
-                let item = list[indexPath.item]
+                let item = DataManager.instance.listItem(at: index)
 
                 var newItem = item
                 if item.contains("<done>") {
@@ -109,8 +87,8 @@ class ListViewController: UIViewController {
                 } else {
                     newItem = item + "<done>"
                 }
-                list.remove(at: indexPath.item)
-                list.insert(newItem, at: indexPath.item)
+                DataManager.instance.deleteListItem(at: index)
+                DataManager.instance.insert(listItem: newItem, at: index)
                 updateUI()
             }
         }
@@ -119,7 +97,7 @@ class ListViewController: UIViewController {
 
 extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        return DataManager.instance.list.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -128,7 +106,7 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listTableViewCell", for: indexPath) as! ListTableViewCell
-        let item = list[indexPath.row]
+        let item = DataManager.instance.listItem(at: indexPath.row)
         cell.configureCell(with: item)
         cell.indexPath = indexPath
         cell.delegate = self
@@ -137,7 +115,7 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let contextItem = UIContextualAction(style: .destructive, title: "Delete") { (contextualAction, view, boolValue) in
-            self.list.remove(at: indexPath.row)
+            DataManager.instance.deleteListItem(at: indexPath.row)
             self.updateUI()
         }
         let swipeActions = UISwipeActionsConfiguration(actions: [contextItem])
@@ -151,15 +129,15 @@ extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate  
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let item = list[sourceIndexPath.row]
-        list.remove(at: sourceIndexPath.item)
-        list.insert(item, at: destinationIndexPath.row)
+        let item = DataManager.instance.listItem(at: sourceIndexPath.row)
+        DataManager.instance.deleteListItem(at: sourceIndexPath.item)
+        DataManager.instance.insert(listItem: item, at: destinationIndexPath.row)
         updateUI()
     }
     
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let dragItem = UIDragItem(itemProvider: NSItemProvider())
-        dragItem.localObject = list[indexPath.row]
+        dragItem.localObject = DataManager.instance.listItem(at: indexPath.row)
         return [dragItem]
     }
     
@@ -176,12 +154,12 @@ extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate  
 
 extension ListViewController: ListTableViewCellDelegate {
     func textFieldDidChange(_ textField: UITextField, at indexPath: IndexPath) {
-        if indexPath.item < list.count {
+        if indexPath.item < DataManager.instance.list.count {
             guard let text = textField.text else { return }
-            list[indexPath.item] = text
+            DataManager.instance.updateListItem(at: indexPath.item, withNewListItem: text)
             
             if text == "" {
-                self.list.remove(at: indexPath.row)
+                DataManager.instance.deleteListItem(at: indexPath.row)
                 UIView.transition(with: tableView, duration: 0.4) {
                     self.updateUI()
                 }

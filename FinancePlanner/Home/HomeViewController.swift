@@ -17,8 +17,8 @@ class HomeViewController: UIViewController, ItemViewCellDelegate {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var converterButton: UIButton!
     
-    let items : Results<Item>! = DataManager.instance.items
-    var account: Account! = DataManager.instance.account
+    let items : Results<Item> = DataManager.instance.items
+    var account: Account? = DataManager.instance.account
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,8 +39,12 @@ class HomeViewController: UIViewController, ItemViewCellDelegate {
     }
     
     func updateUI() {
-        balanceLabel.text = String(account.balance)
-        savingsLabel.text = String(account.savings)
+        let defaultCurrency = PreferencesStorage.shared.currencies.first(where: {$0.isDefault})?.name ?? ""
+        let defSymbol = ConvCurrency.symbol(for: defaultCurrency)
+        if let account = self.account {
+            balanceLabel.text = "\(UIManager.shared.format(amount:account.balance))\(defSymbol)"
+            savingsLabel.text = "\(UIManager.shared.format(amount:account.savings))\(defSymbol)"
+        }
         collectionView.reloadData()
         
         // FOR TEST

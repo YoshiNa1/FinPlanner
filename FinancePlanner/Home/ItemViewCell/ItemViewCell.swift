@@ -61,12 +61,12 @@ class ItemViewCell: UICollectionViewCell {
         subtitleLabel.text = model.descrpt
         categoryLabel.text = model.category == "none" ? "" : model.category
         
-        let amountFormatted = format(model.amount)
-        var amountString = "\(amountFormatted)\(symbolForCurrency(currency: model.currency))"
+        let amountFormatted = UIManager.shared.format(amount: model.amount)
+        var amountString = "\(amountFormatted)\(ConvCurrency.symbol(for: model.currency))"
         let isDefaultCurrency = model.currency == defaultCurrency
         if(!isDefaultCurrency) {
             let defAmountString = DataManager.instance.convertAmountToDefault(amount: model.amount, currency: model.currency)
-            amountString += " (\(defAmountString)\(symbolForCurrency(currency: defaultCurrency)))"
+            amountString += " (\(defAmountString)\(ConvCurrency.symbol(for: defaultCurrency)))"
         }
         amountLabel.font = UIFont.systemFont(ofSize: isDefaultCurrency ? 16 : 14) // TEMPORARY SOLUTION. DO REDESIGN!
         amountLabel.text = amountString
@@ -80,18 +80,5 @@ class ItemViewCell: UICollectionViewCell {
     
     func edit() {
         delegate?.editItemDidClick(self)
-    }
-    
-    func symbolForCurrency(currency:String) -> String {
-        let curr = ConvCurrency.currency(for: currency)
-        return ConvCurrency.symbol(for: curr)
-    }
-
-    public func format(_ value : Double) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 2
-        let formattedString = formatter.string(from: NSNumber(value: value))
-        return formattedString ?? ""
     }
 }

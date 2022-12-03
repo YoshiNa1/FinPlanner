@@ -30,6 +30,7 @@
 		554DA28528B8CA8E0026FF25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 554DA28328B8CA8E0026FF25 /* LaunchScreen.storyboard */; };
 		5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5576F63B28C4F77200C6CED3 /* ListTableViewCell.swift */; };
 		5576F63E28C4F77200C6CED3 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */; };
+		559A8E98293BC3FF0041971E /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A8E97293BC3FF0041971E /* TabbarViewController.swift */; };
 		55B5D01028D7649D00B8A9C9 /* ItemFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B5D00F28D7649D00B8A9C9 /* ItemFormViewController.swift */; };
 		55CD255428D7A57400B50EC5 /* MainTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CD255328D7A57400B50EC5 /* MainTextField.swift */; };
 		55E95CEE290EDCCC00C2E4BD /* PreferencesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E95CED290EDCCC00C2E4BD /* PreferencesStorage.swift */; };
@@ -66,6 +67,7 @@
 		554DA28628B8CA8E0026FF25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5576F63B28C4F77200C6CED3 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
+		559A8E97293BC3FF0041971E /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		55B5D00F28D7649D00B8A9C9 /* ItemFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFormViewController.swift; sourceTree = "<group>"; };
 		55CD255328D7A57400B50EC5 /* MainTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTextField.swift; sourceTree = "<group>"; };
 		55E95CED290EDCCC00C2E4BD /* PreferencesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesStorage.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 		554DA27728B8CA8A0026FF25 /* FinancePlanner */ = {
 			isa = PBXGroup;
 			children = (
+				559A8E96293BC3C30041971E /* TabbarViewController */,
 				5501E15828B8EFB200C486D3 /* Resources */,
 				5501E15028B8EB9800C486D3 /* Common */,
 				5501E14B28B8EABE00C486D3 /* Home */,
@@ -282,6 +285,14 @@
 				5501E15B28B8F04600C486D3 /* ListViewController_First.swift */,
 			);
 			path = Old;
+			sourceTree = "<group>";
+		};
+		559A8E96293BC3C30041971E /* TabbarViewController */ = {
+			isa = PBXGroup;
+			children = (
+				559A8E97293BC3FF0041971E /* TabbarViewController.swift */,
+			);
+			path = TabbarViewController;
 			sourceTree = "<group>";
 		};
 		55B5D00E28D7646000B8A9C9 /* ItemForm */ = {
@@ -438,6 +449,7 @@
 			files = (
 				5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */,
 				552AC2F12905B3EF004B2AB7 /* UIManager.swift in Sources */,
+				559A8E98293BC3FF0041971E /* TabbarViewController.swift in Sources */,
 				552AC2EC2905759B004B2AB7 /* ConverterViewController.swift in Sources */,
 				553DBFB428B937900030E6C4 /* ListItemCell.swift in Sources */,
 				552AC2E929055F5C004B2AB7 /* SavingsEditFormViewController.swift in Sources */,
