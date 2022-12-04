@@ -68,7 +68,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kAm-bs-kaS">
-                                        <rect key="frame" x="18" y="38" width="378" height="461"/>
+                                        <rect key="frame" x="18" y="38" width="378" height="435"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZxI-XT-Xju">
@@ -154,7 +154,9 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" id="pq8-qh-3Xm"/>
+                    <tabBarItem key="tabBarItem" title="" image="home_image" id="pq8-qh-3Xm">
+                        <inset key="largeContentSizeImageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="9"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="addButton" destination="nuk-8g-bON" id="ynn-8R-3Rs"/>
                         <outlet property="balanceLabel" destination="Xdk-og-igg" id="TXx-uN-iKU"/>
@@ -237,10 +239,15 @@
         <scene sceneID="VfE-Tk-zd7">
             <objects>
                 <tabBarController id="y0Y-E8-VOR" customClass="TabbarViewController" customModule="FinancePlanner" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="G6e-kV-zSS">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="G6e-kV-zSS" customClass="CustomTabbar" customModule="FinancePlanner" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="height">
+                                <real key="value" value="108"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
                         <segue destination="EDI-Eb-9Iv" kind="relationship" relationship="viewControllers" id="Q4s-aA-70E"/>
@@ -270,7 +277,7 @@
                         <viewLayoutGuide key="safeArea" id="hHb-kR-cqL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Calendar" id="8wP-Xn-fXJ"/>
+                    <tabBarItem key="tabBarItem" title="" image="calendar_image" id="8wP-Xn-fXJ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="guM-dh-2xb" sceneMemberID="firstResponder"/>
             </objects>
@@ -292,7 +299,7 @@
                         <viewLayoutGuide key="safeArea" id="YaI-Zp-kTS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Statistics" id="cg1-bf-3qc"/>
+                    <tabBarItem key="tabBarItem" title="" image="statistics_image" id="cg1-bf-3qc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qbz-IN-Duh" sceneMemberID="firstResponder"/>
             </objects>
@@ -314,7 +321,7 @@
                         <viewLayoutGuide key="safeArea" id="pCi-HI-zdR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="NM0-lJ-RWi"/>
+                    <tabBarItem key="tabBarItem" title="" image="settings_image" id="NM0-lJ-RWi"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kia-5Z-8ss" sceneMemberID="firstResponder"/>
             </objects>
@@ -369,7 +376,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cQV-wZ-faP">
-                                <rect key="frame" x="0.0" y="128" width="414" height="662"/>
+                                <rect key="frame" x="0.0" y="128" width="414" height="660"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -384,7 +391,7 @@
                             <constraint firstItem="oxq-u1-QX6" firstAttribute="leading" secondItem="fRG-S5-dHv" secondAttribute="leading" id="iIJ-f8-oac"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="List" id="zHd-lK-dej"/>
+                    <tabBarItem key="tabBarItem" title="" image="list_image" id="zHd-lK-dej"/>
                     <connections>
                         <outlet property="addButton" destination="Xpf-Yv-Rd4" id="6GI-KI-jGT"/>
                         <outlet property="doneButton" destination="RfH-Lj-yPG" id="6vh-RW-oxl"/>
@@ -394,7 +401,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h5j-JK-Ql7" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="600" y="70"/>
+            <point key="canvasLocation" x="598.55072463768124" y="69.642857142857139"/>
         </scene>
         <!--Item Form View Controller-->
         <scene sceneID="wCo-xL-DHD">
@@ -833,9 +840,14 @@
         <image name="GradientBackgroundImage_Illus" width="414" height="896"/>
         <image name="arrow_down_icon" width="18" height="18"/>
         <image name="calculator_icon" width="20" height="20.5"/>
+        <image name="calendar_image" width="28" height="28"/>
         <image name="cancel_icon" width="26" height="26"/>
         <image name="edit_icon" width="10.5" height="13"/>
+        <image name="home_image" width="28" height="28.5"/>
+        <image name="list_image" width="28.5" height="28"/>
         <image name="plus_icon" width="22" height="22"/>
+        <image name="settings_image" width="28" height="28"/>
+        <image name="statistics_image" width="28" height="28"/>
         <namedColor name="MainBackgroundColor">
             <color red="0.77254901960784317" green="0.76078431372549016" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

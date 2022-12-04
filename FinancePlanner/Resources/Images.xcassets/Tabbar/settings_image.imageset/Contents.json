@@ -12,7 +12,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "SettingsIcon@1x.png",
+      "filename" : "SettingsIcon@1x-2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -28,7 +28,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "SettingsIcon@2x.png",
+      "filename" : "SettingsIcon@2x-2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "SettingsIcon@3x.png",
+      "filename" : "SettingsIcon@3x-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
@@ -52,5 +52,8 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "original"
   }
 }
