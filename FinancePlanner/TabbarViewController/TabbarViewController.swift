@@ -42,9 +42,9 @@ class TabbarViewController: UITabBarController {
     }
     
     func setupThumbView() {
-        thumbView = ThumbView(frame: CGRect(x: 0, y: Int(self.tabBar.frame.origin.y) + 19, width: thumbViewWidth, height: thumbViewWidth))
+        thumbView = ThumbView(frame: CGRect(x: 0, y: 19, width: thumbViewWidth, height: thumbViewWidth))
         thumbView.backgroundColor = .clear
-        self.view.addSubview(thumbView)
+        self.tabBar.insertSubview(thumbView, at: 0)
         
         DispatchQueue.main.async {
             self.selectedIndex = 2
