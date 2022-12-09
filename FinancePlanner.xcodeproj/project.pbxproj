@@ -31,6 +31,9 @@
 		5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5576F63B28C4F77200C6CED3 /* ListTableViewCell.swift */; };
 		5576F63E28C4F77200C6CED3 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */; };
 		559A8E98293BC3FF0041971E /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A8E97293BC3FF0041971E /* TabbarViewController.swift */; };
+		55B19C29294383E800C2BC69 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B19C27294383E800C2BC69 /* CalendarCell.swift */; };
+		55B19C2A294383E800C2BC69 /* CalendarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B19C28294383E800C2BC69 /* CalendarCell.xib */; };
+		55B19C2C2943843000C2BC69 /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B19C2B2943843000C2BC69 /* CalendarHelper.swift */; };
 		55B5D01028D7649D00B8A9C9 /* ItemFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B5D00F28D7649D00B8A9C9 /* ItemFormViewController.swift */; };
 		55CD255428D7A57400B50EC5 /* MainTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CD255328D7A57400B50EC5 /* MainTextField.swift */; };
 		55E95CEE290EDCCC00C2E4BD /* PreferencesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E95CED290EDCCC00C2E4BD /* PreferencesStorage.swift */; };
@@ -68,6 +71,9 @@
 		5576F63B28C4F77200C6CED3 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
 		559A8E97293BC3FF0041971E /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
+		55B19C27294383E800C2BC69 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
+		55B19C28294383E800C2BC69 /* CalendarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarCell.xib; sourceTree = "<group>"; };
+		55B19C2B2943843000C2BC69 /* CalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
 		55B5D00F28D7649D00B8A9C9 /* ItemFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFormViewController.swift; sourceTree = "<group>"; };
 		55CD255328D7A57400B50EC5 /* MainTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTextField.swift; sourceTree = "<group>"; };
 		55E95CED290EDCCC00C2E4BD /* PreferencesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesStorage.swift; sourceTree = "<group>"; };
@@ -131,7 +137,9 @@
 		5501E14F28B8EB3D00C486D3 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				55B19C26294383C100C2BC69 /* CalendarCell */,
 				5501E15D28B8F06100C486D3 /* CalendarViewController.swift */,
+				55B19C2B2943843000C2BC69 /* CalendarHelper.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -295,6 +303,15 @@
 			path = TabbarViewController;
 			sourceTree = "<group>";
 		};
+		55B19C26294383C100C2BC69 /* CalendarCell */ = {
+			isa = PBXGroup;
+			children = (
+				55B19C27294383E800C2BC69 /* CalendarCell.swift */,
+				55B19C28294383E800C2BC69 /* CalendarCell.xib */,
+			);
+			path = CalendarCell;
+			sourceTree = "<group>";
+		};
 		55B5D00E28D7646000B8A9C9 /* ItemForm */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +408,7 @@
 				553DBFAA28B92AA10030E6C4 /* Colors.xcassets in Resources */,
 				5504FC7B28CE199F009AA660 /* ItemViewCell.xib in Resources */,
 				5576F63E28C4F77200C6CED3 /* ListTableViewCell.xib in Resources */,
+				55B19C2A294383E800C2BC69 /* CalendarCell.xib in Resources */,
 				553DBFB528B937900030E6C4 /* ListItemCell.xib in Resources */,
 				553DBFAE28B930B30030E6C4 /* Images.xcassets in Resources */,
 				554DA28528B8CA8E0026FF25 /* LaunchScreen.storyboard in Resources */,
@@ -448,6 +466,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */,
+				55B19C2C2943843000C2BC69 /* CalendarHelper.swift in Sources */,
+				55B19C29294383E800C2BC69 /* CalendarCell.swift in Sources */,
 				552AC2F12905B3EF004B2AB7 /* UIManager.swift in Sources */,
 				559A8E98293BC3FF0041971E /* TabbarViewController.swift in Sources */,
 				552AC2EC2905759B004B2AB7 /* ConverterViewController.swift in Sources */,

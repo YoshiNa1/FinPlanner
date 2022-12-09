@@ -8,22 +8,105 @@
 import UIKit
 
 class CalendarViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    @IBOutlet weak var monthLabel: UILabel!
+    
+    @IBOutlet weak var daysCollectionView: UICollectionView!
+    
+    @IBOutlet weak var selectedDateField: UILabel!
+    @IBOutlet weak var navButton: UIButton!
+    
+    @IBOutlet weak var noteField: UITextField!
+    @IBOutlet weak var saveButton: UIButton!
+    
+    var dates = [Date]()
+    var currentDate = Date()
+    var selectedDate = Date() {
+        didSet {
+            selectedDateField.text = CalendarHelper().dateString(date: selectedDate)
+            navButton.isHidden = selectedDate > Date()
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        addKeyboardRecognizer()
+        
+        saveButton.layer.cornerRadius = 8
+        
+        daysCollectionView.register(UINib(nibName: "CalendarCell", bundle: nil), forCellWithReuseIdentifier: "calendarCell")
+        daysCollectionView.delegate = self
+        daysCollectionView.dataSource = self
+        
+        reloadUI()
     }
-    */
+    
+    func reloadUI() {
+        setDays()
+        monthLabel.text = CalendarHelper().monthString(date: currentDate) + ", " + CalendarHelper().yearString(date: currentDate)
+        daysCollectionView.reloadData()
+    }
+    
+    func setDays() {
+        dates.removeAll()
+                
+        let daysInMonth = CalendarHelper().daysInMonth(date: currentDate)
+        let firstDayOfMonth = CalendarHelper().firstOfMonth(date: currentDate)
+        let startingSpaces = CalendarHelper().weekDay(date: firstDayOfMonth)
+        
+        var count: Int = 1
+        while(count <= 42) {
+            let day = count - startingSpaces
+            if(count <= startingSpaces || day > daysInMonth) {
+                dates.append(Date(timeIntervalSince1970: 0))
+            } else {
+                let dateByDay = CalendarHelper().dateByDay(day: day, date: currentDate)
+                dates.append(dateByDay)
+            }
+            count += 1
+        }
+    }
+    
+    @IBAction func nextMonthClicked(_ sender: Any) {
+        currentDate = CalendarHelper().plusMonth(date: currentDate)
+        reloadUI()
+    }
+    
+    @IBAction func prevMonthClicked(_ sender: Any) {
+        currentDate = CalendarHelper().minusMonth(date: currentDate)
+        reloadUI()
+    }
+    
+    @IBAction func saveClicked(_ sender: Any) {
+        
+    }
+    
+    @IBAction func goClicked(_ sender: Any) {
+        
+    }
+    
+}
 
+extension CalendarViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dates.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCell", for: indexPath) as! CalendarCell
+        cell.configureCell(date: dates[indexPath.item])
+        if(CalendarHelper().isDate(date: cell.date, equalTo: selectedDate)) {
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        let cell = collectionView.cellForItem(at: indexPath) as! CalendarCell
+        return cell.date != Date(timeIntervalSince1970: 0)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! CalendarCell
+        selectedDate = cell.date
+    }
 }
