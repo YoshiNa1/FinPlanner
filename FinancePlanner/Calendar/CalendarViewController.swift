@@ -15,7 +15,8 @@ class CalendarViewController: UIViewController {
     @IBOutlet weak var selectedDateField: UILabel!
     @IBOutlet weak var navButton: UIButton!
     
-    @IBOutlet weak var noteField: UITextField!
+    @IBOutlet weak var noteFieldView: UIView!
+    @IBOutlet weak var noteField: UITextView!
     @IBOutlet weak var saveButton: UIButton!
     
     var dates = [Date]()
@@ -24,6 +25,16 @@ class CalendarViewController: UIViewController {
         didSet {
             selectedDateField.text = CalendarHelper().dateString(date: selectedDate)
             navButton.isHidden = selectedDate > Date()
+            currNote = DataManager.instance.getNote(by: selectedDate)
+        }
+    }
+    
+    var currNote: Note? {
+        didSet {
+            let noteIsEmpty = currNote?.descrpt == ""
+            noteField.text = currNote?.descrpt ?? "Place Note..."
+            noteField.textColor = UIColor(named: noteIsEmpty ? "SubtitleFontColor" : "TitleFontColor")
+            saveButton.isHidden = noteIsEmpty
         }
     }
     
@@ -33,6 +44,7 @@ class CalendarViewController: UIViewController {
         addKeyboardRecognizer()
         
         saveButton.layer.cornerRadius = 8
+        noteFieldView.layer.cornerRadius = 18
         
         daysCollectionView.register(UINib(nibName: "CalendarCell", bundle: nil), forCellWithReuseIdentifier: "calendarCell")
         daysCollectionView.delegate = self
@@ -78,7 +90,14 @@ class CalendarViewController: UIViewController {
     }
     
     @IBAction func saveClicked(_ sender: Any) {
-        
+        let noteText = noteField.text ?? ""
+        let note = Note(date: selectedDate, descrpt: noteText)
+        if let currNote = currNote {
+            DataManager.instance.update(note: currNote, withNewNote: note)
+        } else {
+            DataManager.instance.add(note: note)
+        }
+        reloadUI()
     }
     
     @IBAction func goClicked(_ sender: Any) {
@@ -87,6 +106,24 @@ class CalendarViewController: UIViewController {
     
 }
 
+extension CalendarViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == "Place Note..." {
+            textView.text = nil
+        }
+        let isEmpty = textView.text.isEmpty
+        textView.textColor = UIColor(named: isEmpty ? "SubtitleFontColor" : "TitleFontColor")
+        saveButton.isHidden = isEmpty
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        let isEmpty = textView.text.isEmpty
+        if isEmpty {
+            textView.text = "Place Note..."
+        }
+        textView.textColor = UIColor(named: isEmpty ? "SubtitleFontColor" : "TitleFontColor")
+        saveButton.isHidden = isEmpty
+    }
+}
 extension CalendarViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dates.count

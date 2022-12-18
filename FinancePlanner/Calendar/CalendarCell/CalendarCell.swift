@@ -32,5 +32,6 @@ class CalendarCell: UICollectionViewCell {
             let day = CalendarHelper().dayOfMonth(date: date)
             self.dayLabel.text = String(day)
         }
+        self.hasNote = DataManager.instance.getNote(by: date) != nil
     }
 }

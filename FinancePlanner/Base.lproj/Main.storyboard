@@ -430,7 +430,7 @@
                                 <rect key="frame" x="12" y="467" width="390" height="192"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fu-vu-E65">
-                                        <rect key="frame" x="120" y="162" width="150" height="30"/>
+                                        <rect key="frame" x="120" y="157.5" width="150" height="34.5"/>
                                         <color key="backgroundColor" name="MainGradient_StartColor"/>
                                         <color key="tintColor" name="TitleFontColor"/>
                                         <state key="normal" title="Button"/>
@@ -440,17 +440,6 @@
                                             <action selector="saveClicked:" destination="yND-DV-Odc" eventType="touchUpInside" id="SHq-H7-q8y"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Place note..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Px-Ui-wyQ" customClass="MainTextField" customModule="FinancePlanner" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="30" width="390" height="108"/>
-                                        <color key="backgroundColor" name="MainGradient_StartColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="390" id="7EV-zC-MTU"/>
-                                            <constraint firstAttribute="height" constant="108" id="BsV-fp-aV8"/>
-                                        </constraints>
-                                        <color key="textColor" name="TitleFontColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="09.12.2022" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0W-RS-2tU">
                                         <rect key="frame" x="8" y="3" width="98" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -470,13 +459,27 @@
                                             <action selector="saveClicked:" destination="FNU-UE-fT0" eventType="touchUpInside" id="mqs-zh-3Pq"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ypO-Jy-cXx">
+                                        <rect key="frame" x="0.0" y="30" width="390" height="108"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sdS-qk-YKV">
+                                                <rect key="frame" x="24" y="18" width="342" height="72"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" name="TitleFontColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="yND-DV-Odc" id="BOF-XJ-opE"/>
+                                                </connections>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" name="MainGradient_StartColor"/>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="5Fu-vu-E65" firstAttribute="leading" secondItem="pTF-aM-F4q" secondAttribute="leading" constant="120" id="8ED-as-wzY"/>
-                                    <constraint firstItem="1Px-Ui-wyQ" firstAttribute="leading" secondItem="pTF-aM-F4q" secondAttribute="leading" id="FwC-5v-Kaz"/>
-                                    <constraint firstItem="5Fu-vu-E65" firstAttribute="top" secondItem="1Px-Ui-wyQ" secondAttribute="bottom" constant="24" id="NHe-AJ-fhG"/>
-                                    <constraint firstItem="1Px-Ui-wyQ" firstAttribute="top" secondItem="pTF-aM-F4q" secondAttribute="top" constant="30" id="OBL-dD-BZ0"/>
-                                    <constraint firstAttribute="trailing" secondItem="1Px-Ui-wyQ" secondAttribute="trailing" id="cGk-BV-kHC"/>
                                     <constraint firstAttribute="bottom" secondItem="5Fu-vu-E65" secondAttribute="bottom" id="eIk-x1-F9h"/>
                                     <constraint firstAttribute="trailing" secondItem="5Fu-vu-E65" secondAttribute="trailing" constant="120" id="lNO-Ix-6c8"/>
                                     <constraint firstAttribute="height" constant="192" id="rbB-Ip-G8j"/>
@@ -499,7 +502,8 @@
                         <outlet property="daysCollectionView" destination="mP0-oi-way" id="7mR-eM-1go"/>
                         <outlet property="monthLabel" destination="x61-Wc-TUr" id="S4T-fB-Owd"/>
                         <outlet property="navButton" destination="Kzm-bV-jX8" id="yRm-82-wJS"/>
-                        <outlet property="noteField" destination="1Px-Ui-wyQ" id="y1Z-uK-Yev"/>
+                        <outlet property="noteField" destination="sdS-qk-YKV" id="oyk-RC-nBq"/>
+                        <outlet property="noteFieldView" destination="ypO-Jy-cXx" id="OgJ-xx-Fuy"/>
                         <outlet property="saveButton" destination="5Fu-vu-E65" id="2Cj-qy-PhQ"/>
                         <outlet property="selectedDateField" destination="s0W-RS-2tU" id="lHp-6V-hAx"/>
                     </connections>

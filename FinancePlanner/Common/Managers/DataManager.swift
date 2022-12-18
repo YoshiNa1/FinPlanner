@@ -15,6 +15,7 @@ class DataManager {
     
     var account: Account!
     var items : Results<Item>!
+    var notes : Results<Note>!
     var list : Array<String> {
         get {
             if let list = self.realm.objects(ListItems.self).first?.items {
@@ -42,6 +43,7 @@ class DataManager {
     private init() {
         account = self.realm.objects(Account.self).first
         items = self.realm.objects(Item.self)
+        notes = self.realm.objects(Note.self)
     }
  
 // Account
@@ -117,6 +119,27 @@ class DataManager {
         })
     }
     
+// Note
+    func getNote(by date: Date) -> Note? {
+        return notes.first(where: { CalendarHelper().isDate(date: $0.date, equalTo: date) })
+    }
+    
+    func add(note: Note) {
+        try! self.realm.write({
+            realm.add(note, update: .all)
+        })
+    }
+    
+    func update(note: Note, withNewNote newNote: Note) {
+        try! self.realm.write({
+            if(newNote.descrpt == "") {
+                realm.delete(note)
+            } else {
+                note.descrpt = newNote.descrpt
+            }
+        })
+    }
+    
 // List
     func listItem(at index: Int) -> String {
         return list[index]
@@ -188,6 +211,7 @@ class Account: Object {
 
 class Item: Object {
     @objc dynamic var id: String = UUID().uuidString
+//    @objc dynamic var userId: String = "" // User().id
     @objc dynamic var date: Date = Date()
     @objc dynamic var type: String = ""
     @objc dynamic var isIncome: Bool = false
@@ -230,6 +254,27 @@ class Item: Object {
         self.amount = amount
         self.currency = currency
         self.category = category
+    }
+}
+
+class Note: Object {
+    @objc dynamic var id: String = UUID().uuidString
+//    @objc dynamic var userId: String = "" // User().id
+    @objc dynamic var date: Date = Date()
+    @objc dynamic var descrpt: String = ""
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
+    
+    required override init() {
+        super.init()
+    }
+    
+    init(date: Date,
+         descrpt: String) {
+        self.date = date
+        self.descrpt = descrpt
     }
 }
 
