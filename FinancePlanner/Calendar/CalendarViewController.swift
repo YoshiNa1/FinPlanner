@@ -31,10 +31,7 @@ class CalendarViewController: UIViewController {
     
     var currNote: Note? {
         didSet {
-            let noteIsEmpty = currNote?.descrpt == ""
-            noteField.text = currNote?.descrpt ?? "Place Note..."
-            noteField.textColor = UIColor(named: noteIsEmpty ? "SubtitleFontColor" : "TitleFontColor")
-            saveButton.isHidden = noteIsEmpty
+            noteField.text = currNote?.descrpt
         }
     }
     
@@ -45,10 +42,13 @@ class CalendarViewController: UIViewController {
         
         saveButton.layer.cornerRadius = 8
         noteFieldView.layer.cornerRadius = 18
+        saveButton.isHidden = true
         
         daysCollectionView.register(UINib(nibName: "CalendarCell", bundle: nil), forCellWithReuseIdentifier: "calendarCell")
         daysCollectionView.delegate = self
         daysCollectionView.dataSource = self
+        
+        selectedDate = currentDate
         
         reloadUI()
     }
@@ -98,30 +98,20 @@ class CalendarViewController: UIViewController {
             DataManager.instance.add(note: note)
         }
         reloadUI()
+        saveButton.isHidden = true
     }
     
     @IBAction func goClicked(_ sender: Any) {
-        
+        UIManager.shared.navigateToHomePage(with: selectedDate)
     }
     
 }
 
 extension CalendarViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == "Place Note..." {
-            textView.text = nil
-        }
+    func textViewDidChange(_ textView: UITextView) {
         let isEmpty = textView.text.isEmpty
-        textView.textColor = UIColor(named: isEmpty ? "SubtitleFontColor" : "TitleFontColor")
-        saveButton.isHidden = isEmpty
-    }
-    func textViewDidEndEditing(_ textView: UITextView) {
-        let isEmpty = textView.text.isEmpty
-        if isEmpty {
-            textView.text = "Place Note..."
-        }
-        textView.textColor = UIColor(named: isEmpty ? "SubtitleFontColor" : "TitleFontColor")
-        saveButton.isHidden = isEmpty
+        let isChanged = textView.text != currNote?.descrpt
+        saveButton.isHidden = isEmpty || !isChanged
     }
 }
 extension CalendarViewController: UICollectionViewDelegate, UICollectionViewDataSource {

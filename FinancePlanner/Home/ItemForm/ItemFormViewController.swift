@@ -75,7 +75,8 @@ class ItemFormViewController: UIViewController {
                         description: descriptionField.text ?? "",
                         amount: amount,
                         currency: currencyLabel.text ?? "",
-                        category: categoryField.text ?? "")
+                        category: categoryField.text ?? "",
+                        date: UIManager.shared.getHomePageDate())
         if let _item = self.currItem {
             let amountForUpdate = item.amount - _item.amount
             DataManager.instance.updateAccount(withItem: item, amount: amountForUpdate)

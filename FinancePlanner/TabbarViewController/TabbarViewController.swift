@@ -33,6 +33,8 @@ class TabbarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UIManager.shared.setupTabbarVC(self)
+        
         setupThumbView()
         
         tabBar.backgroundColor = UIColor(named: "MainBackgroundColor")
@@ -44,18 +46,18 @@ class TabbarViewController: UITabBarController {
     func setupThumbView() {
         thumbView = ThumbView(frame: CGRect(x: 0, y: 19, width: thumbViewWidth, height: thumbViewWidth))
         thumbView.backgroundColor = .clear
-        self.tabBar.insertSubview(thumbView, at: 0)
+        tabBar.insertSubview(thumbView, at: 0)
         
-        DispatchQueue.main.async {
-            self.selectedIndex = 2
-            self.didSelectItem(at: self.selectedIndex, duration: 0.0)
-        }
+        didSelectItem(at: 2, duration: 0.0)
     }
     
     func didSelectItem(at index: Int, duration: CGFloat = 0.3) {
-        let buttons = tabBar.subviews.filter { String(describing: type(of: $0)) == "UITabBarButton" }
-        UIView.animate(withDuration: duration) {
-            self.thumbView.frame.origin.x = buttons[index].frame.midX - CGFloat(self.thumbViewWidth / 2)
+        DispatchQueue.main.async {
+            self.selectedIndex = index
+            let buttons = self.tabBar.subviews.filter { String(describing: type(of: $0)) == "UITabBarButton" }
+            UIView.animate(withDuration: duration) {
+                self.thumbView.frame.origin.x = buttons[index].frame.midX - CGFloat(self.thumbViewWidth / 2)
+            }
         }
     }
     

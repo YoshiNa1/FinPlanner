@@ -17,19 +17,25 @@ class HomeViewController: UIViewController, ItemViewCellDelegate {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var converterButton: UIButton!
     
-    let items : Results<Item> = DataManager.instance.items
+    var date: Date = Date() {
+        didSet {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd.MM.yyyy"
+            dateLabel.text = dateFormatter.string(from: date)
+            updateUI()
+        }
+    }
+    var items = [Item]()
     var account: Account? = DataManager.instance.account
     
     override func viewDidLoad() {
         super.viewDidLoad()
         UIManager.shared.setupHomePage(self)
         
+        date = Date()
+        
         collectionBackground.layer.backgroundColor = UIColor.init(named: "MainGradient_StartColor")?.cgColor
         collectionBackground.layer.cornerRadius = 24
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        dateLabel.text = dateFormatter.string(from: Date())
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -39,6 +45,8 @@ class HomeViewController: UIViewController, ItemViewCellDelegate {
     }
     
     func updateUI() {
+        self.items = DataManager.instance.getItemsBy(date: date)
+        
         let defaultCurrency = PreferencesStorage.shared.currencies.first(where: {$0.isDefault})?.name ?? ""
         let defSymbol = ConvCurrency.symbol(for: defaultCurrency)
         if let account = self.account {

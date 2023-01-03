@@ -12,9 +12,25 @@ class UIManager {
     static let shared = UIManager()
     
     var homeViewController: HomeViewController?
+    var tabbarViewController: TabbarViewController?
     
     public func setupHomePage(_ homeVC: HomeViewController) {
         self.homeViewController = homeVC
+    }
+    public func setupTabbarVC(_ tabbarVC: TabbarViewController) {
+        self.tabbarViewController = tabbarVC
+    }
+    
+    public func navigateToHomePage(with date: Date) {
+        DispatchQueue.main.async {
+            self.tabbarViewController?.selectedIndex = 2
+            self.tabbarViewController?.didSelectItem(at: 2)
+        }
+        homeViewController?.date = date
+    }
+    
+    public func getHomePageDate() -> Date {
+        return self.homeViewController?.date ?? Date()
     }
     
     public func format(amount: Double) -> String {

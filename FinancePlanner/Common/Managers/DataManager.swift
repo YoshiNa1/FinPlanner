@@ -99,6 +99,16 @@ class DataManager {
     }
 
 // Item
+    func getItemsBy(date: Date) -> [Item] {
+        var items = [Item]()
+        self.items.forEach { (item) in
+            if CalendarHelper().isDate(date: item.date, equalTo: date) {
+                items.append(item)
+            }
+        }
+        return items
+    }
+    
     func add(item: Item) {
         try! self.realm.write({
             realm.add(item, update: .all)
@@ -230,8 +240,9 @@ class Item: Object {
     }
     
     init(isIncome: Bool,
-         amount: Double) {
-        self.date = Date()
+         amount: Double,
+         date: Date) {
+        self.date = date
         self.type = "savings"
         self.isIncome = isIncome
         self.name = "default string for savings type"
@@ -246,8 +257,9 @@ class Item: Object {
          description: String,
          amount: Double,
          currency: String,
-         category: String) {
-        self.date = Date()
+         category: String,
+         date: Date) {
+        self.date = date
         self.type = type
         self.name = name
         self.descrpt = description
