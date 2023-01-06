@@ -51,10 +51,10 @@ class ItemViewCell: UICollectionViewCell {
      
     func configureCell(with model: Item) {
         self.model = model
-        if(model.type == "savings") {
+        if(model.itemType == .savings) {
             iconView.image = UIImage.init(named: model.isIncome ? "savings_income_image" : "savings_outcome_image")
         } else {
-            iconView.image = UIImage.init(named: model.type == "income" ? "income_item_image" : "outcome_item_image")
+            iconView.image = UIImage.init(named: model.itemType == .income ? "income_item_image" : "outcome_item_image")
         }
         
         titleLabel.text = model.name

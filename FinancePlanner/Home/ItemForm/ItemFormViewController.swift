@@ -20,7 +20,7 @@ class ItemFormViewController: UIViewController {
     @IBOutlet weak var currencyButton: UIButton!
     
     var currItem: Item?
-    var type: String = "outcome"
+    var type: ItemType = .outcome
     let currencies = PreferencesStorage.shared.currencies
 
     @IBOutlet weak var saveButton: UIButton!

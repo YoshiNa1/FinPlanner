@@ -81,17 +81,17 @@ class DataManager {
         let defAmount = self.getDefaultAmount(amount: amount, currency: item.currency)
         try! self.realm.write({
             if(isRemoval) {
-                if(item.type == "outcome") {
+                if(item.itemType == .outcome) {
                     self.account.balance += defAmount
                 }
-                if(item.type == "income") {
+                if(item.itemType == .income) {
                     self.account.balance -= defAmount
                 }
             } else {
-                if(item.type == "outcome") {
+                if(item.itemType == .outcome) {
                     self.account.balance -= defAmount
                 }
-                if(item.type == "income") {
+                if(item.itemType == .income) {
                     self.account.balance += defAmount
                 }
             }
@@ -219,17 +219,29 @@ class Account: Object {
     }
 }
 
+enum ItemType: String {
+    case income = "income"
+    case outcome = "outcome"
+    case savings = "savings"
+}
+
 class Item: Object {
     @objc dynamic var id: String = UUID().uuidString
 //    @objc dynamic var userId: String = "" // User().id
     @objc dynamic var date: Date = Date()
-    @objc dynamic var type: String = ""
     @objc dynamic var isIncome: Bool = false
     @objc dynamic var name: String = ""
     @objc dynamic var descrpt: String = ""
     @objc dynamic var amount: Double = 0.0
     @objc dynamic var currency: String = ""
     @objc dynamic var category: String = ""
+    
+    @objc dynamic private var type: String = ""
+    public var itemType: ItemType = .outcome {
+        didSet {
+            type = itemType.rawValue
+        }
+    }
     
     override class func primaryKey() -> String? {
         return "id"
@@ -243,7 +255,7 @@ class Item: Object {
          amount: Double,
          date: Date) {
         self.date = date
-        self.type = "savings"
+        self.itemType = .savings
         self.isIncome = isIncome
         self.name = "default string for savings type"
         self.descrpt = ""
@@ -252,7 +264,7 @@ class Item: Object {
         self.category = "none"
     }
     
-    init(type:String,
+    init(type:ItemType,
          name: String,
          description: String,
          amount: Double,
@@ -260,7 +272,7 @@ class Item: Object {
          category: String,
          date: Date) {
         self.date = date
-        self.type = type
+        self.itemType = type
         self.name = name
         self.descrpt = description
         self.amount = amount
