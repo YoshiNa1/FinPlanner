@@ -58,8 +58,12 @@ class ItemViewCell: UICollectionViewCell {
         }
         
         titleLabel.text = model.name
+        
         subtitleLabel.text = model.descrpt
-        categoryLabel.text = model.category == "none" ? "" : model.category
+        subtitleLabel.isHidden = model.descrpt.isEmpty
+        
+        categoryLabel.text = model.categoryType.rawValue
+        categoryLabel.isHidden = model.categoryType == .none
         
         let amountFormatted = UIManager.shared.format(amount: model.amount)
         var amountString = "\(amountFormatted)\(ConvCurrency.symbol(for: model.currency))"

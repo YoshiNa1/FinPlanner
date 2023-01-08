@@ -15,7 +15,7 @@ enum StatisticsFrequency: String {
     
 class StatisticsViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
-//    @IBOutlet weak var collectionBackground: UIView!
+//    @IBOutlet weak var collectionBackground: MainGradientView!
     
     @IBOutlet weak var frequencyLabel: UILabel!
     @IBOutlet weak var frequencyButton: UIButton!
@@ -26,8 +26,8 @@ class StatisticsViewController: UIViewController {
     @IBOutlet weak var datePicker: UIPickerView!
     @IBOutlet weak var datePickerView: UIView!
     
-  var dateComponentsCount = 0
-  var (dayComponent, monthComponent, yearComponent) = (0, 0, 0)
+    var dateComponentsCount = 0
+    var (dayComponent, monthComponent, yearComponent) = (0, 0, 0)
       
     var frequencyType: StatisticsFrequency! {
         didSet {
@@ -76,6 +76,8 @@ class StatisticsViewController: UIViewController {
         }
     }
     
+    var items = [Item]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -87,9 +89,23 @@ class StatisticsViewController: UIViewController {
         datePickerView.isHidden = true
         
         setupFrequencyView()
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(StatisticsViewCell.self, forCellWithReuseIdentifier: "statisticsViewCell")
+        
+        updateUI()
     }
     
-    func reloadUI() {
+    func updateUI() {
+        switch frequencyType {
+        case .year:
+            let yearItems = DataManager.instance.getYearItemsBy(date: selectedDate)
+            print(yearItems)
+        default:
+            self.items = DataManager.instance.getItemsBy(date: selectedDate, frequency: frequencyType)
+        }
+        
         self.collectionView.reloadData()
         
     }
@@ -154,6 +170,8 @@ class StatisticsViewController: UIViewController {
             break
         }
         self.selectedDate = date
+        
+        updateUI()
     }
     
     func selectDatePickerRows() {
@@ -211,4 +229,27 @@ extension StatisticsViewController: UIPickerViewDelegate, UIPickerViewDataSource
             self.selectedDay = days[pickerView.selectedRow(inComponent: dayComponent)]
         }
     }
+}
+
+
+extension StatisticsViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 366, height: 41)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statisticsViewCell", for: indexPath as IndexPath) as! StatisticsViewCell
+        let item = items[indexPath.item]
+        cell.configureCell(with: item, frequencyType: self.frequencyType)
+        return cell
+    }
+    
 }

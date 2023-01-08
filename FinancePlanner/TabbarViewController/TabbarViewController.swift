@@ -27,7 +27,7 @@ class CustomTabbar : UITabBar {
 }
 
 class TabbarViewController: UITabBarController {
-    var thumbView: ThumbView!
+    var thumbView: MainGradientView!
     let thumbViewWidth: Int = 70
     
     override func viewDidLoad() {
@@ -44,7 +44,7 @@ class TabbarViewController: UITabBarController {
     }
     
     func setupThumbView() {
-        thumbView = ThumbView(frame: CGRect(x: 0, y: 19, width: thumbViewWidth, height: thumbViewWidth))
+        thumbView = MainGradientView(frame: CGRect(x: 0, y: 19, width: thumbViewWidth, height: thumbViewWidth))
         thumbView.backgroundColor = .clear
         tabBar.insertSubview(thumbView, at: 0)
         
@@ -75,27 +75,5 @@ extension TabbarViewController: UITabBarControllerDelegate  {
             UIView.transition(from: fromView, to: toView, duration: 0.3, options: [.transitionCrossDissolve], completion: nil)
         }
         return true
-    }
-}
-
-class ThumbView : UIView {
-    private lazy var gradient: CAGradientLayer = {
-        let gradient = CAGradientLayer()
-        gradient.type = .axial
-        gradient.colors = [
-            UIColor(named: "MainGradient_StartColor")?.cgColor ?? UIColor.white.cgColor,
-            UIColor(named: "MainGradient_EndColor")?.cgColor ?? UIColor.white.cgColor
-        ]
-        gradient.startPoint = CGPoint(x: 0, y: 0)
-        gradient.endPoint = CGPoint(x: 1, y: 1)
-        gradient.frame = bounds
-        layer.addSublayer(gradient)
-        return gradient
-    }()
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        gradient.frame = bounds
-        gradient.cornerRadius = bounds.width / 2.0
     }
 }

@@ -99,13 +99,71 @@ class DataManager {
     }
 
 // Item
-    func getItemsBy(date: Date) -> [Item] {
+    func getItemsBy(date: Date, frequency: StatisticsFrequency = .day) -> [Item] {
         var items = [Item]()
+        
+        let (_, month, year) = CalendarHelper().componentsByDate(date)
+        
         self.items.forEach { (item) in
-            if CalendarHelper().isDate(date: item.date, equalTo: date) {
-                items.append(item)
+            let (_, item_month, item_year) = CalendarHelper().componentsByDate(item.date)
+            
+            switch frequency {
+            case .day:
+                if CalendarHelper().isDate(date: item.date, equalTo: date) {
+                    items.append(item)
+                }
+            case .month:
+                if (item_month == month && item_year == year) {
+                    items.append(item)
+                }
+            default: // .year -- getYearItemsBy(date: Date) -> [Int: [ItemCategoryType:[Item]]]
+                break
             }
         }
+        
+        return items
+    }
+    
+    func getYearItemsBy(date: Date) -> [[ItemCategoryType:[Item]]] {  // FOR FREQUENCY TYPE YEAR
+        
+        /* должен быть на выходе массив словарей. В нём 12 элементов -- сколько всего месяцев. Каждый элемент
+        массива хранит словарь, где ключ -- категория. В словаре столько ключей, сколько всего категорий.
+        Значение каждой категории -- массив айтемов с этой категорией в этом месяце. */
+        
+        var items = [[ItemCategoryType:[Item]]]()
+        
+        var yearItems = [Item]()
+        let (_, _, year) = CalendarHelper().componentsByDate(date)
+        
+        self.items.forEach { (item) in
+            let (_, _, item_year) = CalendarHelper().componentsByDate(item.date)
+            if item_year == year {
+                yearItems.append(item)
+            }
+        }
+        
+        
+        for month in 1...12 {
+            var categorisedItems = [ItemCategoryType:[Item]]()
+            
+            //FIRSTLY, FILTER ALL ITEMS IN YEAR BY CURRENT MONTH
+            let itemsInMonth = yearItems.filter( { (item) in
+                let (_, item_month, _) = CalendarHelper().componentsByDate(item.date)
+                return item_month == month
+            })
+            
+            for category in ItemCategoryType.all {
+                //SECONDLY, GET ITEMS IN CURRENT MONTH, FILTERED BY CURRENT CATEGORY
+                let monthItemsByCategory = itemsInMonth.filter { (item) in
+                    return item.categoryType == category
+                }
+                //SET FILTERED ITEMS IN DICTIONARY FOR KEY CURRENT CATEGORY
+                categorisedItems[category] = monthItemsByCategory
+            }
+            //APPEND DICTIONARY OF CATEGORIES(KEYS) AND ITEMS(VALUES) FOR CURRENT MONTH
+            items.append(categorisedItems)
+        }
+        
         return items
     }
     
@@ -225,6 +283,15 @@ enum ItemType: String {
     case savings = "savings"
 }
 
+enum ItemCategoryType: String {
+    case housing = "Housing"
+    case grocery = "Grocery"
+    case others = "Other"
+    case none = "none"
+    
+    static let all = [housing, grocery, others]
+}
+
 class Item: Object {
     @objc dynamic var id: String = UUID().uuidString
 //    @objc dynamic var userId: String = "" // User().id
@@ -234,12 +301,18 @@ class Item: Object {
     @objc dynamic var descrpt: String = ""
     @objc dynamic var amount: Double = 0.0
     @objc dynamic var currency: String = ""
-    @objc dynamic var category: String = ""
     
-    @objc dynamic private var type: String = ""
-    public var itemType: ItemType = .outcome {
-        didSet {
-            type = itemType.rawValue
+    @objc dynamic var category: String = ""
+    public dynamic var categoryType: ItemCategoryType {
+        get {
+            return ItemCategoryType(rawValue: self.category) ?? .none
+        }
+    }
+    
+    @objc dynamic var type: String = ""
+    public dynamic var itemType: ItemType {
+        get {
+            return ItemType(rawValue: type) ?? .outcome
         }
     }
     
@@ -255,13 +328,13 @@ class Item: Object {
          amount: Double,
          date: Date) {
         self.date = date
-        self.itemType = .savings
+        self.type = ItemType.savings.rawValue
         self.isIncome = isIncome
         self.name = "default string for savings type"
         self.descrpt = ""
         self.amount = amount
         self.currency = "default currency"
-        self.category = "none"
+        self.category = ItemCategoryType.none.rawValue
     }
     
     init(type:ItemType,
@@ -269,15 +342,15 @@ class Item: Object {
          description: String,
          amount: Double,
          currency: String,
-         category: String,
+         category:ItemCategoryType,
          date: Date) {
         self.date = date
-        self.itemType = type
+        self.type = type.rawValue
         self.name = name
         self.descrpt = description
         self.amount = amount
         self.currency = currency
-        self.category = category
+        self.category = category.rawValue
     }
 }
 

@@ -30,7 +30,10 @@
 		554DA28528B8CA8E0026FF25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 554DA28328B8CA8E0026FF25 /* LaunchScreen.storyboard */; };
 		5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5576F63B28C4F77200C6CED3 /* ListTableViewCell.swift */; };
 		5576F63E28C4F77200C6CED3 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */; };
+		55777AE329699A83002B0000 /* StatisticsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55777AE129699A83002B0000 /* StatisticsViewCell.swift */; };
+		55777AE429699A83002B0000 /* StatisticsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55777AE229699A83002B0000 /* StatisticsViewCell.xib */; };
 		559A8E98293BC3FF0041971E /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A8E97293BC3FF0041971E /* TabbarViewController.swift */; };
+		559D36EC2969B36400B75D8C /* MainGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559D36EB2969B36400B75D8C /* MainGradientView.swift */; };
 		55B19C29294383E800C2BC69 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B19C27294383E800C2BC69 /* CalendarCell.swift */; };
 		55B19C2A294383E800C2BC69 /* CalendarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B19C28294383E800C2BC69 /* CalendarCell.xib */; };
 		55B19C2C2943843000C2BC69 /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B19C2B2943843000C2BC69 /* CalendarHelper.swift */; };
@@ -70,7 +73,10 @@
 		554DA28628B8CA8E0026FF25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5576F63B28C4F77200C6CED3 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
+		55777AE129699A83002B0000 /* StatisticsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewCell.swift; sourceTree = "<group>"; };
+		55777AE229699A83002B0000 /* StatisticsViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsViewCell.xib; sourceTree = "<group>"; };
 		559A8E97293BC3FF0041971E /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
+		559D36EB2969B36400B75D8C /* MainGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGradientView.swift; sourceTree = "<group>"; };
 		55B19C27294383E800C2BC69 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		55B19C28294383E800C2BC69 /* CalendarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarCell.xib; sourceTree = "<group>"; };
 		55B19C2B2943843000C2BC69 /* CalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
@@ -129,6 +135,7 @@
 		5501E14E28B8EB3100C486D3 /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
+				55777AE029699A4C002B0000 /* StatisticsViewCell */,
 				5501E15F28B8F07000C486D3 /* StatisticsViewController.swift */,
 			);
 			path = Statistics;
@@ -165,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				55CD255328D7A57400B50EC5 /* MainTextField.swift */,
+				559D36EB2969B36400B75D8C /* MainGradientView.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -295,6 +303,15 @@
 			path = Old;
 			sourceTree = "<group>";
 		};
+		55777AE029699A4C002B0000 /* StatisticsViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				55777AE129699A83002B0000 /* StatisticsViewCell.swift */,
+				55777AE229699A83002B0000 /* StatisticsViewCell.xib */,
+			);
+			path = StatisticsViewCell;
+			sourceTree = "<group>";
+		};
 		559A8E96293BC3C30041971E /* TabbarViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -411,6 +428,7 @@
 				55B19C2A294383E800C2BC69 /* CalendarCell.xib in Resources */,
 				553DBFB528B937900030E6C4 /* ListItemCell.xib in Resources */,
 				553DBFAE28B930B30030E6C4 /* Images.xcassets in Resources */,
+				55777AE429699A83002B0000 /* StatisticsViewCell.xib in Resources */,
 				554DA28528B8CA8E0026FF25 /* LaunchScreen.storyboard in Resources */,
 				554DA28028B8CA8A0026FF25 /* Main.storyboard in Resources */,
 			);
@@ -481,10 +499,12 @@
 				55F2F9B528C3C4BB00D3BE48 /* ListTextField.swift in Sources */,
 				55CD255428D7A57400B50EC5 /* MainTextField.swift in Sources */,
 				5501E16228B8F07C00C486D3 /* SettingsViewController.swift in Sources */,
+				55777AE329699A83002B0000 /* StatisticsViewCell.swift in Sources */,
 				554DA27B28B8CA8A0026FF25 /* SceneDelegate.swift in Sources */,
 				55E95CEE290EDCCC00C2E4BD /* PreferencesStorage.swift in Sources */,
 				55E95CF0290F042E00C2E4BD /* CurrencyConverter.swift in Sources */,
 				5501E16028B8F07000C486D3 /* StatisticsViewController.swift in Sources */,
+				559D36EC2969B36400B75D8C /* MainGradientView.swift in Sources */,
 				5501E15C28B8F04600C486D3 /* ListViewController_First.swift in Sources */,
 				55B5D01028D7649D00B8A9C9 /* ItemFormViewController.swift in Sources */,
 				553F40D128C4E8BF0056760C /* ListViewController.swift in Sources */,

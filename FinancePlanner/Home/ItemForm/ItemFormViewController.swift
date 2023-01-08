@@ -14,7 +14,10 @@ class ItemFormViewController: UIViewController {
     
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var descriptionField: UITextField!
+    
     @IBOutlet weak var categoryField: UITextField!
+    @IBOutlet weak var categoryButton: UIButton!
+    
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var currencyButton: UIButton!
@@ -31,11 +34,22 @@ class ItemFormViewController: UIViewController {
         
         addKeyboardRecognizer()
         
-        categoryField.text = "Other"
-        
         formBackground.layer.cornerRadius = 16
         saveButton.layer.cornerRadius = 8
         
+        setCurrenciesView()
+        setCategoriesView()
+        
+        if let item = currItem {
+            nameField.text = item.name
+            descriptionField.text = item.descrpt
+            categoryField.text = item.category
+            amountField.text = format(item.amount)
+            currencyLabel.text = currencies.first(where: {$0.name == item.currency})?.name
+        }
+    }
+    
+    func setCurrenciesView() {
         var currenciesActions = [UIAction]()
         for currency in currencies {
             currenciesActions.append(UIAction(title: currency.name, image: nil) { (action) in
@@ -48,13 +62,20 @@ class ItemFormViewController: UIViewController {
         
         let currency = currencies.first(where: {$0.isDefault})
         currencyLabel.text = currency?.name
-        if let item = currItem {
-            nameField.text = item.name
-            descriptionField.text = item.descrpt
-            categoryField.text = item.category
-            amountField.text = format(item.amount)
-            currencyLabel.text = currencies.first(where: {$0.name == item.currency})?.name
+    }
+    
+    func setCategoriesView() {
+        var categoriesActions = [UIAction]()
+        for category in ItemCategoryType.all {
+            categoriesActions.append(UIAction(title: category.rawValue, image: nil) { (action) in
+                self.categoryField.text = action.title
+            })
         }
+        let menu = UIMenu(title: "", options: .displayInline, children: categoriesActions)
+        categoryButton.menu = menu
+        categoryButton.showsMenuAsPrimaryAction = true
+        
+        categoryField.text = ItemCategoryType.others.rawValue
     }
     
     @IBAction func saveClicked(_ sender: Any) {
@@ -75,7 +96,7 @@ class ItemFormViewController: UIViewController {
                         description: descriptionField.text ?? "",
                         amount: amount,
                         currency: currencyLabel.text ?? "",
-                        category: categoryField.text ?? "",
+                        category: ItemCategoryType(rawValue: categoryField.text ?? "") ?? .none,
                         date: UIManager.shared.getHomePageDate())
         if let _item = self.currItem {
             let amountForUpdate = item.amount - _item.amount
