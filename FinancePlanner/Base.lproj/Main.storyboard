@@ -524,8 +524,32 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ztk-Ua-tUm" customClass="MainGradientView" customModule="FinancePlanner" customModuleProvider="target">
+                                <rect key="frame" x="12" y="110" width="390" height="294"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="radius">
+                                        <real key="value" value="18"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b7u-tv-sJs">
+                                <rect key="frame" x="12" y="110" width="390" height="294"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No items for selected date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnz-c2-jU9">
+                                        <rect key="frame" x="51" y="130" width="288" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gNE-1k-d9t">
-                                <rect key="frame" x="10" y="110" width="390" height="294"/>
+                                <rect key="frame" x="12" y="110" width="390" height="294"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ip5-be-peZ">
@@ -609,17 +633,24 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kHA-ML-Zxw" userLabel="Carousel View" customClass="StatisticsCarouselView" customModule="FinancePlanner" customModuleProvider="target">
+                                <rect key="frame" x="24" y="422" width="366" height="338"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="YaI-Zp-kTS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="statistics_image" id="cg1-bf-3qc"/>
                     <connections>
+                        <outlet property="carouselView" destination="kHA-ML-Zxw" id="Vkz-uU-M4x"/>
                         <outlet property="collectionView" destination="gNE-1k-d9t" id="Rq3-N5-dPr"/>
                         <outlet property="dateButton" destination="xgX-sq-Q2l" id="4t2-hZ-eRY"/>
                         <outlet property="dateLabel" destination="syE-5o-Wkc" id="J0h-hz-WUg"/>
                         <outlet property="datePicker" destination="V6L-0b-Dxh" id="kSJ-Be-uSK"/>
                         <outlet property="datePickerView" destination="Fzl-Kc-Fbz" id="K2n-Ru-pH4"/>
+                        <outlet property="emptyCollectionView" destination="b7u-tv-sJs" id="Xnr-Vw-zj1"/>
                         <outlet property="frequencyButton" destination="kfi-un-gW3" id="YgV-QE-qpE"/>
                         <outlet property="frequencyLabel" destination="1a1-Mt-R0D" id="od2-of-CG0"/>
                     </connections>

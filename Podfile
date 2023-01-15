@@ -7,5 +7,6 @@ target 'FinancePlanner' do
 
   # Pods for FinancePlanner
   pod 'RealmSwift'
-
+  pod 'Charts', '~> 4.1'
+  
 end

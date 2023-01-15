@@ -32,6 +32,11 @@
 		5576F63E28C4F77200C6CED3 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */; };
 		55777AE329699A83002B0000 /* StatisticsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55777AE129699A83002B0000 /* StatisticsViewCell.swift */; };
 		55777AE429699A83002B0000 /* StatisticsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55777AE229699A83002B0000 /* StatisticsViewCell.xib */; };
+		557A6B2D297417F700D6F877 /* StatisticsViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557A6B2B297417F700D6F877 /* StatisticsViewHeader.swift */; };
+		557A6B2E297417F700D6F877 /* StatisticsViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557A6B2C297417F700D6F877 /* StatisticsViewHeader.xib */; };
+		557A6B312974327500D6F877 /* StatisticsCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557A6B302974327500D6F877 /* StatisticsCarouselView.swift */; };
+		557A6B332974328900D6F877 /* StatisticsCarouselView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557A6B322974328900D6F877 /* StatisticsCarouselView.xib */; };
+		557A6B3629744A0C00D6F877 /* PageIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557A6B3529744A0C00D6F877 /* PageIndicatorView.swift */; };
 		559A8E98293BC3FF0041971E /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A8E97293BC3FF0041971E /* TabbarViewController.swift */; };
 		559D36EC2969B36400B75D8C /* MainGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559D36EB2969B36400B75D8C /* MainGradientView.swift */; };
 		55B19C29294383E800C2BC69 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B19C27294383E800C2BC69 /* CalendarCell.swift */; };
@@ -75,6 +80,11 @@
 		5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
 		55777AE129699A83002B0000 /* StatisticsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewCell.swift; sourceTree = "<group>"; };
 		55777AE229699A83002B0000 /* StatisticsViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsViewCell.xib; sourceTree = "<group>"; };
+		557A6B2B297417F700D6F877 /* StatisticsViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewHeader.swift; sourceTree = "<group>"; };
+		557A6B2C297417F700D6F877 /* StatisticsViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsViewHeader.xib; sourceTree = "<group>"; };
+		557A6B302974327500D6F877 /* StatisticsCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsCarouselView.swift; sourceTree = "<group>"; };
+		557A6B322974328900D6F877 /* StatisticsCarouselView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsCarouselView.xib; sourceTree = "<group>"; };
+		557A6B3529744A0C00D6F877 /* PageIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIndicatorView.swift; sourceTree = "<group>"; };
 		559A8E97293BC3FF0041971E /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		559D36EB2969B36400B75D8C /* MainGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGradientView.swift; sourceTree = "<group>"; };
 		55B19C27294383E800C2BC69 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
@@ -135,6 +145,8 @@
 		5501E14E28B8EB3100C486D3 /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
+				557A6B2F2974324300D6F877 /* StatisticsCarouselView */,
+				557A6B2A2974174800D6F877 /* StatisticsViewHeader */,
 				55777AE029699A4C002B0000 /* StatisticsViewCell */,
 				5501E15F28B8F07000C486D3 /* StatisticsViewController.swift */,
 			);
@@ -312,6 +324,25 @@
 			path = StatisticsViewCell;
 			sourceTree = "<group>";
 		};
+		557A6B2A2974174800D6F877 /* StatisticsViewHeader */ = {
+			isa = PBXGroup;
+			children = (
+				557A6B2B297417F700D6F877 /* StatisticsViewHeader.swift */,
+				557A6B2C297417F700D6F877 /* StatisticsViewHeader.xib */,
+			);
+			path = StatisticsViewHeader;
+			sourceTree = "<group>";
+		};
+		557A6B2F2974324300D6F877 /* StatisticsCarouselView */ = {
+			isa = PBXGroup;
+			children = (
+				557A6B302974327500D6F877 /* StatisticsCarouselView.swift */,
+				557A6B322974328900D6F877 /* StatisticsCarouselView.xib */,
+				557A6B3529744A0C00D6F877 /* PageIndicatorView.swift */,
+			);
+			path = StatisticsCarouselView;
+			sourceTree = "<group>";
+		};
 		559A8E96293BC3C30041971E /* TabbarViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,7 +459,9 @@
 				55B19C2A294383E800C2BC69 /* CalendarCell.xib in Resources */,
 				553DBFB528B937900030E6C4 /* ListItemCell.xib in Resources */,
 				553DBFAE28B930B30030E6C4 /* Images.xcassets in Resources */,
+				557A6B2E297417F700D6F877 /* StatisticsViewHeader.xib in Resources */,
 				55777AE429699A83002B0000 /* StatisticsViewCell.xib in Resources */,
+				557A6B332974328900D6F877 /* StatisticsCarouselView.xib in Resources */,
 				554DA28528B8CA8E0026FF25 /* LaunchScreen.storyboard in Resources */,
 				554DA28028B8CA8A0026FF25 /* Main.storyboard in Resources */,
 			);
@@ -490,13 +523,16 @@
 				559A8E98293BC3FF0041971E /* TabbarViewController.swift in Sources */,
 				552AC2EC2905759B004B2AB7 /* ConverterViewController.swift in Sources */,
 				553DBFB428B937900030E6C4 /* ListItemCell.swift in Sources */,
+				557A6B312974327500D6F877 /* StatisticsCarouselView.swift in Sources */,
 				552AC2E929055F5C004B2AB7 /* SavingsEditFormViewController.swift in Sources */,
 				552AC2E629055A05004B2AB7 /* BalanceEditFormViewController.swift in Sources */,
 				5501E15E28B8F06100C486D3 /* CalendarViewController.swift in Sources */,
 				5504FC7A28CE199F009AA660 /* ItemViewCell.swift in Sources */,
 				552AC2EE2905819D004B2AB7 /* DataManager.swift in Sources */,
 				554DA27928B8CA8A0026FF25 /* AppDelegate.swift in Sources */,
+				557A6B3629744A0C00D6F877 /* PageIndicatorView.swift in Sources */,
 				55F2F9B528C3C4BB00D3BE48 /* ListTextField.swift in Sources */,
+				557A6B2D297417F700D6F877 /* StatisticsViewHeader.swift in Sources */,
 				55CD255428D7A57400B50EC5 /* MainTextField.swift in Sources */,
 				5501E16228B8F07C00C486D3 /* SettingsViewController.swift in Sources */,
 				55777AE329699A83002B0000 /* StatisticsViewCell.swift in Sources */,

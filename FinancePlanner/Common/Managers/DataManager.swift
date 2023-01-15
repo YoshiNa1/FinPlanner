@@ -99,26 +99,42 @@ class DataManager {
     }
 
 // Item
-    func getItemsBy(date: Date, frequency: StatisticsFrequency = .day) -> [Item] {
+    func getItemsBy(date: Date) -> [Item] { // FOR FREQUENCY TYPE DAY
         var items = [Item]()
+        self.items.forEach { (item) in
+            if CalendarHelper().isDate(date: item.date, equalTo: date) {
+                items.append(item)
+            }
+        }
+        return items
+    }
+    
+    func getMonthItemsBy(date: Date) -> [[Int:[Item]]] {  // FOR FREQUENCY TYPE MONTH
         
+        /* возвращать массив словарей. В нём столько элементов, сколько всего дней в месяце. Каждый элемент
+        массива хранит словарь, где ключ -- номер дня. Каждый день хранит массив айтемов с этим днём в этом месяце. */
+        
+        var items = [[Int:[Item]]]()
+        
+        var monthItems = [Item]()
         let (_, month, year) = CalendarHelper().componentsByDate(date)
-        
         self.items.forEach { (item) in
             let (_, item_month, item_year) = CalendarHelper().componentsByDate(item.date)
-            
-            switch frequency {
-            case .day:
-                if CalendarHelper().isDate(date: item.date, equalTo: date) {
-                    items.append(item)
-                }
-            case .month:
-                if (item_month == month && item_year == year) {
-                    items.append(item)
-                }
-            default: // .year -- getYearItemsBy(date: Date) -> [Int: [ItemCategoryType:[Item]]]
-                break
+            if (item_month == month && item_year == year) {
+                monthItems.append(item)
             }
+        }
+        
+        for day in CalendarHelper().days(for: date) {
+            var sortedItems = [Int:[Item]]()
+            
+            let itemsInDay = monthItems.filter { (item) in
+                let (item_day, _, _) = CalendarHelper().componentsByDate(item.date)
+                return item_day == day
+            }
+            sortedItems[day] = itemsInDay
+            
+            items.append(sortedItems)
         }
         
         return items
@@ -226,7 +242,7 @@ class DataManager {
     }
     
 // Default Amount
-    private func getDefaultAmount(amount:Double, currency:String) -> Double {
+    func getDefaultAmount(amount:Double, currency:String) -> Double {
         var _amount: Double = 0
         let amountText = convertAmountToDefault(amount:amount, currency:currency, style: .none)
         let formatter = NumberFormatter()
@@ -333,7 +349,7 @@ class Item: Object {
         self.name = "default string for savings type"
         self.descrpt = ""
         self.amount = amount
-        self.currency = "default currency"
+        self.currency = PreferencesStorage.shared.currencies.first(where: {$0.isDefault})?.name ?? ""
         self.category = ItemCategoryType.none.rawValue
     }
     
@@ -350,6 +366,15 @@ class Item: Object {
         self.descrpt = description
         self.amount = amount
         self.currency = currency
+        self.category = category.rawValue
+    }
+    
+    init(amount: Double,
+         category: ItemCategoryType,
+         date: Date) {
+        self.date = date
+        self.amount = amount
+        self.currency = PreferencesStorage.shared.currencies.first(where: {$0.isDefault})?.name ?? ""
         self.category = category.rawValue
     }
 }

@@ -96,7 +96,7 @@ class CalendarHelper {
         return calendar.date(from: dateComponents)!
     }
  
-    func dateByComponents(day: Int = 1, month: Int = 1, year: Int, date: Date) -> Date {
+    func dateByComponents(day: Int = 1, month: Int = 1, year: Int, date: Date) -> Date { // def value must be 1, don't change
         var dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
         dateComponents.day = day
         dateComponents.month = month

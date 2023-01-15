@@ -7,7 +7,9 @@
 
 import UIKit
 
-class MainGradientView : UIView {
+@IBDesignable class MainGradientView : UIView {
+    @IBInspectable var radius: CGFloat = 0.0
+    
     private lazy var gradient: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.type = .axial
@@ -25,6 +27,6 @@ class MainGradientView : UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         gradient.frame = bounds
-        gradient.cornerRadius = bounds.width / 2.0
+        gradient.cornerRadius = (radius == 0.0) ? bounds.width / 2.0 : radius
     }
 }
