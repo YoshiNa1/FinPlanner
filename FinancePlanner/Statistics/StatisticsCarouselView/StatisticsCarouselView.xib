@@ -57,7 +57,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fVe-1m-9T6">
-                    <rect key="frame" x="0.0" y="46" width="366" height="280"/>
+                    <rect key="frame" x="0.0" y="46" width="366" height="266"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <viewLayoutGuide key="contentLayoutGuide" id="I6d-tE-Thm"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="hJB-mb-Uxa"/>
@@ -65,6 +65,9 @@
                 <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="WPO-zI-7th">
                     <rect key="frame" x="125" y="312" width="116" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <connections>
+                        <action selector="pageControlDidTap:" destination="-1" eventType="valueChanged" id="VmU-cy-9I2"/>
+                    </connections>
                 </pageControl>
             </subviews>
             <viewLayoutGuide key="safeArea" id="EEH-jE-TPK"/>

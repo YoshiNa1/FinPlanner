@@ -183,6 +183,54 @@ class DataManager {
         return items
     }
     
+    
+    func getStatisticsItemsBy(date: Date, frequencyType: StatisticsFrequency, type: ItemType = .none) -> [ItemCategoryType:[Item]] {
+        /* на выходе массив словарей. В нём столько элементов, сколько всего категорий. Каждая категория содержит массив элементов */
+        
+        var items = [ItemCategoryType:[Item]]()
+        
+        var allItems = [Item]()
+        let (_, month, year) = CalendarHelper().componentsByDate(date)
+        
+        switch frequencyType {
+        case .day:
+            var dayItems = [Item]()
+            self.items.forEach { (item) in
+                if CalendarHelper().isDate(date: item.date, equalTo: date) {
+                    dayItems.append(item)
+                }
+            }
+            allItems = dayItems
+        case .month:
+            var monthItems = [Item]()
+            self.items.forEach { (item) in
+                let (_, item_month, item_year) = CalendarHelper().componentsByDate(date)
+                if (item_month == month && item_year == year) {
+                    monthItems.append(item)
+                }
+            }
+            allItems = monthItems
+        case .year:
+            var yearItems = [Item]()
+            self.items.forEach { (item) in
+                let (_, _, item_year) = CalendarHelper().componentsByDate(date)
+                if item_year == year {
+                    yearItems.append(item)
+                }
+            }
+            allItems = yearItems
+        }
+        
+        for category in ItemCategoryType.all {
+            items[category] = allItems.filter({ (item) in
+                let typeSet = type == .none
+                return item.categoryType == category && (typeSet || item.itemType == type)
+            })
+        }
+        
+        return items
+    }
+    
     func add(item: Item) {
         try! self.realm.write({
             realm.add(item, update: .all)
@@ -297,6 +345,7 @@ enum ItemType: String {
     case income = "income"
     case outcome = "outcome"
     case savings = "savings"
+    case none = "none"
 }
 
 enum ItemCategoryType: String {

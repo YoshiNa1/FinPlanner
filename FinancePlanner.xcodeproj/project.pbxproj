@@ -47,6 +47,8 @@
 		55E95CEE290EDCCC00C2E4BD /* PreferencesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E95CED290EDCCC00C2E4BD /* PreferencesStorage.swift */; };
 		55E95CF0290F042E00C2E4BD /* CurrencyConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E95CEF290F042E00C2E4BD /* CurrencyConverter.swift */; };
 		55F2F9B528C3C4BB00D3BE48 /* ListTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F2F9B428C3C4BB00D3BE48 /* ListTextField.swift */; };
+		55F9989C2974687600A186D9 /* StatisticsPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F9989B2974687600A186D9 /* StatisticsPage.xib */; };
+		55F9989E2974690B00A186D9 /* StatisticsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9989D2974690B00A186D9 /* StatisticsPage.swift */; };
 		AFE2A65A664B65F0D6087ED5 /* Pods_FinancePlanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA7E4CADAED0B8B9C0F4060 /* Pods_FinancePlanner.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +97,8 @@
 		55E95CED290EDCCC00C2E4BD /* PreferencesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesStorage.swift; sourceTree = "<group>"; };
 		55E95CEF290F042E00C2E4BD /* CurrencyConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverter.swift; sourceTree = "<group>"; };
 		55F2F9B428C3C4BB00D3BE48 /* ListTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTextField.swift; sourceTree = "<group>"; };
+		55F9989B2974687600A186D9 /* StatisticsPage.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsPage.xib; sourceTree = "<group>"; };
+		55F9989D2974690B00A186D9 /* StatisticsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsPage.swift; sourceTree = "<group>"; };
 		A5B504AC8F7B236E3D0F3F15 /* Pods-FinancePlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinancePlanner.release.xcconfig"; path = "Target Support Files/Pods-FinancePlanner/Pods-FinancePlanner.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -339,6 +343,8 @@
 				557A6B302974327500D6F877 /* StatisticsCarouselView.swift */,
 				557A6B322974328900D6F877 /* StatisticsCarouselView.xib */,
 				557A6B3529744A0C00D6F877 /* PageIndicatorView.swift */,
+				55F9989B2974687600A186D9 /* StatisticsPage.xib */,
+				55F9989D2974690B00A186D9 /* StatisticsPage.swift */,
 			);
 			path = StatisticsCarouselView;
 			sourceTree = "<group>";
@@ -460,6 +466,7 @@
 				553DBFB528B937900030E6C4 /* ListItemCell.xib in Resources */,
 				553DBFAE28B930B30030E6C4 /* Images.xcassets in Resources */,
 				557A6B2E297417F700D6F877 /* StatisticsViewHeader.xib in Resources */,
+				55F9989C2974687600A186D9 /* StatisticsPage.xib in Resources */,
 				55777AE429699A83002B0000 /* StatisticsViewCell.xib in Resources */,
 				557A6B332974328900D6F877 /* StatisticsCarouselView.xib in Resources */,
 				554DA28528B8CA8E0026FF25 /* LaunchScreen.storyboard in Resources */,
@@ -527,6 +534,7 @@
 				552AC2E929055F5C004B2AB7 /* SavingsEditFormViewController.swift in Sources */,
 				552AC2E629055A05004B2AB7 /* BalanceEditFormViewController.swift in Sources */,
 				5501E15E28B8F06100C486D3 /* CalendarViewController.swift in Sources */,
+				55F9989E2974690B00A186D9 /* StatisticsPage.swift in Sources */,
 				5504FC7A28CE199F009AA660 /* ItemViewCell.swift in Sources */,
 				552AC2EE2905819D004B2AB7 /* DataManager.swift in Sources */,
 				554DA27928B8CA8A0026FF25 /* AppDelegate.swift in Sources */,
