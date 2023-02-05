@@ -57,8 +57,7 @@ class SavingsEditFormViewController: UIViewController {
         button.menu = menu
         button.showsMenuAsPrimaryAction = true
         
-        let currency = currencies.first(where: {$0.isDefault})
-        label.text = currency?.name
+        label.text = PreferencesStorage.shared.defaultCurrency?.name
     }
     
     @IBAction func saveClicked(_ sender: Any) {

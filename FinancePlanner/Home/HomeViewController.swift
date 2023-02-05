@@ -47,7 +47,7 @@ class HomeViewController: UIViewController, ItemViewCellDelegate {
     func updateUI() {
         self.items = DataManager.instance.getItemsBy(date: date)
         
-        let defaultCurrency = PreferencesStorage.shared.currencies.first(where: {$0.isDefault})?.name ?? ""
+        let defaultCurrency = PreferencesStorage.shared.defaultCurrency?.name ?? ""
         let defSymbol = ConvCurrency.symbol(for: defaultCurrency)
         if let account = self.account {
             balanceLabel.text = "\(UIManager.shared.format(amount:account.balance))\(defSymbol)"
@@ -56,13 +56,13 @@ class HomeViewController: UIViewController, ItemViewCellDelegate {
         collectionView.reloadData()
         
         // FOR TEST
-        PreferencesStorage.shared.clearSettings()
-        PreferencesStorage.shared.currencies = [Currency(name: "USD"),
-                                                Currency(name: "UAH", isDefault: true),
-                                                Currency(name: "EUR")]
-        for currency in PreferencesStorage.shared.currencies {
-            print(currency.name)
-        }
+//        PreferencesStorage.shared.clearSettings()
+//        PreferencesStorage.shared.currencies = [Currency(name: "USD"),
+//                                                Currency(name: "UAH", isDefault: true),
+//                                                Currency(name: "EUR")]
+//        for currency in PreferencesStorage.shared.currencies {
+//            print(currency.name)
+//        }
     }
     
     

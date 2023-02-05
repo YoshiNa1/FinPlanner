@@ -19,7 +19,7 @@ class StatisticsViewCell: UICollectionViewCell {
     
     var frequencyType: StatisticsFrequency = .day
     
-    let defaultCurrency = PreferencesStorage.shared.currencies.first(where: {$0.isDefault})?.name ?? ""
+    let defaultCurrency = PreferencesStorage.shared.defaultCurrency?.name ?? ""
     
     override init(frame: CGRect) {
         super.init(frame: frame)

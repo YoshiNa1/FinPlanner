@@ -11,7 +11,7 @@ import RealmSwift
 class DataManager {
     let realm = try! Realm()
     
-    let defaultCurrency = PreferencesStorage.shared.currencies.first(where: {$0.isDefault})?.name ?? ""
+    let defaultCurrency = PreferencesStorage.shared.defaultCurrency?.name ?? ""
     
     var account: Account!
     var items : Results<Item>!
@@ -183,11 +183,8 @@ class DataManager {
         return items
     }
     
-    
-    func getStatisticsItemsBy(date: Date, frequencyType: StatisticsFrequency, type: ItemType = .none) -> [ItemCategoryType:[Item]] {
-        /* на выходе массив словарей. В нём столько элементов, сколько всего категорий. Каждая категория содержит массив элементов */
-        
-        var items = [ItemCategoryType:[Item]]()
+    func getStatisticsItemsBy(date: Date, frequencyType: StatisticsFrequency, type: ItemType = .none) -> [String:[Item]] {
+        var items = [String:[Item]]()
         
         var allItems = [Item]()
         let (_, month, year) = CalendarHelper().componentsByDate(date)
@@ -204,7 +201,7 @@ class DataManager {
         case .month:
             var monthItems = [Item]()
             self.items.forEach { (item) in
-                let (_, item_month, item_year) = CalendarHelper().componentsByDate(date)
+                let (_, item_month, item_year) = CalendarHelper().componentsByDate(item.date)
                 if (item_month == month && item_year == year) {
                     monthItems.append(item)
                 }
@@ -213,7 +210,7 @@ class DataManager {
         case .year:
             var yearItems = [Item]()
             self.items.forEach { (item) in
-                let (_, _, item_year) = CalendarHelper().componentsByDate(date)
+                let (_, _, item_year) = CalendarHelper().componentsByDate(item.date)
                 if item_year == year {
                     yearItems.append(item)
                 }
@@ -221,10 +218,21 @@ class DataManager {
             allItems = yearItems
         }
         
-        for category in ItemCategoryType.all {
-            items[category] = allItems.filter({ (item) in
-                let typeSet = type == .none
-                return item.categoryType == category && (typeSet || item.itemType == type)
+        if type != .none {
+            /* на выходе массив словарей. В нём столько элементов, сколько всего категорий.
+             Каждая категория содержит массив элементов */
+            for category in ItemCategoryType.all {
+                items[category.rawValue] = allItems.filter({ (item) in
+                    return item.categoryType == category && item.itemType == type
+                })
+            }
+        } else {
+            /* на выходе два элемента в словаре. 1. key: expenses, value: [Item]; 2. key: incomes, value: [Item]. */
+            items["Expenses"] = allItems.filter({ (item) in
+                return item.itemType == .outcome
+            })
+            items["Incomes"] = allItems.filter({ (item) in
+                return item.itemType == .income
             })
         }
         
@@ -398,7 +406,7 @@ class Item: Object {
         self.name = "default string for savings type"
         self.descrpt = ""
         self.amount = amount
-        self.currency = PreferencesStorage.shared.currencies.first(where: {$0.isDefault})?.name ?? ""
+        self.currency = PreferencesStorage.shared.defaultCurrency?.name ?? ""
         self.category = ItemCategoryType.none.rawValue
     }
     
@@ -423,7 +431,7 @@ class Item: Object {
          date: Date) {
         self.date = date
         self.amount = amount
-        self.currency = PreferencesStorage.shared.currencies.first(where: {$0.isDefault})?.name ?? ""
+        self.currency = PreferencesStorage.shared.defaultCurrency?.name ?? ""
         self.category = category.rawValue
     }
 }

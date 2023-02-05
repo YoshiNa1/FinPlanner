@@ -176,8 +176,8 @@ class StatisticsViewController: UIViewController {
         
         self.collectionView.reloadData()
         
-        self.carouselView.date = selectedDate
         self.carouselView.frequencyType = frequencyType
+        self.carouselView.date = selectedDate
     }
     
     func createYearItem(with items: [Item]) -> Item {

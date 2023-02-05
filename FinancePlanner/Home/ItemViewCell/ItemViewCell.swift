@@ -22,7 +22,7 @@ class ItemViewCell: UICollectionViewCell {
     var model = Item()
     var delegate: ItemViewCellDelegate?
     
-    let defaultCurrency = PreferencesStorage.shared.currencies.first(where: {$0.isDefault})?.name ?? ""
+    let defaultCurrency = PreferencesStorage.shared.defaultCurrency?.name ?? ""
     
     override init(frame: CGRect) {
         super.init(frame: frame)

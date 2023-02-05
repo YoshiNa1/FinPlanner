@@ -39,8 +39,7 @@ class BalanceEditFormViewController: UIViewController {
         currencyButton.menu = menu
         currencyButton.showsMenuAsPrimaryAction = true
         
-        let currency = currencies.first(where: {$0.isDefault})
-        currencyLabel.text = currency?.name
+        currencyLabel.text = PreferencesStorage.shared.defaultCurrency?.name
     }
 
     @IBAction func saveClicked(_ sender: Any) {

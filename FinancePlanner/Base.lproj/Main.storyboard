@@ -1234,8 +1234,12 @@
                     </view>
                     <connections>
                         <outlet property="closeButton" destination="xhD-wg-vKm" id="iSr-FM-gmM"/>
+                        <outlet property="firstBtn" destination="h1K-XU-SBy" id="gbx-tE-ayk"/>
                         <outlet property="firstField" destination="NCV-ih-t64" id="TwN-sB-4BG"/>
+                        <outlet property="firstLbl" destination="tmy-QI-hWm" id="0Nd-PA-ODA"/>
+                        <outlet property="secondBtn" destination="XoM-2d-xVi" id="Uyg-YD-Vb5"/>
                         <outlet property="secondField" destination="zio-wH-9qc" id="s2g-jy-DFh"/>
+                        <outlet property="secondLbl" destination="rtX-1c-mQV" id="jJP-3t-Uml"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qku-vt-ton" sceneMemberID="firstResponder"/>

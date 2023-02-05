@@ -12,6 +12,10 @@ class PreferencesStorage {
     static let shared = PreferencesStorage()
     private init() {}
     
+    var defaultCurrency: Currency? {
+        get { PreferencesStorage.shared.currencies.first(where: {$0.isDefault}) }
+    }
+    
     var currencies: Array<Currency> {
         set {
             do {
