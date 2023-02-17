@@ -11,29 +11,48 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var logoutView: UIView!
     @IBOutlet weak var emailLabel: UILabel!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        setupLogoutView()
+    @IBOutlet weak var addButton: UIButton!
+    
+    @IBOutlet var tableHeight: NSLayoutConstraint!
+    
+    private var currencyTableVC: CurrencyTableViewController!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updateUI()
     }
     
-    func setupLogoutView() {
-        logoutView.backgroundColor = .clear
-        let gradient = CAGradientLayer()
-        gradient.type = .axial
-        gradient.colors = [
-            UIColor(named: "MainGradient_StartColor")?.cgColor ?? UIColor.white.cgColor,
-            UIColor(named: "MainGradient_EndColor")?.cgColor ?? UIColor.white.cgColor
-        ]
-        gradient.startPoint = CGPoint(x: 0, y: 0)
-        gradient.endPoint = CGPoint(x: 1, y: 1)
-        gradient.frame = logoutView.bounds
-        gradient.cornerRadius = 35
-        logoutView.layer.insertSublayer(gradient, at: 0)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        UIManager.shared.setupSettingsPage(self)
+        
+        self.updateUI()
+    }
+    
+    public func updateUI() {
+        self.currencyTableVC.updateUI()
+        viewWillLayoutSubviews()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.updateViewConstraints()
+        
+        self.tableHeight?.constant = self.currencyTableVC.tableView.contentSize.height
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? CurrencyTableViewController, segue.identifier == "currencyTableVC" {
+            self.currencyTableVC = vc
+        }
     }
     
     @IBAction func logoutClicked(_ sender: Any) {
-        
+        // AuthManager.instance.logout()
+    }
+    
+    @IBAction func didAddNewCurrency(_ sender: Any) {
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ConvCurrencyList")
+        present(vc, animated: true)
     }
     
 }

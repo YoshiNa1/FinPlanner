@@ -55,4 +55,12 @@ class Currency : Codable {
         self.name = name
         self.isDefault = isDefault
     }
+    
+    init(convCurrency: ConvCurrency) {
+        self.name = convCurrency.rawValue
+    }
+    
+    func getConvCurrency() -> ConvCurrency {
+        return ConvCurrency(rawValue: self.name) ?? .none
+    }
 }

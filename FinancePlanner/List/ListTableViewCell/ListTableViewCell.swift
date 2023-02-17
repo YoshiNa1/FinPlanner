@@ -26,6 +26,7 @@ class ListTableViewCell: UITableViewCell {
     }
     
     func configureCell(with data: String) {
+        //TODO: убрать <done>
         let attributedString = NSMutableAttributedString(string: data.replacingOccurrences(of: "<done>", with: ""), attributes: nil)
         if data.contains("<done>") {
             attributedString.addAttribute(.strikethroughStyle, value: 1, range: NSRange(location: 0, length: attributedString.length))

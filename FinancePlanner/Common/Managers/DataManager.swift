@@ -27,10 +27,10 @@ class DataManager {
             try! self.realm.write {
                 if let list = self.realm.objects(ListItems.self).first {
                     self.realm.delete(list)
-                    let newList = ListItems()
-                    newList.items.append(objectsIn: newValue)
-                    self.realm.add(newList)
                 }
+                let newList = ListItems()
+                newList.items.append(objectsIn: newValue)
+                self.realm.add(newList)
             }
         }
     }

@@ -22,8 +22,6 @@ class ItemViewCell: UICollectionViewCell {
     var model = Item()
     var delegate: ItemViewCellDelegate?
     
-    let defaultCurrency = PreferencesStorage.shared.defaultCurrency?.name ?? ""
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -67,6 +65,8 @@ class ItemViewCell: UICollectionViewCell {
         
         let amountFormatted = UIManager.shared.format(amount: model.amount)
         var amountString = "\(amountFormatted)\(ConvCurrency.symbol(for: model.currency))"
+       
+        let defaultCurrency = PreferencesStorage.shared.defaultCurrency?.name ?? ""
         let isDefaultCurrency = model.currency == defaultCurrency
         if(!isDefaultCurrency) {
             let defAmountString = DataManager.instance.convertAmountToDefault(amount: model.amount, currency: model.currency)

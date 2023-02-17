@@ -28,6 +28,11 @@ class HomeViewController: UIViewController, ItemViewCellDelegate {
     var items = [Item]()
     var account: Account? = DataManager.instance.account
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateUI()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UIManager.shared.setupHomePage(self)

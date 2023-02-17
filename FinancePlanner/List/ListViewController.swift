@@ -82,6 +82,8 @@ class ListViewController: UIViewController {
                 let item = DataManager.instance.listItem(at: index)
 
                 var newItem = item
+                
+                // TODO: перенести всё <done> в dataManager. Создать флаг isDone.
                 if item.contains("<done>") {
                     newItem = item.replacingOccurrences(of:"<done>", with:"")
                 } else {

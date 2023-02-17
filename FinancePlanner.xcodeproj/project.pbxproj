@@ -32,6 +32,7 @@
 		5576F63E28C4F77200C6CED3 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */; };
 		55777AE329699A83002B0000 /* StatisticsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55777AE129699A83002B0000 /* StatisticsViewCell.swift */; };
 		55777AE429699A83002B0000 /* StatisticsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55777AE229699A83002B0000 /* StatisticsViewCell.xib */; };
+		55783C3229992127008BC446 /* CurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55783C3129992127008BC446 /* CurrencyTableViewController.swift */; };
 		557A6B2D297417F700D6F877 /* StatisticsViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557A6B2B297417F700D6F877 /* StatisticsViewHeader.swift */; };
 		557A6B2E297417F700D6F877 /* StatisticsViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557A6B2C297417F700D6F877 /* StatisticsViewHeader.xib */; };
 		557A6B312974327500D6F877 /* StatisticsCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557A6B302974327500D6F877 /* StatisticsCarouselView.swift */; };
@@ -42,7 +43,10 @@
 		55B19C29294383E800C2BC69 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B19C27294383E800C2BC69 /* CalendarCell.swift */; };
 		55B19C2A294383E800C2BC69 /* CalendarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B19C28294383E800C2BC69 /* CalendarCell.xib */; };
 		55B19C2C2943843000C2BC69 /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B19C2B2943843000C2BC69 /* CalendarHelper.swift */; };
+		55B34964299FDE1D00DA3BEA /* ConvCurrencyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B34963299FDE1D00DA3BEA /* ConvCurrencyListViewController.swift */; };
 		55B5D01028D7649D00B8A9C9 /* ItemFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B5D00F28D7649D00B8A9C9 /* ItemFormViewController.swift */; };
+		55B7DA3E29982176001586CC /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7DA3C29982176001586CC /* CurrencyTableViewCell.swift */; };
+		55B7DA3F29982176001586CC /* CurrencyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B7DA3D29982176001586CC /* CurrencyTableViewCell.xib */; };
 		55CD255428D7A57400B50EC5 /* MainTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CD255328D7A57400B50EC5 /* MainTextField.swift */; };
 		55E95CEE290EDCCC00C2E4BD /* PreferencesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E95CED290EDCCC00C2E4BD /* PreferencesStorage.swift */; };
 		55E95CF0290F042E00C2E4BD /* CurrencyConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E95CEF290F042E00C2E4BD /* CurrencyConverter.swift */; };
@@ -82,6 +86,7 @@
 		5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
 		55777AE129699A83002B0000 /* StatisticsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewCell.swift; sourceTree = "<group>"; };
 		55777AE229699A83002B0000 /* StatisticsViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsViewCell.xib; sourceTree = "<group>"; };
+		55783C3129992127008BC446 /* CurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewController.swift; sourceTree = "<group>"; };
 		557A6B2B297417F700D6F877 /* StatisticsViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewHeader.swift; sourceTree = "<group>"; };
 		557A6B2C297417F700D6F877 /* StatisticsViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsViewHeader.xib; sourceTree = "<group>"; };
 		557A6B302974327500D6F877 /* StatisticsCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsCarouselView.swift; sourceTree = "<group>"; };
@@ -92,7 +97,10 @@
 		55B19C27294383E800C2BC69 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		55B19C28294383E800C2BC69 /* CalendarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarCell.xib; sourceTree = "<group>"; };
 		55B19C2B2943843000C2BC69 /* CalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
+		55B34963299FDE1D00DA3BEA /* ConvCurrencyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvCurrencyListViewController.swift; sourceTree = "<group>"; };
 		55B5D00F28D7649D00B8A9C9 /* ItemFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFormViewController.swift; sourceTree = "<group>"; };
+		55B7DA3C29982176001586CC /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
+		55B7DA3D29982176001586CC /* CurrencyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyTableViewCell.xib; sourceTree = "<group>"; };
 		55CD255328D7A57400B50EC5 /* MainTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTextField.swift; sourceTree = "<group>"; };
 		55E95CED290EDCCC00C2E4BD /* PreferencesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesStorage.swift; sourceTree = "<group>"; };
 		55E95CEF290F042E00C2E4BD /* CurrencyConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverter.swift; sourceTree = "<group>"; };
@@ -162,7 +170,6 @@
 			children = (
 				55B19C26294383C100C2BC69 /* CalendarCell */,
 				5501E15D28B8F06100C486D3 /* CalendarViewController.swift */,
-				55B19C2B2943843000C2BC69 /* CalendarHelper.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -172,7 +179,7 @@
 			children = (
 				5501E15428B8EE0900C486D3 /* Managers */,
 				5501E15328B8EDEB00C486D3 /* Extensions */,
-				5501E15228B8EDC700C486D3 /* Controls */,
+				5501E15228B8EDC700C486D3 /* UI */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -184,13 +191,16 @@
 			path = Localizations;
 			sourceTree = "<group>";
 		};
-		5501E15228B8EDC700C486D3 /* Controls */ = {
+		5501E15228B8EDC700C486D3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				55B34962299FDC7900DA3BEA /* ConvCurrencyList */,
+				559546ED29992D3A00DD5473 /* CurrenciesTableView_Defaults */,
+				55B7DA3B29982130001586CC /* CurrencyTableViewCell */,
 				55CD255328D7A57400B50EC5 /* MainTextField.swift */,
 				559D36EB2969B36400B75D8C /* MainGradientView.swift */,
 			);
-			path = Controls;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		5501E15328B8EDEB00C486D3 /* Extensions */ = {
@@ -207,6 +217,7 @@
 				552AC2ED2905819D004B2AB7 /* DataManager.swift */,
 				55E95CED290EDCCC00C2E4BD /* PreferencesStorage.swift */,
 				55E95CEF290F042E00C2E4BD /* CurrencyConverter.swift */,
+				55B19C2B2943843000C2BC69 /* CalendarHelper.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -349,6 +360,14 @@
 			path = StatisticsCarouselView;
 			sourceTree = "<group>";
 		};
+		559546ED29992D3A00DD5473 /* CurrenciesTableView_Defaults */ = {
+			isa = PBXGroup;
+			children = (
+				55783C3129992127008BC446 /* CurrencyTableViewController.swift */,
+			);
+			path = CurrenciesTableView_Defaults;
+			sourceTree = "<group>";
+		};
 		559A8E96293BC3C30041971E /* TabbarViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -366,12 +385,29 @@
 			path = CalendarCell;
 			sourceTree = "<group>";
 		};
+		55B34962299FDC7900DA3BEA /* ConvCurrencyList */ = {
+			isa = PBXGroup;
+			children = (
+				55B34963299FDE1D00DA3BEA /* ConvCurrencyListViewController.swift */,
+			);
+			path = ConvCurrencyList;
+			sourceTree = "<group>";
+		};
 		55B5D00E28D7646000B8A9C9 /* ItemForm */ = {
 			isa = PBXGroup;
 			children = (
 				55B5D00F28D7649D00B8A9C9 /* ItemFormViewController.swift */,
 			);
 			path = ItemForm;
+			sourceTree = "<group>";
+		};
+		55B7DA3B29982130001586CC /* CurrencyTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				55B7DA3C29982176001586CC /* CurrencyTableViewCell.swift */,
+				55B7DA3D29982176001586CC /* CurrencyTableViewCell.xib */,
+			);
+			path = CurrencyTableViewCell;
 			sourceTree = "<group>";
 		};
 		55F2F9B328C3C47F00D3BE48 /* ListTextField */ = {
@@ -468,6 +504,7 @@
 				557A6B2E297417F700D6F877 /* StatisticsViewHeader.xib in Resources */,
 				55F9989C2974687600A186D9 /* StatisticsPage.xib in Resources */,
 				55777AE429699A83002B0000 /* StatisticsViewCell.xib in Resources */,
+				55B7DA3F29982176001586CC /* CurrencyTableViewCell.xib in Resources */,
 				557A6B332974328900D6F877 /* StatisticsCarouselView.xib in Resources */,
 				554DA28528B8CA8E0026FF25 /* LaunchScreen.storyboard in Resources */,
 				554DA28028B8CA8A0026FF25 /* Main.storyboard in Resources */,
@@ -523,7 +560,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55783C3229992127008BC446 /* CurrencyTableViewController.swift in Sources */,
 				5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */,
+				55B34964299FDE1D00DA3BEA /* ConvCurrencyListViewController.swift in Sources */,
 				55B19C2C2943843000C2BC69 /* CalendarHelper.swift in Sources */,
 				55B19C29294383E800C2BC69 /* CalendarCell.swift in Sources */,
 				552AC2F12905B3EF004B2AB7 /* UIManager.swift in Sources */,
@@ -538,6 +577,7 @@
 				5504FC7A28CE199F009AA660 /* ItemViewCell.swift in Sources */,
 				552AC2EE2905819D004B2AB7 /* DataManager.swift in Sources */,
 				554DA27928B8CA8A0026FF25 /* AppDelegate.swift in Sources */,
+				55B7DA3E29982176001586CC /* CurrencyTableViewCell.swift in Sources */,
 				557A6B3629744A0C00D6F877 /* PageIndicatorView.swift in Sources */,
 				55F2F9B528C3C4BB00D3BE48 /* ListTextField.swift in Sources */,
 				557A6B2D297417F700D6F877 /* StatisticsViewHeader.swift in Sources */,

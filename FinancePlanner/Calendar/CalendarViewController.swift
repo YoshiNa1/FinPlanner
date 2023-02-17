@@ -35,6 +35,11 @@ class CalendarViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        reloadUI()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

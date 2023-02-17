@@ -95,6 +95,11 @@ class StatisticsViewController: UIViewController {
     
     var sections = [StatiscticsTableSection]()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateUI()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

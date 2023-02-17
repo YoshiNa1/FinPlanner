@@ -12,10 +12,14 @@ class UIManager {
     static let shared = UIManager()
     
     var homeViewController: HomeViewController?
+    var settingsViewController: SettingsViewController?
     var tabbarViewController: TabbarViewController?
     
     public func setupHomePage(_ homeVC: HomeViewController) {
         self.homeViewController = homeVC
+    }
+    public func setupSettingsPage(_ settingsVC: SettingsViewController) {
+        self.settingsViewController = settingsVC
     }
     public func setupTabbarVC(_ tabbarVC: TabbarViewController) {
         self.tabbarViewController = tabbarVC

@@ -10,7 +10,7 @@ import Foundation
 
 // Global Enumerations:
 enum ConvCurrency : String, CaseIterable {
-    
+    case none = ""
     case AUD = "AUD"; case INR = "INR"; case TRY = "TRY"
     case BGN = "BGN"; case ISK = "ISK"; case USD = "USD"
     case BRL = "BRL"; case JPY = "JPY"; case UAH = "UAH"
@@ -45,7 +45,7 @@ enum ConvCurrency : String, CaseIterable {
     }
     
     static func currency(for name : String) -> ConvCurrency {
-        return ConvCurrency(rawValue: name) ?? .EUR
+        return ConvCurrency(rawValue: name) ?? .none
     }
     // Public Properties:
     /** Returns an array with all currency names and their respective flags. */
