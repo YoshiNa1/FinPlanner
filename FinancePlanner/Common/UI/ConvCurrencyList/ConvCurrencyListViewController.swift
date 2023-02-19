@@ -7,6 +7,10 @@
 
 import UIKit
 
+extension Notification.Name {
+    static let currencyDidAddToDefaults = Notification.Name("CurrencyDidAddToDefaults")
+}
+
 class ConvCurrencyListViewController: UIViewController {
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -37,15 +41,15 @@ class ConvCurrencyListViewController: UIViewController {
     }
     
     func updateUI() {
-        currencies = ConvCurrency.allCases.filter({ convCurr in
+        currencies = ConvCurrency.all.filter({ convCurr in
             let defCurrencies = PreferencesStorage.shared.currencies.map({$0.getConvCurrency()})
-            return !defCurrencies.contains(convCurr) && convCurr != .none
+            return !defCurrencies.contains(convCurr)
         })
         tableView.reloadData()
     }
 
     func close() {
-        UIManager.shared.settingsViewController?.updateUI()
+        NotificationCenter.default.post(name: .currencyDidAddToDefaults, object: nil)
         dismiss(animated: true)
     }
 }

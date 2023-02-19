@@ -18,16 +18,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="366" height="41"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwI-TF-3KS">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwI-TF-3KS">
                         <rect key="frame" x="4" y="9" width="195" height="25"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="SBD-bO-iS4"/>
+                            <constraint firstAttribute="width" constant="195" id="Vg7-TJ-2EB"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <color key="textColor" name="TitleFontColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yeR-eu-Nyj">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yeR-eu-Nyj">
                         <rect key="frame" x="278" y="10" width="88" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="default" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xkF-ZL-Xvk">
                                 <rect key="frame" x="0.0" y="0.0" width="70" height="21"/>
@@ -42,6 +44,10 @@
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="88" id="6fu-Zn-ykb"/>
+                            <constraint firstAttribute="height" constant="21" id="b5X-xn-9Nl"/>
+                        </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sas-e5-IwG">
                         <rect key="frame" x="0.0" y="40" width="366" height="1"/>
@@ -52,7 +58,13 @@
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="vwI-TF-3KS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="H6S-2s-5RS"/>
+                    <constraint firstAttribute="trailing" secondItem="yeR-eu-Nyj" secondAttribute="trailing" id="Raa-cX-ItU"/>
+                    <constraint firstItem="Sas-e5-IwG" firstAttribute="top" secondItem="yeR-eu-Nyj" secondAttribute="bottom" constant="9" id="XCk-91-8mu"/>
                     <constraint firstAttribute="bottom" secondItem="Sas-e5-IwG" secondAttribute="bottom" id="ZxQ-I2-ZpE"/>
+                    <constraint firstItem="Sas-e5-IwG" firstAttribute="top" secondItem="vwI-TF-3KS" secondAttribute="bottom" constant="6" id="d9h-6s-ajH"/>
+                    <constraint firstItem="yeR-eu-Nyj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="fJb-xu-uHh"/>
+                    <constraint firstItem="vwI-TF-3KS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="kPA-XM-Zkl"/>
                     <constraint firstAttribute="trailing" secondItem="Sas-e5-IwG" secondAttribute="trailing" id="o1R-iQ-JOM"/>
                     <constraint firstItem="Sas-e5-IwG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="q6H-Yn-4BJ"/>
                 </constraints>

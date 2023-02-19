@@ -11,7 +11,9 @@ import RealmSwift
 class DataManager {
     let realm = try! Realm()
     
-    let defaultCurrency = PreferencesStorage.shared.defaultCurrency?.name ?? ""
+    var defaultCurrency: String {
+        get { PreferencesStorage.shared.defaultCurrency?.name ?? ""}
+    }
     
     var account: Account!
     var items : Results<Item>!
@@ -45,12 +47,20 @@ class DataManager {
         items = self.realm.objects(Item.self)
         notes = self.realm.objects(Note.self)
     }
- 
-// Account
-    func create(account: Account) {
+    
+// MARK: - Account
+    private func create(account: Account) {
         try! self.realm.write({
             realm.add(account, update: .all)
         })
+        self.account = self.realm.objects(Account.self).first
+    }
+    
+    func createAccount(with balance: Double, _ balanceCurrency: String, and savings: Double, _ savingsCurrency: String) {
+        let defBalanceAmount = self.getDefaultAmount(amount: balance, currency: balanceCurrency)
+        let defSavingsAmount = self.getDefaultAmount(amount: savings, currency: savingsCurrency)
+        let account = Account(balance: defBalanceAmount, savings: defSavingsAmount, currency: self.defaultCurrency)
+        self.create(account: account)
     }
     
     func updateAccount(withAmount amount: Double, currency: String, isBalance: Bool) {
@@ -97,8 +107,28 @@ class DataManager {
             }
         })
     }
-
-// Item
+    
+    func updateAccount(withCurrency newDefaultCurrency: String) {
+        if let account = self.account {
+            let oldDefaultCurrency = account.currency
+            let defBalanceAmount = self.getDefaultAmount(amount: account.balance, currency: oldDefaultCurrency)
+            let defSavingsAmount = self.getDefaultAmount(amount: account.savings, currency: oldDefaultCurrency)
+            try! self.realm.write({
+                self.account.currency = newDefaultCurrency
+                self.account.balance = defBalanceAmount
+                self.account.savings = defSavingsAmount
+            })
+        }
+    }
+    
+    func removeAccount() {
+        try! self.realm.write({
+            realm.delete(account)
+            account = nil
+        })
+    }
+    
+// MARK: - Item
     func getItemsBy(date: Date) -> [Item] { // FOR FREQUENCY TYPE DAY
         var items = [Item]()
         self.items.forEach { (item) in
@@ -259,7 +289,7 @@ class DataManager {
         })
     }
     
-// Note
+// MARK: - Note
     func getNote(by date: Date) -> Note? {
         return notes.first(where: { CalendarHelper().isDate(date: $0.date, equalTo: date) })
     }
@@ -280,7 +310,7 @@ class DataManager {
         })
     }
     
-// List
+// MARK: - List
     func listItem(at index: Int) -> String {
         return list[index]
     }
@@ -297,7 +327,7 @@ class DataManager {
         list[index] = newListItem
     }
     
-// Default Amount
+// MARK: - Default Amount
     func getDefaultAmount(amount:Double, currency:String) -> Double {
         var _amount: Double = 0
         let amountText = convertAmountToDefault(amount:amount, currency:currency, style: .none)
@@ -327,13 +357,13 @@ class DataManager {
 
 
 
-// TODO: separate files for classes
+// TODO: - separate files for classes
 class Account: Object {
     @objc dynamic var id: String = UUID().uuidString
 //    @objc dynamic var userId: String = "" // User().id
     @objc dynamic var balance: Double = 0.0
     @objc dynamic var savings: Double = 0.0
-    
+    @objc dynamic var currency: String = "" // CHANGE EVERYTIME DEFAULT CURRENCY FROM SETTINGS CHANGED AND UPDATE BALANCE-SAVINGS
     override class func primaryKey() -> String? {
         return "id"
     }
@@ -343,9 +373,11 @@ class Account: Object {
     }
     
     init(balance: Double,
-         savings: Double) {
+         savings: Double,
+         currency: String) {
         self.balance = balance
         self.savings = savings
+        self.currency = currency
     }
 }
 

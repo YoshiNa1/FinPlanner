@@ -7,6 +7,11 @@
 
 import UIKit
 
+extension Notification.Name {
+    static let currencyDidRemoveFromDefaults = Notification.Name("CurrencyDidRemoveFromDefaults")
+    static let currencyDidSelectFromDefaults = Notification.Name("CurrencyDidSelectFromDefaults")
+}
+
 class CurrencyTableViewController: UITableViewController {
     var currencies: [Currency] = [Currency]()
     
@@ -33,8 +38,14 @@ class CurrencyTableViewController: UITableViewController {
     
     func selectDefaultCurrency() {
         DispatchQueue.main.async {
-            let defIdx = self.currencies.firstIndex(where: {$0.isDefault}) ?? 0
-            self.tableView.selectRow(at: IndexPath(row: defIdx, section: 0), animated: false, scrollPosition: .none)
+            var idx = 0
+            if let defIdx = self.currencies.firstIndex(where: {$0.isDefault}) {
+                idx = defIdx
+            } else {
+                PreferencesStorage.shared.currencies.first?.isDefault = true
+            }
+            
+            self.tableView.selectRow(at: IndexPath(row: idx, section: 0), animated: false, scrollPosition: .none)
         }
     }
     
@@ -61,13 +72,14 @@ class CurrencyTableViewController: UITableViewController {
             currency.isDefault = (currency.name == item.name)
             return currency
         }
+        NotificationCenter.default.post(name: .currencyDidSelectFromDefaults, object: nil)
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let contextItem = UIContextualAction(style: .destructive, title: "Delete") { (contextualAction, view, boolValue) in
             PreferencesStorage.shared.currencies.remove(at: indexPath.row)
             self.updateUI()
-            UIManager.shared.settingsViewController?.updateUI()
+            NotificationCenter.default.post(name: .currencyDidRemoveFromDefaults, object: nil)
         }
         let swipeActions = UISwipeActionsConfiguration(actions: [contextItem])
         return swipeActions

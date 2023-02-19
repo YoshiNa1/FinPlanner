@@ -26,10 +26,19 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         UIManager.shared.setupSettingsPage(self)
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateUI),
+                                               name: .currencyDidAddToDefaults,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateUI),
+                                               name: .currencyDidRemoveFromDefaults,
+                                               object: nil)
+        
         self.updateUI()
     }
     
-    public func updateUI() {
+    @objc func updateUI() {
         self.currencyTableVC.updateUI()
         viewWillLayoutSubviews()
     }
@@ -41,13 +50,17 @@ class SettingsViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? CurrencyTableViewController, segue.identifier == "currencyTableVC" {
+        if let vc = segue.destination as? CurrencyTableViewController, segue.identifier == "currencyTableVC_settings" {
             self.currencyTableVC = vc
         }
     }
     
     @IBAction func logoutClicked(_ sender: Any) {
-        // AuthManager.instance.logout()
+        DataManager.instance.removeAccount()
+        PreferencesStorage.shared.clearSettings()
+        
+        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        sceneDelegate?.changeRootViewController(with: "setupProfileVC") // TODO: CHANGE TO EMAIL PAGE
     }
     
     @IBAction func didAddNewCurrency(_ sender: Any) {

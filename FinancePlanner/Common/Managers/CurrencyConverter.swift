@@ -27,6 +27,12 @@ enum ConvCurrency : String, CaseIterable {
     case IDR = "IDR"; case SGD = "SGD"
     case ILS = "ILS"; case THB = "THB"
     
+    static var all: [ConvCurrency] {
+        get {
+            return ConvCurrency.allCases.filter({$0 != .none})
+                                        .sorted(by: {$0.rawValue.lowercased() < $1.rawValue.lowercased()})
+        }
+    }
     // Public Static Methods:
     /** Returns a currency name with it's flag (🇺🇸 USD, for example). */
     static func nameWithFlag(for currency : ConvCurrency) -> String {

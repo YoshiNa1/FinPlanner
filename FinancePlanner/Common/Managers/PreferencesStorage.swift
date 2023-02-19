@@ -13,7 +13,7 @@ class PreferencesStorage {
     private init() {}
     
     var defaultCurrency: Currency? {
-        get { PreferencesStorage.shared.currencies.first(where: {$0.isDefault}) }
+        get { self.currencies.first(where: {$0.isDefault}) }
     }
     
     var currencies: Array<Currency> {
@@ -22,6 +22,7 @@ class PreferencesStorage {
                 let encoder = JSONEncoder()
                 let data = try encoder.encode(newValue)
                 storage.set(data, forKey: "currencies")
+                DataManager.instance.updateAccount(withCurrency: newValue.first(where: {$0.isDefault})?.name ?? "")
             } catch {
                 print(error)
             }
@@ -41,7 +42,7 @@ class PreferencesStorage {
     }
     
     public func clearSettings() {
-        currencies = []
+        currencies.removeAll()
     }
 }
 

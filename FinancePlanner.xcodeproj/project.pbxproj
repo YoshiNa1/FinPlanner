@@ -28,6 +28,8 @@
 		554DA27B28B8CA8A0026FF25 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554DA27A28B8CA8A0026FF25 /* SceneDelegate.swift */; };
 		554DA28028B8CA8A0026FF25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 554DA27E28B8CA8A0026FF25 /* Main.storyboard */; };
 		554DA28528B8CA8E0026FF25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 554DA28328B8CA8E0026FF25 /* LaunchScreen.storyboard */; };
+		5569363629A256D400BF7923 /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5569363529A256D300BF7923 /* SetupProfileViewController.swift */; };
+		5569363829A258EE00BF7923 /* MainAmountField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5569363729A258EE00BF7923 /* MainAmountField.swift */; };
 		5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5576F63B28C4F77200C6CED3 /* ListTableViewCell.swift */; };
 		5576F63E28C4F77200C6CED3 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */; };
 		55777AE329699A83002B0000 /* StatisticsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55777AE129699A83002B0000 /* StatisticsViewCell.swift */; };
@@ -82,6 +84,8 @@
 		554DA28128B8CA8E0026FF25 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		554DA28428B8CA8E0026FF25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		554DA28628B8CA8E0026FF25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5569363529A256D300BF7923 /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
+		5569363729A258EE00BF7923 /* MainAmountField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAmountField.swift; sourceTree = "<group>"; };
 		5576F63B28C4F77200C6CED3 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		5576F63C28C4F77200C6CED3 /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
 		55777AE129699A83002B0000 /* StatisticsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewCell.swift; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 				55B7DA3B29982130001586CC /* CurrencyTableViewCell */,
 				55CD255328D7A57400B50EC5 /* MainTextField.swift */,
 				559D36EB2969B36400B75D8C /* MainGradientView.swift */,
+				5569363729A258EE00BF7923 /* MainAmountField.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -295,6 +300,7 @@
 		554DA27728B8CA8A0026FF25 /* FinancePlanner */ = {
 			isa = PBXGroup;
 			children = (
+				55B3496529A00DE700DA3BEA /* Profile */,
 				559A8E96293BC3C30041971E /* TabbarViewController */,
 				5501E15828B8EFB200C486D3 /* Resources */,
 				5501E15028B8EB9800C486D3 /* Common */,
@@ -391,6 +397,14 @@
 				55B34963299FDE1D00DA3BEA /* ConvCurrencyListViewController.swift */,
 			);
 			path = ConvCurrencyList;
+			sourceTree = "<group>";
+		};
+		55B3496529A00DE700DA3BEA /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				5569363529A256D300BF7923 /* SetupProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		55B5D00E28D7646000B8A9C9 /* ItemForm */ = {
@@ -560,6 +574,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5569363829A258EE00BF7923 /* MainAmountField.swift in Sources */,
 				55783C3229992127008BC446 /* CurrencyTableViewController.swift in Sources */,
 				5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */,
 				55B34964299FDE1D00DA3BEA /* ConvCurrencyListViewController.swift in Sources */,
@@ -584,6 +599,7 @@
 				55CD255428D7A57400B50EC5 /* MainTextField.swift in Sources */,
 				5501E16228B8F07C00C486D3 /* SettingsViewController.swift in Sources */,
 				55777AE329699A83002B0000 /* StatisticsViewCell.swift in Sources */,
+				5569363629A256D400BF7923 /* SetupProfileViewController.swift in Sources */,
 				554DA27B28B8CA8A0026FF25 /* SceneDelegate.swift in Sources */,
 				55E95CEE290EDCCC00C2E4BD /* PreferencesStorage.swift in Sources */,
 				55E95CF0290F042E00C2E4BD /* CurrencyConverter.swift in Sources */,

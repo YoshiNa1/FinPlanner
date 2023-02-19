@@ -35,8 +35,8 @@ class ConverterViewController: UIViewController {
         let firstDefCurrency = PreferencesStorage.shared.defaultCurrency?.name ?? ""
         let secondDefCurrency = PreferencesStorage.shared.currencies.first(where: { !$0.isDefault })?.name ?? ""
         
-        firstSelectedCurrency = ConvCurrency.allCases.first(where: {$0.rawValue == firstDefCurrency})
-        secondSelectedCurrency = ConvCurrency.allCases.first(where: {$0.rawValue == secondDefCurrency})
+        firstSelectedCurrency = ConvCurrency.all.first(where: {$0.rawValue == firstDefCurrency})
+        secondSelectedCurrency = ConvCurrency.all.first(where: {$0.rawValue == secondDefCurrency})
         
         setupCurrenciesMenu(firstBtn, lbl: firstLbl, defCurrency: firstDefCurrency) { curr in
             self.firstSelectedCurrency = curr
@@ -58,7 +58,7 @@ class ConverterViewController: UIViewController {
     
     func setupCurrenciesMenu(_ btn: UIButton, lbl: UILabel, defCurrency: String, completion: @escaping (ConvCurrency) -> Void) {
         var currenciesActions = [UIAction]()
-        for currency in ConvCurrency.allCases {
+        for currency in ConvCurrency.all {
             currenciesActions.append(UIAction(title: currency.rawValue, image: nil) { (action) in
                 lbl.text = action.title
                 completion(currency)
@@ -69,7 +69,7 @@ class ConverterViewController: UIViewController {
         btn.menu = menu
         btn.showsMenuAsPrimaryAction = true
         
-        lbl.text = ConvCurrency.allCases.first(where: {$0.rawValue == defCurrency})?.rawValue
+        lbl.text = ConvCurrency.all.first(where: {$0.rawValue == defCurrency})?.rawValue
     }
     
     func convertFirstField() {
