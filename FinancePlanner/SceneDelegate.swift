@@ -18,9 +18,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        var identifier = "setupProfileVC"
-        if DataManager.instance.account != nil {
-            identifier = "mainTabbarVC"
+        var identifier = "mainTabbarVC"
+        
+        let storageEmail = PreferencesStorage.shared.email
+        let storagePassword = PreferencesStorage.shared.password
+        if storageEmail.isEmpty {
+            identifier = "loginVC"
+        } else {
+            if storagePassword.isEmpty {
+                identifier = "signUpVC"
+                if let user = DataManager.instance.user, user.email == storageEmail {
+                    identifier = "signInVC"
+                }
+            }
+            else {
+                if PreferencesStorage.shared.currencies.isEmpty {
+                    identifier = "setupProfileVC"
+                }
+            }
         }
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

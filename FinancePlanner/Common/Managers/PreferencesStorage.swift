@@ -41,8 +41,28 @@ class PreferencesStorage {
         }
     }
     
+    var email: String {
+        set {
+            storage.set(newValue, forKey: "email")
+        }
+        get {
+            return storage.string(forKey: "email") ?? ""
+        }
+    }
+    
+    var password: String {
+        set {
+            storage.set(newValue, forKey: "password")
+        }
+        get {
+            return storage.string(forKey: "password") ?? ""
+        }
+    }
+    
     public func clearSettings() {
         currencies.removeAll()
+        email = ""
+        password = ""
     }
 }
 

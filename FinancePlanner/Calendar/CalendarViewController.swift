@@ -96,12 +96,7 @@ class CalendarViewController: UIViewController {
     
     @IBAction func saveClicked(_ sender: Any) {
         let noteText = noteField.text ?? ""
-        let note = Note(date: selectedDate, descrpt: noteText)
-        if let currNote = currNote {
-            DataManager.instance.update(note: currNote, withNewNote: note)
-        } else {
-            DataManager.instance.add(note: note)
-        }
+        DataManager.instance.setNote(date: selectedDate, description: noteText)
         reloadUI()
         saveButton.isHidden = true
     }

@@ -49,6 +49,9 @@
 		55B5D01028D7649D00B8A9C9 /* ItemFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B5D00F28D7649D00B8A9C9 /* ItemFormViewController.swift */; };
 		55B7DA3E29982176001586CC /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7DA3C29982176001586CC /* CurrencyTableViewCell.swift */; };
 		55B7DA3F29982176001586CC /* CurrencyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B7DA3D29982176001586CC /* CurrencyTableViewCell.xib */; };
+		55C01ED329ABA85C006D47FF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C01ED229ABA85C006D47FF /* LoginViewController.swift */; };
+		55C01ED529ABA87F006D47FF /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C01ED429ABA87F006D47FF /* SignInViewController.swift */; };
+		55C01ED729ABA88F006D47FF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C01ED629ABA88F006D47FF /* SignUpViewController.swift */; };
 		55CD255428D7A57400B50EC5 /* MainTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CD255328D7A57400B50EC5 /* MainTextField.swift */; };
 		55E95CEE290EDCCC00C2E4BD /* PreferencesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E95CED290EDCCC00C2E4BD /* PreferencesStorage.swift */; };
 		55E95CF0290F042E00C2E4BD /* CurrencyConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E95CEF290F042E00C2E4BD /* CurrencyConverter.swift */; };
@@ -105,6 +108,9 @@
 		55B5D00F28D7649D00B8A9C9 /* ItemFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFormViewController.swift; sourceTree = "<group>"; };
 		55B7DA3C29982176001586CC /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		55B7DA3D29982176001586CC /* CurrencyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyTableViewCell.xib; sourceTree = "<group>"; };
+		55C01ED229ABA85C006D47FF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		55C01ED429ABA87F006D47FF /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		55C01ED629ABA88F006D47FF /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		55CD255328D7A57400B50EC5 /* MainTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTextField.swift; sourceTree = "<group>"; };
 		55E95CED290EDCCC00C2E4BD /* PreferencesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesStorage.swift; sourceTree = "<group>"; };
 		55E95CEF290F042E00C2E4BD /* CurrencyConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverter.swift; sourceTree = "<group>"; };
@@ -300,6 +306,7 @@
 		554DA27728B8CA8A0026FF25 /* FinancePlanner */ = {
 			isa = PBXGroup;
 			children = (
+				55C01ED129ABA83B006D47FF /* Auth */,
 				55B3496529A00DE700DA3BEA /* Profile */,
 				559A8E96293BC3C30041971E /* TabbarViewController */,
 				5501E15828B8EFB200C486D3 /* Resources */,
@@ -422,6 +429,16 @@
 				55B7DA3D29982176001586CC /* CurrencyTableViewCell.xib */,
 			);
 			path = CurrencyTableViewCell;
+			sourceTree = "<group>";
+		};
+		55C01ED129ABA83B006D47FF /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				55C01ED229ABA85C006D47FF /* LoginViewController.swift */,
+				55C01ED429ABA87F006D47FF /* SignInViewController.swift */,
+				55C01ED629ABA88F006D47FF /* SignUpViewController.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		55F2F9B328C3C47F00D3BE48 /* ListTextField */ = {
@@ -574,6 +591,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55C01ED329ABA85C006D47FF /* LoginViewController.swift in Sources */,
 				5569363829A258EE00BF7923 /* MainAmountField.swift in Sources */,
 				55783C3229992127008BC446 /* CurrencyTableViewController.swift in Sources */,
 				5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */,
@@ -599,9 +617,11 @@
 				55CD255428D7A57400B50EC5 /* MainTextField.swift in Sources */,
 				5501E16228B8F07C00C486D3 /* SettingsViewController.swift in Sources */,
 				55777AE329699A83002B0000 /* StatisticsViewCell.swift in Sources */,
+				55C01ED729ABA88F006D47FF /* SignUpViewController.swift in Sources */,
 				5569363629A256D400BF7923 /* SetupProfileViewController.swift in Sources */,
 				554DA27B28B8CA8A0026FF25 /* SceneDelegate.swift in Sources */,
 				55E95CEE290EDCCC00C2E4BD /* PreferencesStorage.swift in Sources */,
+				55C01ED529ABA87F006D47FF /* SignInViewController.swift in Sources */,
 				55E95CF0290F042E00C2E4BD /* CurrencyConverter.swift in Sources */,
 				5501E16028B8F07000C486D3 /* StatisticsViewController.swift in Sources */,
 				559D36EC2969B36400B75D8C /* MainGradientView.swift in Sources */,

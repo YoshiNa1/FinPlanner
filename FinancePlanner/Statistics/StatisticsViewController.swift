@@ -161,7 +161,7 @@ class StatisticsViewController: UIViewController {
                 
                 for (_, items) in dict {
                     if !items.isEmpty {
-                        let item = createYearItem(with: items)
+                        let item = DataManager.instance.createYearItem(with: items)
                         monthItems.append(item)
                     }
                 }
@@ -185,19 +185,7 @@ class StatisticsViewController: UIViewController {
         self.carouselView.date = selectedDate
     }
     
-    func createYearItem(with items: [Item]) -> Item {
-        var amount = 0.0
-        items.forEach { (item) in
-            let itemAmount = item.amount
-            let itemCurrency = item.currency
-            let defAmount = DataManager.instance.getDefaultAmount(amount: itemAmount, currency: itemCurrency)
-            amount += defAmount
-        }
-        return Item(amount: amount,
-                    category: items.first?.categoryType ?? .none,
-                    date: items.first?.date ?? Date())
-    }
-                
+    
     func setupFrequencyView() {
         let frequencies = [StatisticsFrequency.day.rawValue,
                            StatisticsFrequency.month.rawValue,

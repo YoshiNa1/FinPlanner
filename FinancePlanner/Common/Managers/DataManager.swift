@@ -15,25 +15,16 @@ class DataManager {
         get { PreferencesStorage.shared.defaultCurrency?.name ?? ""}
     }
     
+    var user: User!
     var account: Account!
     var items : Results<Item>!
     var notes : Results<Note>!
     var list : Array<String> {
         get {
-            if let list = self.realm.objects(ListItems.self).first?.items {
-                return Array(list)
-            }
-            return Array<String>()
+            getListItems()
         }
         set {
-            try! self.realm.write {
-                if let list = self.realm.objects(ListItems.self).first {
-                    self.realm.delete(list)
-                }
-                let newList = ListItems()
-                newList.items.append(objectsIn: newValue)
-                self.realm.add(newList)
-            }
+            setListItems(newValue)
         }
     }
     
@@ -43,12 +34,19 @@ class DataManager {
     }()
     
     private init() {
-        account = self.realm.objects(Account.self).first
-        items = self.realm.objects(Item.self)
-        notes = self.realm.objects(Note.self)
+        user = self.realm.objects(User.self).first
+        account = getAccountByUUID(user.uuid)
+        items = getAllItems(user.uuid)
+        notes = getAllNotes(user.uuid)
     }
     
 // MARK: - Account
+    
+    private func getAccountByUUID(_ uuid: String) -> Account? {
+        guard let account = self.realm.objects(Account.self).first(where: {$0.userId == uuid}) else { return nil }
+        return account
+    }
+    
     private func create(account: Account) {
         try! self.realm.write({
             realm.add(account, update: .all)
@@ -59,7 +57,7 @@ class DataManager {
     func createAccount(with balance: Double, _ balanceCurrency: String, and savings: Double, _ savingsCurrency: String) {
         let defBalanceAmount = self.getDefaultAmount(amount: balance, currency: balanceCurrency)
         let defSavingsAmount = self.getDefaultAmount(amount: savings, currency: savingsCurrency)
-        let account = Account(balance: defBalanceAmount, savings: defSavingsAmount, currency: self.defaultCurrency)
+        let account = Account(uuid: user.uuid, balance: defBalanceAmount, savings: defSavingsAmount, currency: self.defaultCurrency)
         self.create(account: account)
     }
     
@@ -129,6 +127,11 @@ class DataManager {
     }
     
 // MARK: - Item
+    private func getAllItems(_ uuid: String) -> Results<Item> {
+        let items = self.realm.objects(Item.self).where({$0.userId == uuid})
+        return items
+    }
+    
     func getItemsBy(date: Date) -> [Item] { // FOR FREQUENCY TYPE DAY
         var items = [Item]()
         self.items.forEach { (item) in
@@ -269,6 +272,58 @@ class DataManager {
         return items
     }
     
+    func createYearItem(with items: [Item]) -> Item {
+        var amount = 0.0
+        items.forEach { (item) in
+            let itemAmount = item.amount
+            let itemCurrency = item.currency
+            let defAmount = getDefaultAmount(amount: itemAmount, currency: itemCurrency)
+            amount += defAmount
+        }
+        return Item(userId: user.uuid,
+                    amount: amount,
+                    category: items.first?.categoryType ?? .none,
+                    date: items.first?.date ?? Date())
+    }
+    
+//    func createItem(isIncome: Bool,
+//                    amount: Double,
+//                    date: Date) {
+//        let item = Item(userId: user.uuid,
+//                        isIncome: isIncome,
+//                        amount: amount,
+//                        date: date)
+//        add(item: item)
+//    }
+
+    func createItem(type:ItemType,
+                    name: String,
+                    description: String,
+                    amount: Double,
+                    currency: String,
+                    category:ItemCategoryType,
+                    date: Date) -> Item {
+        let item = Item(userId: user.uuid,
+                        type: type,
+                        name: name,
+                        description: description,
+                        amount: amount,
+                        currency: currency,
+                        category: category,
+                        date: date)
+        return item
+    }
+
+//    func createItem(amount: Double,
+//                    category: ItemCategoryType,
+//                    date: Date) {
+//        let item = Item(userId: user.uuid,
+//                        amount: amount,
+//                        category: category,
+//                        date: date)
+//        add(item: item)
+//    }
+    
     func add(item: Item) {
         try! self.realm.write({
             realm.add(item, update: .all)
@@ -290,8 +345,22 @@ class DataManager {
     }
     
 // MARK: - Note
+    func getAllNotes(_ uuid: String) -> Results<Note> {
+        let notes = self.realm.objects(Note.self).where({$0.userId == uuid})
+        return notes
+    }
+    
     func getNote(by date: Date) -> Note? {
         return notes.first(where: { CalendarHelper().isDate(date: $0.date, equalTo: date) })
+    }
+    
+    func setNote(date: Date, description: String) {
+        let note = Note(userId: user.uuid, date: date, description: description)
+        if let currNote = getNote(by: date) {
+            update(note: currNote, withNewNote: note)
+        } else {
+            add(note: note)
+        }
     }
     
     func add(note: Note) {
@@ -311,6 +380,27 @@ class DataManager {
     }
     
 // MARK: - List
+    func getUserList(_ uuid: String) -> ListItems? {
+        let list = self.realm.objects(ListItems.self).first(where: {$0.userId == uuid})
+        return list
+    }
+    
+    func getListItems() -> Array<String> {
+        if let list = getUserList(user.uuid)?.items {
+            return Array(list)
+        }
+        return Array<String>()
+    }
+    func setListItems(_ items: Array<String>) {
+        try! self.realm.write {
+            if let list = getUserList(user.uuid) {
+                self.realm.delete(list)
+            }
+            let newList = ListItems(userId: user.uuid, items: items)
+            self.realm.add(newList)
+        }
+    }
+    
     func listItem(at index: Int) -> String {
         return list[index]
     }
@@ -352,29 +442,55 @@ class DataManager {
         }
         return ""
     }
+
+// MARK: - Validation
+
+    func validatePassword(_ str: String) -> Bool {
+        return str.count > 7
+    }
+    
 }
-
-
-
-
+// MARK: - CLASSES
 // TODO: - separate files for classes
-class Account: Object {
-    @objc dynamic var id: String = UUID().uuidString
-//    @objc dynamic var userId: String = "" // User().id
-    @objc dynamic var balance: Double = 0.0
-    @objc dynamic var savings: Double = 0.0
-    @objc dynamic var currency: String = "" // CHANGE EVERYTIME DEFAULT CURRENCY FROM SETTINGS CHANGED AND UPDATE BALANCE-SAVINGS
+class User: Object {
+    @objc dynamic var uuid: String = UUID().uuidString
+    @objc dynamic var email: String = ""
+    @objc dynamic var password: String = ""
+    
     override class func primaryKey() -> String? {
-        return "id"
+        return "uuid"
     }
     
     required override init() {
         super.init()
     }
     
-    init(balance: Double,
+    init(email: String,
+         password: String) {
+        self.email = email
+        self.password = password
+    }
+}
+
+class Account: Object {
+    @objc dynamic var userId: String = ""
+    @objc dynamic var balance: Double = 0.0
+    @objc dynamic var savings: Double = 0.0
+    @objc dynamic var currency: String = "" // CHANGE EVERYTIME DEFAULT CURRENCY FROM SETTINGS CHANGED AND UPDATE BALANCE-SAVINGS
+    
+    override class func primaryKey() -> String? {
+        return "userId"
+    }
+    
+    required override init() {
+        super.init()
+    }
+    
+    init(uuid: String,
+         balance: Double,
          savings: Double,
          currency: String) {
+        self.userId = uuid
         self.balance = balance
         self.savings = savings
         self.currency = currency
@@ -399,7 +515,7 @@ enum ItemCategoryType: String {
 
 class Item: Object {
     @objc dynamic var id: String = UUID().uuidString
-//    @objc dynamic var userId: String = "" // User().id
+    @objc dynamic var userId: String = "" // User().uuid
     @objc dynamic var date: Date = Date()
     @objc dynamic var isIncome: Bool = false
     @objc dynamic var name: String = ""
@@ -429,9 +545,11 @@ class Item: Object {
         super.init()
     }
     
-    init(isIncome: Bool,
+    init(userId: String,
+         isIncome: Bool,
          amount: Double,
          date: Date) {
+        self.userId = userId
         self.date = date
         self.type = ItemType.savings.rawValue
         self.isIncome = isIncome
@@ -442,13 +560,15 @@ class Item: Object {
         self.category = ItemCategoryType.none.rawValue
     }
     
-    init(type:ItemType,
+    init(userId: String,
+         type:ItemType,
          name: String,
          description: String,
          amount: Double,
          currency: String,
          category:ItemCategoryType,
          date: Date) {
+        self.userId = userId
         self.date = date
         self.type = type.rawValue
         self.name = name
@@ -458,9 +578,11 @@ class Item: Object {
         self.category = category.rawValue
     }
     
-    init(amount: Double,
+    init(userId: String,
+         amount: Double,
          category: ItemCategoryType,
          date: Date) {
+        self.userId = userId
         self.date = date
         self.amount = amount
         self.currency = PreferencesStorage.shared.defaultCurrency?.name ?? ""
@@ -470,7 +592,7 @@ class Item: Object {
 
 class Note: Object {
     @objc dynamic var id: String = UUID().uuidString
-//    @objc dynamic var userId: String = "" // User().id
+    @objc dynamic var userId: String = "" // User().uuid
     @objc dynamic var date: Date = Date()
     @objc dynamic var descrpt: String = ""
     
@@ -482,13 +604,26 @@ class Note: Object {
         super.init()
     }
     
-    init(date: Date,
-         descrpt: String) {
+    init(userId: String,
+         date: Date,
+         description: String) {
+        self.userId = userId
         self.date = date
-        self.descrpt = descrpt
+        self.descrpt = description
     }
 }
 
 class ListItems: Object {
     var items = List<String>()
+    @objc dynamic var userId: String = "" // User().uuid
+   
+    required override init() {
+        super.init()
+    }
+    
+    init(userId: String,
+         items: Array<String>) {
+        self.userId = userId
+        self.items.append(objectsIn: items)
+    }
 }

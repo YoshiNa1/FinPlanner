@@ -30,6 +30,8 @@ class SavingsEditFormViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addKeyboardRecognizer()
+        
         amountField.text = (account.savings == 0.0) ? "" : String(account.savings)
         amountField.addTarget(self, action: #selector(amountFieldDidChange(_:)), for: .editingChanged)
         transactionAmountField.addTarget(self, action: #selector(transactionAmountFieldDidChange(_:)), for: .editingChanged)

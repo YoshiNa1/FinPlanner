@@ -23,6 +23,8 @@ class BalanceEditFormViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addKeyboardRecognizer()
+        
         amountField.text = (account.balance == 0.0) ? "" : String(account.balance)
         amountField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
        

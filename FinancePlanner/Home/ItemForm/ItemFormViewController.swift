@@ -90,13 +90,13 @@ class ItemFormViewController: UIViewController {
             }
         }
         
-        let item = Item(type: type,
-                        name: nameField.text ?? "",
-                        description: descriptionField.text ?? "",
-                        amount: amount,
-                        currency: currencyLabel.text ?? "",
-                        category: ItemCategoryType(rawValue: categoryField.text ?? "") ?? .none,
-                        date: UIManager.shared.getHomePageDate())
+        let item = DataManager.instance.createItem(type: type,
+                                                   name: nameField.text ?? "",
+                                                   description: descriptionField.text ?? "",
+                                                   amount: amount,
+                                                   currency: currencyLabel.text ?? "",
+                                                   category: ItemCategoryType(rawValue: categoryField.text ?? "") ?? .none,
+                                                   date: UIManager.shared.getHomePageDate())
         if let _item = self.currItem {
             let amountForUpdate = item.amount - _item.amount
             DataManager.instance.updateAccount(withItem: item, amount: amountForUpdate)

@@ -56,7 +56,6 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func logoutClicked(_ sender: Any) {
-        DataManager.instance.removeAccount()
         PreferencesStorage.shared.clearSettings()
         
         let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate

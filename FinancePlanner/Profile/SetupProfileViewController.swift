@@ -14,6 +14,7 @@ class SetupProfileViewController: UIViewController {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet var tableHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var amountsView: UIView!
     @IBOutlet weak var balanceField: UITextField!
     @IBOutlet weak var savingsField: UITextField!
     @IBOutlet weak var balanceLabel: UILabel!
@@ -24,6 +25,8 @@ class SetupProfileViewController: UIViewController {
     private var currencyTableVC: CurrencyTableViewController!
     
     private var selectedCurrencies: [Currency] = [Currency]()
+    
+    var account: Account? = DataManager.instance.account
     
     private var isCurrenciesSet: Bool = false {
         didSet {
@@ -37,6 +40,13 @@ class SetupProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        amountsView.isHidden = false
+        if let account = self.account {
+            amountsView.isHidden = true
+            let currency = Currency(name: account.currency, isDefault: true)
+            PreferencesStorage.shared.currencies.append(currency)
+        }
         
         self.updateUI()
         
@@ -87,19 +97,20 @@ class SetupProfileViewController: UIViewController {
     }
     
     @IBAction func finishClicked(_ sender: Any) {
-        let anyCurrency = PreferencesStorage.shared.currencies.first?.name ?? ""
-        
-        let balanceText = balanceField.text ?? ""
-        let balanceAmount = Double(balanceText) ?? 0
-        let balanceCurrency = balanceLabel.text ?? anyCurrency
-        
-        let savingsText = savingsField.text ?? ""
-        let savingsAmount = Double(savingsText) ?? 0
-        let savingsCurrency = savingsLabel.text ?? anyCurrency
-        
-        DataManager.instance.createAccount(with: balanceAmount, balanceCurrency,
-                                           and: savingsAmount, savingsCurrency)
-        
+        if self.account == nil {
+            let anyCurrency = PreferencesStorage.shared.currencies.first?.name ?? ""
+            
+            let balanceText = balanceField.text ?? ""
+            let balanceAmount = Double(balanceText) ?? 0
+            let balanceCurrency = balanceLabel.text ?? anyCurrency
+            
+            let savingsText = savingsField.text ?? ""
+            let savingsAmount = Double(savingsText) ?? 0
+            let savingsCurrency = savingsLabel.text ?? anyCurrency
+            
+            DataManager.instance.createAccount(with: balanceAmount, balanceCurrency,
+                                               and: savingsAmount, savingsCurrency)
+        }
         let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
         sceneDelegate?.changeRootViewController(with: "mainTabbarVC")
     }
