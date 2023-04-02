@@ -15,16 +15,16 @@ class DataManager {
         get { PreferencesStorage.shared.defaultCurrency?.name ?? ""}
     }
     
-    var user: User!
-    var account: Account!
-    var items : Results<Item>!
-    var notes : Results<Note>!
+    var user: UserCache!
+    var profile: ProfileCache!
+    var items : Results<ItemCache>!
+    var notes : Results<NoteCache>!
     var list : Array<String> {
         get {
-            getListItems()
+            getListContent()
         }
         set {
-            setListItems(newValue)
+            setListContent(newValue)
         }
     }
     
@@ -34,106 +34,106 @@ class DataManager {
     }()
     
     private init() {
-        user = self.realm.objects(User.self).first
-        account = getAccountByUUID(user.uuid)
+        user = self.realm.objects(UserCache.self).first
+        profile = getProfileByUUID(user.uuid)
         items = getAllItems(user.uuid)
         notes = getAllNotes(user.uuid)
     }
     
-// MARK: - Account
+// MARK: - Profile
     
-    private func getAccountByUUID(_ uuid: String) -> Account? {
-        guard let account = self.realm.objects(Account.self).first(where: {$0.userId == uuid}) else { return nil }
-        return account
+    private func getProfileByUUID(_ uuid: String) -> ProfileCache? {
+        guard let profile = self.realm.objects(ProfileCache.self).first(where: {$0.userUuid == uuid}) else { return nil }
+        return profile
     }
     
-    private func create(account: Account) {
+    private func create(profile: ProfileCache) {
         try! self.realm.write({
-            realm.add(account, update: .all)
+            realm.add(profile, update: .all)
         })
-        self.account = self.realm.objects(Account.self).first
+        self.profile = self.realm.objects(ProfileCache.self).first
     }
     
-    func createAccount(with balance: Double, _ balanceCurrency: String, and savings: Double, _ savingsCurrency: String) {
+    func createProfile(with balance: Double, _ balanceCurrency: String, and savings: Double, _ savingsCurrency: String) {
         let defBalanceAmount = self.getDefaultAmount(amount: balance, currency: balanceCurrency)
         let defSavingsAmount = self.getDefaultAmount(amount: savings, currency: savingsCurrency)
-        let account = Account(uuid: user.uuid, balance: defBalanceAmount, savings: defSavingsAmount, currency: self.defaultCurrency)
-        self.create(account: account)
+        let profile = ProfileCache(userUuid: user.uuid, balance: defBalanceAmount, savings: defSavingsAmount, currency: self.defaultCurrency)
+        self.create(profile: profile)
     }
     
-    func updateAccount(withAmount amount: Double, currency: String, isBalance: Bool) {
+    func updateProfile(withAmount amount: Double, currency: String, isBalance: Bool) {
         let defAmount = self.getDefaultAmount(amount: amount, currency: currency)
         try! self.realm.write({
             if(isBalance) {
-                self.account.balance = defAmount
+                self.profile.balance = defAmount
             } else {
-                self.account.savings = defAmount
+                self.profile.savings = defAmount
             }
         })
     }
     
-    func updateAccount(withTransactionAmount amount: Double, currency: String, isWithdraw: Bool) {
+    func updateProfile(withTransactionAmount amount: Double, currency: String, isWithdraw: Bool) {
         let defAmount = self.getDefaultAmount(amount: amount, currency: currency)
         try! self.realm.write({
             if(isWithdraw) {
-                self.account.savings -= defAmount
-                self.account.balance += defAmount
+                self.profile.savings -= defAmount
+                self.profile.balance += defAmount
             } else {
-                self.account.savings += defAmount
-                self.account.balance -= defAmount
+                self.profile.savings += defAmount
+                self.profile.balance -= defAmount
             }
         })
     }
    
-    func updateAccount(withItem item: Item, amount: Double, isRemoval: Bool = false) {
+    func updateProfile(withItem item: ItemCache, amount: Double, isRemoval: Bool = false) {
         let defAmount = self.getDefaultAmount(amount: amount, currency: item.currency)
         try! self.realm.write({
             if(isRemoval) {
                 if(item.itemType == .outcome) {
-                    self.account.balance += defAmount
+                    self.profile.balance += defAmount
                 }
                 if(item.itemType == .income) {
-                    self.account.balance -= defAmount
+                    self.profile.balance -= defAmount
                 }
             } else {
                 if(item.itemType == .outcome) {
-                    self.account.balance -= defAmount
+                    self.profile.balance -= defAmount
                 }
                 if(item.itemType == .income) {
-                    self.account.balance += defAmount
+                    self.profile.balance += defAmount
                 }
             }
         })
     }
     
-    func updateAccount(withCurrency newDefaultCurrency: String) {
-        if let account = self.account {
-            let oldDefaultCurrency = account.currency
-            let defBalanceAmount = self.getDefaultAmount(amount: account.balance, currency: oldDefaultCurrency)
-            let defSavingsAmount = self.getDefaultAmount(amount: account.savings, currency: oldDefaultCurrency)
+    func updateProfile(withCurrency newDefaultCurrency: String) {
+        if let profile = self.profile {
+            let oldDefaultCurrency = profile.currency
+            let defBalanceAmount = self.getDefaultAmount(amount: profile.balance, currency: oldDefaultCurrency)
+            let defSavingsAmount = self.getDefaultAmount(amount: profile.savings, currency: oldDefaultCurrency)
             try! self.realm.write({
-                self.account.currency = newDefaultCurrency
-                self.account.balance = defBalanceAmount
-                self.account.savings = defSavingsAmount
+                self.profile.currency = newDefaultCurrency
+                self.profile.balance = defBalanceAmount
+                self.profile.savings = defSavingsAmount
             })
         }
     }
     
-    func removeAccount() {
+    func removeProfile() {
         try! self.realm.write({
-            realm.delete(account)
-            account = nil
+            realm.delete(profile)
+            profile = nil
         })
     }
     
 // MARK: - Item
-    private func getAllItems(_ uuid: String) -> Results<Item> {
-        let items = self.realm.objects(Item.self).where({$0.userId == uuid})
+    private func getAllItems(_ uuid: String) -> Results<ItemCache> {
+        let items = self.realm.objects(ItemCache.self).where({$0.userUuid == uuid})
         return items
     }
     
-    func getItemsBy(date: Date) -> [Item] { // FOR FREQUENCY TYPE DAY
-        var items = [Item]()
+    func getItemsBy(date: Date) -> [ItemCache] { // FOR FREQUENCY TYPE DAY
+        var items = [ItemCache]()
         self.items.forEach { (item) in
             if CalendarHelper().isDate(date: item.date, equalTo: date) {
                 items.append(item)
@@ -142,14 +142,14 @@ class DataManager {
         return items
     }
     
-    func getMonthItemsBy(date: Date) -> [[Int:[Item]]] {  // FOR FREQUENCY TYPE MONTH
+    func getMonthItemsBy(date: Date) -> [[Int:[ItemCache]]] {  // FOR FREQUENCY TYPE MONTH
         
         /* возвращать массив словарей. В нём столько элементов, сколько всего дней в месяце. Каждый элемент
         массива хранит словарь, где ключ -- номер дня. Каждый день хранит массив айтемов с этим днём в этом месяце. */
         
-        var items = [[Int:[Item]]]()
+        var items = [[Int:[ItemCache]]]()
         
-        var monthItems = [Item]()
+        var monthItems = [ItemCache]()
         let (_, month, year) = CalendarHelper().componentsByDate(date)
         self.items.forEach { (item) in
             let (_, item_month, item_year) = CalendarHelper().componentsByDate(item.date)
@@ -159,7 +159,7 @@ class DataManager {
         }
         
         for day in CalendarHelper().days(for: date) {
-            var sortedItems = [Int:[Item]]()
+            var sortedItems = [Int:[ItemCache]]()
             
             let itemsInDay = monthItems.filter { (item) in
                 let (item_day, _, _) = CalendarHelper().componentsByDate(item.date)
@@ -173,15 +173,15 @@ class DataManager {
         return items
     }
     
-    func getYearItemsBy(date: Date) -> [[ItemCategoryType:[Item]]] {  // FOR FREQUENCY TYPE YEAR
+    func getYearItemsBy(date: Date) -> [[ItemCategoryType:[ItemCache]]] {  // FOR FREQUENCY TYPE YEAR
         
         /* должен быть на выходе массив словарей. В нём 12 элементов -- сколько всего месяцев. Каждый элемент
         массива хранит словарь, где ключ -- категория. В словаре столько ключей, сколько всего категорий.
         Значение каждой категории -- массив айтемов с этой категорией в этом месяце. */
         
-        var items = [[ItemCategoryType:[Item]]]()
+        var items = [[ItemCategoryType:[ItemCache]]]()
         
-        var yearItems = [Item]()
+        var yearItems = [ItemCache]()
         let (_, _, year) = CalendarHelper().componentsByDate(date)
         
         self.items.forEach { (item) in
@@ -193,7 +193,7 @@ class DataManager {
         
         
         for month in 1...12 {
-            var categorisedItems = [ItemCategoryType:[Item]]()
+            var categorisedItems = [ItemCategoryType:[ItemCache]]()
             
             //FIRSTLY, FILTER ALL ITEMS IN YEAR BY CURRENT MONTH
             let itemsInMonth = yearItems.filter( { (item) in
@@ -216,15 +216,15 @@ class DataManager {
         return items
     }
     
-    func getStatisticsItemsBy(date: Date, frequencyType: StatisticsFrequency, type: ItemType = .none) -> [String:[Item]] {
-        var items = [String:[Item]]()
+    func getStatisticsItemsBy(date: Date, frequencyType: StatisticsFrequency, type: ItemType = .none) -> [String:[ItemCache]] {
+        var items = [String:[ItemCache]]()
         
-        var allItems = [Item]()
+        var allItems = [ItemCache]()
         let (_, month, year) = CalendarHelper().componentsByDate(date)
         
         switch frequencyType {
         case .day:
-            var dayItems = [Item]()
+            var dayItems = [ItemCache]()
             self.items.forEach { (item) in
                 if CalendarHelper().isDate(date: item.date, equalTo: date) {
                     dayItems.append(item)
@@ -232,7 +232,7 @@ class DataManager {
             }
             allItems = dayItems
         case .month:
-            var monthItems = [Item]()
+            var monthItems = [ItemCache]()
             self.items.forEach { (item) in
                 let (_, item_month, item_year) = CalendarHelper().componentsByDate(item.date)
                 if (item_month == month && item_year == year) {
@@ -241,7 +241,7 @@ class DataManager {
             }
             allItems = monthItems
         case .year:
-            var yearItems = [Item]()
+            var yearItems = [ItemCache]()
             self.items.forEach { (item) in
                 let (_, _, item_year) = CalendarHelper().componentsByDate(item.date)
                 if item_year == year {
@@ -272,7 +272,7 @@ class DataManager {
         return items
     }
     
-    func createYearItem(with items: [Item]) -> Item {
+    func createYearItem(with items: [ItemCache]) -> ItemCache {
         var amount = 0.0
         items.forEach { (item) in
             let itemAmount = item.amount
@@ -280,7 +280,7 @@ class DataManager {
             let defAmount = getDefaultAmount(amount: itemAmount, currency: itemCurrency)
             amount += defAmount
         }
-        return Item(userId: user.uuid,
+        return ItemCache(userUuid: user.uuid,
                     amount: amount,
                     category: items.first?.categoryType ?? .none,
                     date: items.first?.date ?? Date())
@@ -302,8 +302,8 @@ class DataManager {
                     amount: Double,
                     currency: String,
                     category:ItemCategoryType,
-                    date: Date) -> Item {
-        let item = Item(userId: user.uuid,
+                    date: Date) -> ItemCache {
+        let item = ItemCache(userUuid: user.uuid,
                         type: type,
                         name: name,
                         description: description,
@@ -324,17 +324,17 @@ class DataManager {
 //        add(item: item)
 //    }
     
-    func add(item: Item) {
+    func add(item: ItemCache) {
         try! self.realm.write({
             realm.add(item, update: .all)
         })
     }
-    func delete(item: Item) {
+    func delete(item: ItemCache) {
         try! self.realm.write({
             realm.delete(item)
         })
     }
-    func update(item: Item, withNewItem newItem: Item) {
+    func update(item: ItemCache, withNewItem newItem: ItemCache) {
         try! self.realm.write({
             item.name = newItem.name
             item.descrpt = newItem.descrpt
@@ -345,17 +345,17 @@ class DataManager {
     }
     
 // MARK: - Note
-    func getAllNotes(_ uuid: String) -> Results<Note> {
-        let notes = self.realm.objects(Note.self).where({$0.userId == uuid})
+    func getAllNotes(_ uuid: String) -> Results<NoteCache> {
+        let notes = self.realm.objects(NoteCache.self).where({$0.userUuid == uuid})
         return notes
     }
     
-    func getNote(by date: Date) -> Note? {
+    func getNote(by date: Date) -> NoteCache? {
         return notes.first(where: { CalendarHelper().isDate(date: $0.date, equalTo: date) })
     }
     
     func setNote(date: Date, description: String) {
-        let note = Note(userId: user.uuid, date: date, description: description)
+        let note = NoteCache(userUuid: user.uuid, date: date, description: description)
         if let currNote = getNote(by: date) {
             update(note: currNote, withNewNote: note)
         } else {
@@ -363,13 +363,13 @@ class DataManager {
         }
     }
     
-    func add(note: Note) {
+    func add(note: NoteCache) {
         try! self.realm.write({
             realm.add(note, update: .all)
         })
     }
     
-    func update(note: Note, withNewNote newNote: Note) {
+    func update(note: NoteCache, withNewNote newNote: NoteCache) {
         try! self.realm.write({
             if(newNote.descrpt == "") {
                 realm.delete(note)
@@ -380,23 +380,24 @@ class DataManager {
     }
     
 // MARK: - List
-    func getUserList(_ uuid: String) -> ListItems? {
-        let list = self.realm.objects(ListItems.self).first(where: {$0.userId == uuid})
+    
+    func getUserList(_ uuid: String) -> ListCache? {
+        let list = self.realm.objects(ListCache.self).first(where: {$0.userUuid == uuid})
         return list
     }
     
-    func getListItems() -> Array<String> {
-        if let list = getUserList(user.uuid)?.items {
+    func getListContent() -> Array<String> {
+        if let list = getUserList(user.uuid)?.content {
             return Array(list)
         }
         return Array<String>()
     }
-    func setListItems(_ items: Array<String>) {
+    func setListContent(_ content: Array<String>) {
         try! self.realm.write {
             if let list = getUserList(user.uuid) {
                 self.realm.delete(list)
             }
-            let newList = ListItems(userId: user.uuid, items: items)
+            let newList = ListCache(userUuid: user.uuid, content: content)
             self.realm.add(newList)
         }
     }
@@ -418,6 +419,7 @@ class DataManager {
     }
     
 // MARK: - Default Amount
+    
     func getDefaultAmount(amount:Double, currency:String) -> Double {
         var _amount: Double = 0
         let amountText = convertAmountToDefault(amount:amount, currency:currency, style: .none)
@@ -447,183 +449,5 @@ class DataManager {
 
     func validatePassword(_ str: String) -> Bool {
         return str.count > 7
-    }
-    
-}
-// MARK: - CLASSES
-// TODO: - separate files for classes
-class User: Object {
-    @objc dynamic var uuid: String = UUID().uuidString
-    @objc dynamic var email: String = ""
-    @objc dynamic var password: String = ""
-    
-    override class func primaryKey() -> String? {
-        return "uuid"
-    }
-    
-    required override init() {
-        super.init()
-    }
-    
-    init(email: String,
-         password: String) {
-        self.email = email
-        self.password = password
-    }
-}
-
-class Account: Object {
-    @objc dynamic var userId: String = ""
-    @objc dynamic var balance: Double = 0.0
-    @objc dynamic var savings: Double = 0.0
-    @objc dynamic var currency: String = "" // CHANGE EVERYTIME DEFAULT CURRENCY FROM SETTINGS CHANGED AND UPDATE BALANCE-SAVINGS
-    
-    override class func primaryKey() -> String? {
-        return "userId"
-    }
-    
-    required override init() {
-        super.init()
-    }
-    
-    init(uuid: String,
-         balance: Double,
-         savings: Double,
-         currency: String) {
-        self.userId = uuid
-        self.balance = balance
-        self.savings = savings
-        self.currency = currency
-    }
-}
-
-enum ItemType: String {
-    case income = "income"
-    case outcome = "outcome"
-    case savings = "savings"
-    case none = "none"
-}
-
-enum ItemCategoryType: String {
-    case housing = "Housing"
-    case grocery = "Grocery"
-    case others = "Other"
-    case none = "none"
-    
-    static let all = [housing, grocery, others]
-}
-
-class Item: Object {
-    @objc dynamic var id: String = UUID().uuidString
-    @objc dynamic var userId: String = "" // User().uuid
-    @objc dynamic var date: Date = Date()
-    @objc dynamic var isIncome: Bool = false
-    @objc dynamic var name: String = ""
-    @objc dynamic var descrpt: String = ""
-    @objc dynamic var amount: Double = 0.0
-    @objc dynamic var currency: String = ""
-    
-    @objc dynamic var category: String = ""
-    public dynamic var categoryType: ItemCategoryType {
-        get {
-            return ItemCategoryType(rawValue: self.category) ?? .none
-        }
-    }
-    
-    @objc dynamic var type: String = ""
-    public dynamic var itemType: ItemType {
-        get {
-            return ItemType(rawValue: type) ?? .outcome
-        }
-    }
-    
-    override class func primaryKey() -> String? {
-        return "id"
-    }
-    
-    required override init() {
-        super.init()
-    }
-    
-    init(userId: String,
-         isIncome: Bool,
-         amount: Double,
-         date: Date) {
-        self.userId = userId
-        self.date = date
-        self.type = ItemType.savings.rawValue
-        self.isIncome = isIncome
-        self.name = "default string for savings type"
-        self.descrpt = ""
-        self.amount = amount
-        self.currency = PreferencesStorage.shared.defaultCurrency?.name ?? ""
-        self.category = ItemCategoryType.none.rawValue
-    }
-    
-    init(userId: String,
-         type:ItemType,
-         name: String,
-         description: String,
-         amount: Double,
-         currency: String,
-         category:ItemCategoryType,
-         date: Date) {
-        self.userId = userId
-        self.date = date
-        self.type = type.rawValue
-        self.name = name
-        self.descrpt = description
-        self.amount = amount
-        self.currency = currency
-        self.category = category.rawValue
-    }
-    
-    init(userId: String,
-         amount: Double,
-         category: ItemCategoryType,
-         date: Date) {
-        self.userId = userId
-        self.date = date
-        self.amount = amount
-        self.currency = PreferencesStorage.shared.defaultCurrency?.name ?? ""
-        self.category = category.rawValue
-    }
-}
-
-class Note: Object {
-    @objc dynamic var id: String = UUID().uuidString
-    @objc dynamic var userId: String = "" // User().uuid
-    @objc dynamic var date: Date = Date()
-    @objc dynamic var descrpt: String = ""
-    
-    override class func primaryKey() -> String? {
-        return "id"
-    }
-    
-    required override init() {
-        super.init()
-    }
-    
-    init(userId: String,
-         date: Date,
-         description: String) {
-        self.userId = userId
-        self.date = date
-        self.descrpt = description
-    }
-}
-
-class ListItems: Object {
-    var items = List<String>()
-    @objc dynamic var userId: String = "" // User().uuid
-   
-    required override init() {
-        super.init()
-    }
-    
-    init(userId: String,
-         items: Array<String>) {
-        self.userId = userId
-        self.items.append(objectsIn: items)
     }
 }

@@ -22,7 +22,7 @@ class PreferencesStorage {
                 let encoder = JSONEncoder()
                 let data = try encoder.encode(newValue)
                 storage.set(data, forKey: "currencies")
-                DataManager.instance.updateAccount(withCurrency: newValue.first(where: {$0.isDefault})?.name ?? "")
+                DataManager.instance.updateProfile(withCurrency: newValue.first(where: {$0.isDefault})?.name ?? "")
             } catch {
                 print(error)
             }

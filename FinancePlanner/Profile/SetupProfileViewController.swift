@@ -26,7 +26,7 @@ class SetupProfileViewController: UIViewController {
     
     private var selectedCurrencies: [Currency] = [Currency]()
     
-    var account: Account? = DataManager.instance.account
+    var profile: ProfileCache? = DataManager.instance.profile
     
     private var isCurrenciesSet: Bool = false {
         didSet {
@@ -42,9 +42,9 @@ class SetupProfileViewController: UIViewController {
         super.viewDidLoad()
         
         amountsView.isHidden = false
-        if let account = self.account {
+        if let profile = self.profile {
             amountsView.isHidden = true
-            let currency = Currency(name: account.currency, isDefault: true)
+            let currency = Currency(name: profile.currency, isDefault: true)
             PreferencesStorage.shared.currencies.append(currency)
         }
         
@@ -97,7 +97,7 @@ class SetupProfileViewController: UIViewController {
     }
     
     @IBAction func finishClicked(_ sender: Any) {
-        if self.account == nil {
+        if self.profile == nil {
             let anyCurrency = PreferencesStorage.shared.currencies.first?.name ?? ""
             
             let balanceText = balanceField.text ?? ""
@@ -108,7 +108,7 @@ class SetupProfileViewController: UIViewController {
             let savingsAmount = Double(savingsText) ?? 0
             let savingsCurrency = savingsLabel.text ?? anyCurrency
             
-            DataManager.instance.createAccount(with: balanceAmount, balanceCurrency,
+            DataManager.instance.createProfile(with: balanceAmount, balanceCurrency,
                                                and: savingsAmount, savingsCurrency)
         }
         let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate

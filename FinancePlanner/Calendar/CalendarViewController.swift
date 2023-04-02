@@ -29,7 +29,7 @@ class CalendarViewController: UIViewController {
         }
     }
     
-    var currNote: Note? {
+    var currNote: NoteCache? {
         didSet {
             noteField.text = currNote?.descrpt
         }

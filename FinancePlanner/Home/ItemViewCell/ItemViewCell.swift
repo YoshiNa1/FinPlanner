@@ -19,7 +19,7 @@ class ItemViewCell: UICollectionViewCell {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var moreButton: UIButton!
     
-    var model = Item()
+    var model = ItemCache()
     var delegate: ItemViewCellDelegate?
     
     override init(frame: CGRect) {
@@ -47,7 +47,7 @@ class ItemViewCell: UICollectionViewCell {
         moreButton.showsMenuAsPrimaryAction = true
     }
      
-    func configureCell(with model: Item) {
+    func configureCell(with model: ItemCache) {
         self.model = model
         if(model.itemType == .savings) {
             iconView.image = UIImage.init(named: model.isIncome ? "savings_income_image" : "savings_outcome_image")
@@ -77,7 +77,7 @@ class ItemViewCell: UICollectionViewCell {
     }
         
     func delete() {
-        DataManager.instance.updateAccount(withItem: self.model, amount: self.model.amount, isRemoval: true)
+        DataManager.instance.updateProfile(withItem: self.model, amount: self.model.amount, isRemoval: true)
         DataManager.instance.delete(item: self.model)
         UIManager.shared.homeViewController?.updateUI()
     }

@@ -22,7 +22,7 @@ class ItemFormViewController: UIViewController {
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var currencyButton: UIButton!
     
-    var currItem: Item?
+    var currItem: ItemCache?
     var type: ItemType = .outcome
     let currencies = PreferencesStorage.shared.currencies
 
@@ -99,12 +99,12 @@ class ItemFormViewController: UIViewController {
                                                    date: UIManager.shared.getHomePageDate())
         if let _item = self.currItem {
             let amountForUpdate = item.amount - _item.amount
-            DataManager.instance.updateAccount(withItem: item, amount: amountForUpdate)
+            DataManager.instance.updateProfile(withItem: item, amount: amountForUpdate)
             
             DataManager.instance.update(item: _item, withNewItem: item)
             
         } else {
-            DataManager.instance.updateAccount(withItem: item, amount: amount)
+            DataManager.instance.updateProfile(withItem: item, amount: amount)
             
             DataManager.instance.add(item: item)
         }

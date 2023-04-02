@@ -25,14 +25,14 @@ class SavingsEditFormViewController: UIViewController {
     
     let currencies = PreferencesStorage.shared.currencies
     
-    var account: Account! = DataManager.instance.account
+    var profile: ProfileCache! = DataManager.instance.profile
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addKeyboardRecognizer()
         
-        amountField.text = (account.savings == 0.0) ? "" : String(account.savings)
+        amountField.text = (profile.savings == 0.0) ? "" : String(profile.savings)
         amountField.addTarget(self, action: #selector(amountFieldDidChange(_:)), for: .editingChanged)
         transactionAmountField.addTarget(self, action: #selector(transactionAmountFieldDidChange(_:)), for: .editingChanged)
         
@@ -72,8 +72,8 @@ class SavingsEditFormViewController: UIViewController {
     func save() {
         if let amountText = amountField.text {
             let amount = Double(amountText) ?? 0
-            if amount != account.savings {
-                DataManager.instance.updateAccount(withAmount: amount, currency: currencyLabel.text ?? "", isBalance: false)
+            if amount != profile.savings {
+                DataManager.instance.updateProfile(withAmount: amount, currency: currencyLabel.text ?? "", isBalance: false)
             }
         }
     }
@@ -83,7 +83,7 @@ class SavingsEditFormViewController: UIViewController {
         if let amountText = transactionAmountField.text {
             transactionAmount = Double(amountText) ?? 0
         }
-        DataManager.instance.updateAccount(withTransactionAmount: transactionAmount, currency: transactionCurrencyLabel.text ?? "", isWithdraw: false)
+        DataManager.instance.updateProfile(withTransactionAmount: transactionAmount, currency: transactionCurrencyLabel.text ?? "", isWithdraw: false)
         
         UIManager.shared.homeViewController?.updateUI()
         self.dismiss(animated: true)
@@ -95,7 +95,7 @@ class SavingsEditFormViewController: UIViewController {
         if let amountText = transactionAmountField.text {
             transactionAmount = Double(amountText) ?? 0
         }
-        DataManager.instance.updateAccount(withTransactionAmount: transactionAmount, currency: transactionCurrencyLabel.text ?? "", isWithdraw: true)
+        DataManager.instance.updateProfile(withTransactionAmount: transactionAmount, currency: transactionCurrencyLabel.text ?? "", isWithdraw: true)
         
         UIManager.shared.homeViewController?.updateUI()
         self.dismiss(animated: true)

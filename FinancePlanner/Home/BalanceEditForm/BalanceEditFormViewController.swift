@@ -18,14 +18,14 @@ class BalanceEditFormViewController: UIViewController {
     
     let currencies = PreferencesStorage.shared.currencies
     
-    var account: Account! = DataManager.instance.account
+    var profile: ProfileCache! = DataManager.instance.profile
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addKeyboardRecognizer()
         
-        amountField.text = (account.balance == 0.0) ? "" : String(account.balance)
+        amountField.text = (profile.balance == 0.0) ? "" : String(profile.balance)
         amountField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
        
         saveButton.isEnabled = false
@@ -47,8 +47,8 @@ class BalanceEditFormViewController: UIViewController {
     @IBAction func saveClicked(_ sender: Any) {
         if let amountText = amountField.text {
             let amount = Double(amountText) ?? 0
-            if amount != account.balance {
-                DataManager.instance.updateAccount(withAmount: amount, currency: currencyLabel.text ?? "", isBalance: true)
+            if amount != profile.balance {
+                DataManager.instance.updateProfile(withAmount: amount, currency: currencyLabel.text ?? "", isBalance: true)
             }
         }
         

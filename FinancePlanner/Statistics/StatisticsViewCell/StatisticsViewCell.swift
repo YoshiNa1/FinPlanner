@@ -15,7 +15,7 @@ class StatisticsViewCell: UICollectionViewCell {
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     
-    var model = Item()
+    var model = ItemCache()
     
     var frequencyType: StatisticsFrequency = .day
     
@@ -40,7 +40,7 @@ class StatisticsViewCell: UICollectionViewCell {
         self.layer.masksToBounds = true
     }
      
-    func configureCell(with model: Item, frequencyType: StatisticsFrequency) {
+    func configureCell(with model: ItemCache, frequencyType: StatisticsFrequency) {
         self.model = model
         self.frequencyType = frequencyType
         

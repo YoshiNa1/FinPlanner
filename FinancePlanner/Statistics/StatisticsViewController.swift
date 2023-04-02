@@ -15,10 +15,10 @@ enum StatisticsFrequency: String {
 
 class StatiscticsTableSection {
     var title: Date = Date()
-    var childs: [Item] = [Item]()
+    var childs: [ItemCache] = [ItemCache]()
     
     init(title: Date,
-         childs: [Item]) {
+         childs: [ItemCache]) {
         self.title = title
         self.childs = childs
     }
@@ -89,9 +89,9 @@ class StatisticsViewController: UIViewController {
         }
     }
     
-    var items = [Item]()
-    var monthItems = [[Int:[Item]]]()
-    var yearItems = [[ItemCategoryType:[Item]]]()
+    var items = [ItemCache]()
+    var monthItems = [[Int:[ItemCache]]]()
+    var yearItems = [[ItemCategoryType:[ItemCache]]]()
     
     var sections = [StatiscticsTableSection]()
     
@@ -137,7 +137,7 @@ class StatisticsViewController: UIViewController {
             
             for day in 1...monthItems.count {
                 let dict = monthItems[day - 1]
-                var dayItems = [Item]()
+                var dayItems = [ItemCache]()
                 dict.values.forEach { (items) in
                     dayItems.append(contentsOf: items)
                 }
@@ -157,7 +157,7 @@ class StatisticsViewController: UIViewController {
             
             for month in 1...yearItems.count {
                 let dict = yearItems[month - 1]
-                var monthItems = [Item]()
+                var monthItems = [ItemCache]()
                 
                 for (_, items) in dict {
                     if !items.isEmpty {

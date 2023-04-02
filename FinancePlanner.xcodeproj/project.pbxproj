@@ -56,6 +56,16 @@
 		55E95CEE290EDCCC00C2E4BD /* PreferencesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E95CED290EDCCC00C2E4BD /* PreferencesStorage.swift */; };
 		55E95CF0290F042E00C2E4BD /* CurrencyConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E95CEF290F042E00C2E4BD /* CurrencyConverter.swift */; };
 		55F2F9B528C3C4BB00D3BE48 /* ListTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F2F9B428C3C4BB00D3BE48 /* ListTextField.swift */; };
+		55F72A5429D9B4B7001A94C5 /* UserCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F72A5329D9B4B7001A94C5 /* UserCache.swift */; };
+		55F72A5629D9B525001A94C5 /* ProfileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F72A5529D9B525001A94C5 /* ProfileCache.swift */; };
+		55F72A5829D9B580001A94C5 /* ItemCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F72A5729D9B580001A94C5 /* ItemCache.swift */; };
+		55F72A5A29D9B5B1001A94C5 /* NoteCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F72A5929D9B5B1001A94C5 /* NoteCache.swift */; };
+		55F72A5C29D9B5DD001A94C5 /* ListCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F72A5B29D9B5DD001A94C5 /* ListCache.swift */; };
+		55F72A5E29D9BE3B001A94C5 /* NEUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F72A5D29D9BE3B001A94C5 /* NEUser.swift */; };
+		55F72A6029D9BE4C001A94C5 /* NEProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F72A5F29D9BE4C001A94C5 /* NEProfile.swift */; };
+		55F72A6229D9BE5C001A94C5 /* NEItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F72A6129D9BE5C001A94C5 /* NEItem.swift */; };
+		55F72A6429D9BE69001A94C5 /* NENote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F72A6329D9BE69001A94C5 /* NENote.swift */; };
+		55F72A6629D9BE78001A94C5 /* NEList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F72A6529D9BE78001A94C5 /* NEList.swift */; };
 		55F9989C2974687600A186D9 /* StatisticsPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F9989B2974687600A186D9 /* StatisticsPage.xib */; };
 		55F9989E2974690B00A186D9 /* StatisticsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F9989D2974690B00A186D9 /* StatisticsPage.swift */; };
 		AFE2A65A664B65F0D6087ED5 /* Pods_FinancePlanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA7E4CADAED0B8B9C0F4060 /* Pods_FinancePlanner.framework */; };
@@ -115,6 +125,16 @@
 		55E95CED290EDCCC00C2E4BD /* PreferencesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesStorage.swift; sourceTree = "<group>"; };
 		55E95CEF290F042E00C2E4BD /* CurrencyConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverter.swift; sourceTree = "<group>"; };
 		55F2F9B428C3C4BB00D3BE48 /* ListTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTextField.swift; sourceTree = "<group>"; };
+		55F72A5329D9B4B7001A94C5 /* UserCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCache.swift; sourceTree = "<group>"; };
+		55F72A5529D9B525001A94C5 /* ProfileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCache.swift; sourceTree = "<group>"; };
+		55F72A5729D9B580001A94C5 /* ItemCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCache.swift; sourceTree = "<group>"; };
+		55F72A5929D9B5B1001A94C5 /* NoteCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCache.swift; sourceTree = "<group>"; };
+		55F72A5B29D9B5DD001A94C5 /* ListCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCache.swift; sourceTree = "<group>"; };
+		55F72A5D29D9BE3B001A94C5 /* NEUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEUser.swift; sourceTree = "<group>"; };
+		55F72A5F29D9BE4C001A94C5 /* NEProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEProfile.swift; sourceTree = "<group>"; };
+		55F72A6129D9BE5C001A94C5 /* NEItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEItem.swift; sourceTree = "<group>"; };
+		55F72A6329D9BE69001A94C5 /* NENote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NENote.swift; sourceTree = "<group>"; };
+		55F72A6529D9BE78001A94C5 /* NEList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEList.swift; sourceTree = "<group>"; };
 		55F9989B2974687600A186D9 /* StatisticsPage.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsPage.xib; sourceTree = "<group>"; };
 		55F9989D2974690B00A186D9 /* StatisticsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsPage.swift; sourceTree = "<group>"; };
 		A5B504AC8F7B236E3D0F3F15 /* Pods-FinancePlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinancePlanner.release.xcconfig"; path = "Target Support Files/Pods-FinancePlanner/Pods-FinancePlanner.release.xcconfig"; sourceTree = "<group>"; };
@@ -187,6 +207,8 @@
 		5501E15028B8EB9800C486D3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				55F72A5229D9AFBF001A94C5 /* NetworkModels */,
+				55F72A5129D9AFA6001A94C5 /* CacheModels */,
 				5501E15428B8EE0900C486D3 /* Managers */,
 				5501E15328B8EDEB00C486D3 /* Extensions */,
 				5501E15228B8EDC700C486D3 /* UI */,
@@ -449,6 +471,30 @@
 			path = ListTextField;
 			sourceTree = "<group>";
 		};
+		55F72A5129D9AFA6001A94C5 /* CacheModels */ = {
+			isa = PBXGroup;
+			children = (
+				55F72A5329D9B4B7001A94C5 /* UserCache.swift */,
+				55F72A5529D9B525001A94C5 /* ProfileCache.swift */,
+				55F72A5729D9B580001A94C5 /* ItemCache.swift */,
+				55F72A5929D9B5B1001A94C5 /* NoteCache.swift */,
+				55F72A5B29D9B5DD001A94C5 /* ListCache.swift */,
+			);
+			path = CacheModels;
+			sourceTree = "<group>";
+		};
+		55F72A5229D9AFBF001A94C5 /* NetworkModels */ = {
+			isa = PBXGroup;
+			children = (
+				55F72A5D29D9BE3B001A94C5 /* NEUser.swift */,
+				55F72A5F29D9BE4C001A94C5 /* NEProfile.swift */,
+				55F72A6129D9BE5C001A94C5 /* NEItem.swift */,
+				55F72A6329D9BE69001A94C5 /* NENote.swift */,
+				55F72A6529D9BE78001A94C5 /* NEList.swift */,
+			);
+			path = NetworkModels;
+			sourceTree = "<group>";
+		};
 		68315149A7EAA152606EEC3A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -592,9 +638,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				55C01ED329ABA85C006D47FF /* LoginViewController.swift in Sources */,
+				55F72A5629D9B525001A94C5 /* ProfileCache.swift in Sources */,
 				5569363829A258EE00BF7923 /* MainAmountField.swift in Sources */,
+				55F72A5829D9B580001A94C5 /* ItemCache.swift in Sources */,
 				55783C3229992127008BC446 /* CurrencyTableViewController.swift in Sources */,
 				5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */,
+				55F72A6629D9BE78001A94C5 /* NEList.swift in Sources */,
 				55B34964299FDE1D00DA3BEA /* ConvCurrencyListViewController.swift in Sources */,
 				55B19C2C2943843000C2BC69 /* CalendarHelper.swift in Sources */,
 				55B19C29294383E800C2BC69 /* CalendarCell.swift in Sources */,
@@ -603,26 +652,33 @@
 				552AC2EC2905759B004B2AB7 /* ConverterViewController.swift in Sources */,
 				553DBFB428B937900030E6C4 /* ListItemCell.swift in Sources */,
 				557A6B312974327500D6F877 /* StatisticsCarouselView.swift in Sources */,
+				55F72A5C29D9B5DD001A94C5 /* ListCache.swift in Sources */,
 				552AC2E929055F5C004B2AB7 /* SavingsEditFormViewController.swift in Sources */,
 				552AC2E629055A05004B2AB7 /* BalanceEditFormViewController.swift in Sources */,
 				5501E15E28B8F06100C486D3 /* CalendarViewController.swift in Sources */,
 				55F9989E2974690B00A186D9 /* StatisticsPage.swift in Sources */,
 				5504FC7A28CE199F009AA660 /* ItemViewCell.swift in Sources */,
 				552AC2EE2905819D004B2AB7 /* DataManager.swift in Sources */,
+				55F72A6229D9BE5C001A94C5 /* NEItem.swift in Sources */,
 				554DA27928B8CA8A0026FF25 /* AppDelegate.swift in Sources */,
 				55B7DA3E29982176001586CC /* CurrencyTableViewCell.swift in Sources */,
 				557A6B3629744A0C00D6F877 /* PageIndicatorView.swift in Sources */,
+				55F72A5A29D9B5B1001A94C5 /* NoteCache.swift in Sources */,
 				55F2F9B528C3C4BB00D3BE48 /* ListTextField.swift in Sources */,
 				557A6B2D297417F700D6F877 /* StatisticsViewHeader.swift in Sources */,
 				55CD255428D7A57400B50EC5 /* MainTextField.swift in Sources */,
 				5501E16228B8F07C00C486D3 /* SettingsViewController.swift in Sources */,
 				55777AE329699A83002B0000 /* StatisticsViewCell.swift in Sources */,
+				55F72A5429D9B4B7001A94C5 /* UserCache.swift in Sources */,
 				55C01ED729ABA88F006D47FF /* SignUpViewController.swift in Sources */,
+				55F72A6029D9BE4C001A94C5 /* NEProfile.swift in Sources */,
 				5569363629A256D400BF7923 /* SetupProfileViewController.swift in Sources */,
 				554DA27B28B8CA8A0026FF25 /* SceneDelegate.swift in Sources */,
 				55E95CEE290EDCCC00C2E4BD /* PreferencesStorage.swift in Sources */,
 				55C01ED529ABA87F006D47FF /* SignInViewController.swift in Sources */,
+				55F72A6429D9BE69001A94C5 /* NENote.swift in Sources */,
 				55E95CF0290F042E00C2E4BD /* CurrencyConverter.swift in Sources */,
+				55F72A5E29D9BE3B001A94C5 /* NEUser.swift in Sources */,
 				5501E16028B8F07000C486D3 /* StatisticsViewController.swift in Sources */,
 				559D36EC2969B36400B75D8C /* MainGradientView.swift in Sources */,
 				5501E15C28B8F04600C486D3 /* ListViewController_First.swift in Sources */,

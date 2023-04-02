@@ -35,9 +35,9 @@ class StatisticsCarouselView: UIView {
         }
     }
     
-    public var items = [Item]()
-    public var monthItems = [[Int:[Item]]]()
-    public var yearItems = [[ItemCategoryType:[Item]]]()
+    public var items = [ItemCache]()
+    public var monthItems = [[Int:[ItemCache]]]()
+    public var yearItems = [[ItemCategoryType:[ItemCache]]]()
     
     public var frequencyType: StatisticsFrequency!
     public var date = Date() {
@@ -86,7 +86,7 @@ class StatisticsCarouselView: UIView {
         pages.append(createStatisticsPage(with: exp_incItems))
     }
     
-    func createStatisticsPage(with items: [String:[Item]]) -> StatisticsPage {
+    func createStatisticsPage(with items: [String:[ItemCache]]) -> StatisticsPage {
         let page: StatisticsPage = StatisticsPage(frame: pagesScrollView.frame)
         
         var chartEntries: [PieChartDataEntry] = [PieChartDataEntry]()
