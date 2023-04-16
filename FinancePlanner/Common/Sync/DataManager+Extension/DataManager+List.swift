@@ -8,23 +8,32 @@
 import Foundation
 
 extension DataManager {
-    var listCount: Int {
-        return syncManager.list.count
+    func getList() -> Array<String> {
+        return syncManager.list
+    }
+    func loadList() {
+        return syncManager.loadList()
     }
     
     func listItem(at index: Int) -> String {
         return syncManager.listItem(at: index)
     }
-    func append(listItem: String) {
-        return syncManager.append(listItem: listItem)
+    func append(listItem: String, completion: @escaping (Array<String>, Error?) -> Void) {
+        syncManager.append(listItem: listItem, completion: completion)
     }
-    func insert(listItem: String, at index: Int) {
-        return syncManager.insert(listItem: listItem, at: index)
+    func replaceListItem(from srcIndex: Int, to destIndex: Int, completion: @escaping (Array<String>, Error?) -> Void) {
+        syncManager.replaceListItem(from: srcIndex, to: destIndex, completion: completion)
     }
-    func deleteListItem(at index: Int) {
-        return syncManager.deleteListItem(at: index)
+    func insert(listItem: String, at index: Int, completion: @escaping (Array<String>, Error?) -> Void) {
+        syncManager.insert(listItem: listItem, at: index, completion: completion)
     }
-    func updateListItem(at index: Int, withNewListItem newListItem: String) {
-        syncManager.list[index] = newListItem
+    func deleteListItem(at index: Int, completion: @escaping (Array<String>, Error?) -> Void) {
+        syncManager.deleteListItem(at: index, completion: completion)
+    }
+    func markListItem(at index: Int, completion: @escaping (Array<String>, Error?) -> Void) {
+        syncManager.markListItem(at: index, completion: completion)
+    }
+    func updateListItem(at index: Int, withNewListItem newListItem: String, completion: @escaping (Array<String>, Error?) -> Void) {
+        syncManager.updateListItem(at: index, withNewListItem: newListItem, completion: completion)
     }
 }

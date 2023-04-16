@@ -37,10 +37,6 @@ public class DataManager {
   
 // MARK: - Default Amount
     
-    func getAllNote(completion: @escaping ([Note], Error?) -> Void) {
-        syncManager.getAllNotes(completion: completion)
-    }
-    
     func getDefaultAmount(amount:Double, currency:String) -> Double {
         var _amount: Double = 0
         let amountText = convertAmountToDefault(amount:amount, currency:currency, style: .none)

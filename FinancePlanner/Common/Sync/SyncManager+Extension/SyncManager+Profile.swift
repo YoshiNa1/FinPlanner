@@ -41,7 +41,6 @@ extension SyncManager {
             }
             if let profile = profile {
                 let complProfile = Profile(neProfile: profile)
-                
                 completion(complProfile, error)
             }
         }

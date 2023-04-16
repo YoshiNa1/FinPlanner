@@ -34,6 +34,10 @@ class SettingsViewController: UIViewController {
                                                selector: #selector(updateUI),
                                                name: .currencyDidRemoveFromDefaults,
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateUI),
+                                               name: .currencyDidSelectFromDefaults,
+                                               object: nil)
         
         self.updateUI()
     }

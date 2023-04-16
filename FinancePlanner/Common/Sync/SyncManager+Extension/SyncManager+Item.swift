@@ -16,7 +16,6 @@ extension SyncManager {
             }
             if let item = item {
                 let complItem = Item(neItem: item)
-                
                 completion(complItem, error)
             }
         }
@@ -81,18 +80,21 @@ extension SyncManager {
     }
     
     
-    func getItemBy(uuid: String, completion: @escaping (Item?) -> Void) {
+    func getItemBy(uuid: String, completion: @escaping (Item?, Error?) -> Void) {
+        var complItem: Item?
         if Connectivity.isConnected() {
             ItemRequests().get(uuid: uuid) { item, error in
                 if let neItem = item {
-                    let item = Item(neItem: neItem)
-                    completion(item)
+                    complItem = Item(neItem: neItem)
                 }
+                completion(complItem, error)
             }
         } else {
-            if let item = items.first(where: {$0.uuid == uuid}) {
-                completion(item)
+            let items = self.realm.objects(ItemCache.self)
+            if let cachedItem = items.first(where: {$0.uuid == uuid}) {
+                complItem = Item(cache: cachedItem)
             }
+            completion(complItem, nil)
         }
     }
     

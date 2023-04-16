@@ -14,8 +14,8 @@ extension SyncManager {
             UserRequests().get { user, error in
                 if let user = user {
                     complUser = User(neUser: user)
-                    completion(complUser, error)
                 }
+                completion(complUser, error)
             }
         } else {
             if let user = self.realm.objects(UserCache.self).first {

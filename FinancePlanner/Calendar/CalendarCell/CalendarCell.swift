@@ -32,7 +32,8 @@ class CalendarCell: UICollectionViewCell {
         } else {
             let day = CalendarHelper().dayOfMonth(date: date)
             self.dayLabel.text = String(day)
-            DataManager.instance.getNote(by: date, completion: { note in
+            //TODO: remove check for the each note!!! About 30 requests and each time table reloads -- it's too hard!!
+            DataManager.instance.getNote(by: date, completion: { note, error in
                 self.hasNote = note != nil
             })
         }

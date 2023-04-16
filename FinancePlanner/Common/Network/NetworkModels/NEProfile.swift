@@ -44,4 +44,10 @@ extension NEProfile : ImmutableMappable {
         savings = try map.value(CodingKeys.savings.rawValue)
         currency = try map.value(CodingKeys.currency.rawValue)
     }
+    
+    mutating func mapping(map: Map) { // .toJSON()
+        balance >>> map[CodingKeys.balance.rawValue]
+        savings >>> map[CodingKeys.savings.rawValue]
+        currency >>> map[CodingKeys.currency.rawValue]
+    }
 }

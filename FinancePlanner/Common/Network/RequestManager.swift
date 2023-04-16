@@ -57,6 +57,10 @@ class RequestManager {
                                  headers: endpoint.headers)
         request.validate(statusCode: 200..<600).responseJSON { response in
             let statusCode = response.response?.statusCode
+            if statusCode == 401 {
+                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+                sceneDelegate?.changeRootViewController(with: "loginVC")
+            }
             if statusCode == 403 {
                 self.refreshToken(endpoint: endpoint) { _request in
                     request = _request

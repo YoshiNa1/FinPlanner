@@ -51,7 +51,12 @@ extension NEUser : ImmutableMappable {
         let user: [String : Any]? = try? map.value(CodingKeys.user.rawValue)
         uuid = user?[CodingKeys.uuid.rawValue] as? String ?? ""
         email = user?[CodingKeys.email.rawValue] as? String ?? ""
-        isActivated = user?[CodingKeys.email.rawValue] as? Bool ?? false
+        isActivated = user?[CodingKeys.isActivated.rawValue] as? Bool ?? false
         password = try? map.value(CodingKeys.password.rawValue)
+    }
+    
+    mutating func mapping(map: Map) { // .toJSON()
+        email >>> map[CodingKeys.email.rawValue]
+        password >>> map[CodingKeys.password.rawValue]
     }
 }

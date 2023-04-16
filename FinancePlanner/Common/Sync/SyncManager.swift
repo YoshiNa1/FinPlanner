@@ -22,36 +22,40 @@ enum SyncAction: Int {
 class SyncManager {
     let realm = try! Realm()
     
-    var defaultCurrency: String {
-        get { PreferencesStorage.shared.defaultCurrency?.name ?? ""}
+    private var user: User? {
+        var retUser: User?
+        self.getUser { user, error in
+            retUser = user
+        }
+        return retUser
     }
-    var user: User!
-    var profile: Profile!
-    var items: [Item] = [Item]()
-    var notes: [Note] = [Note]()
+    private var profile: Profile? {
+        var retProfile: Profile?
+        self.getProfile { profile, error in
+            retProfile = profile
+        }
+        return retProfile
+    }
+    private var items: [Item]? {
+        var retItems = [Item]()
+        self.getAllItems { items, error in
+            retItems = items
+        }
+        return retItems
+    }
     
-    var list : Array<String> {
-        get {
-            getListContent()
+    private var notes: [Note]? {
+        var retNotes = [Note]()
+        self.getAllNotes { notes, error in
+            retNotes = notes
         }
-        set {
-            setListContent(newValue)
-        }
+        return retNotes
     }
+    
+    var list : Array<String> = Array<String>()
     
     public init() {
-        getUser { user, error in
-            self.user = user
-        }
-        getProfile { profile, error in
-            self.profile = profile
-        }
-        getAllNotes { notes, error in
-            self.notes = notes
-        }
-        getAllItems { items, error in
-            self.items = items
-        }
+//        self.loadList() // TODO: moved to homePage
     }
     
 }

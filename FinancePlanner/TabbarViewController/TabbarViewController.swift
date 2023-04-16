@@ -30,12 +30,16 @@ class TabbarViewController: UITabBarController {
     var thumbView: MainGradientView!
     let thumbViewWidth: Int = 70
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        UIManager.shared.setupTabbarVC(self)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         setupThumbView()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        UIManager.shared.setupTabbarVC(self)
         
         tabBar.backgroundColor = UIColor(named: "MainBackgroundColor")
         tabBar.layer.cornerRadius = 16
@@ -44,16 +48,16 @@ class TabbarViewController: UITabBarController {
     }
     
     func setupThumbView() {
-        thumbView = MainGradientView(frame: CGRect(x: 0, y: 19, width: thumbViewWidth, height: thumbViewWidth))
+        thumbView = MainGradientView(frame: CGRect(x: 172, y: 19, width: thumbViewWidth, height: thumbViewWidth)) // HARDCODE: 172 = x for 2nd item
         thumbView.backgroundColor = .clear
         tabBar.insertSubview(thumbView, at: 0)
         
-        didSelectItem(at: 2, duration: 0.0)
+        self.selectedIndex = 2 // HOME PAGE
     }
     
     func didSelectItem(at index: Int, duration: CGFloat = 0.3) {
+        self.selectedIndex = index
         DispatchQueue.main.asyncAfter(deadline: .now()) {
-            self.selectedIndex = index
             let buttons = self.tabBar.subviews.filter { String(describing: type(of: $0)) == "UITabBarButton" }
             UIView.animate(withDuration: duration) {
                 self.thumbView.frame.origin.x = buttons[index].frame.midX - CGFloat(self.thumbViewWidth / 2)

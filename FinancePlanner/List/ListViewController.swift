@@ -19,6 +19,11 @@ class ListViewController: UIViewController {
         return parameters
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateUI()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,7 +45,7 @@ class ListViewController: UIViewController {
        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tableView.addGestureRecognizer(tapGesture)
-
+        
         updateUI()
     }
     
@@ -50,10 +55,11 @@ class ListViewController: UIViewController {
     
     @IBAction func didAddNewNote(_ sender: Any) {
         if let newNoteString = self.newNoteField.text {
-            DataManager.instance.append(listItem: newNoteString)
             self.newNoteField.text = ""
             self.addButton.isEnabled = false
-            updateUI()
+            DataManager.instance.append(listItem: newNoteString) { listContent, error in
+                self.updateUI()
+            }
         }
     }
     
@@ -79,19 +85,9 @@ class ListViewController: UIViewController {
         let cellIconFrame = tableView.convert(cell.iconView.frame, from:cell)
         if cellIconFrame.contains(gestureLocation) {
             if(gesture.state == .ended) {
-                let item = DataManager.instance.listItem(at: index)
-
-                var newItem = item
-                
-                // TODO: перенести всё <done> в dataManager. Создать флаг isDone.
-                if item.contains("<done>") {
-                    newItem = item.replacingOccurrences(of:"<done>", with:"")
-                } else {
-                    newItem = item + "<done>"
+                DataManager.instance.markListItem(at: index) { listContent, error in
+                    self.updateUI()
                 }
-                DataManager.instance.deleteListItem(at: index)
-                DataManager.instance.insert(listItem: newItem, at: index)
-                updateUI()
             }
         }
     }
@@ -99,7 +95,7 @@ class ListViewController: UIViewController {
 
 extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataManager.instance.listCount
+        return DataManager.instance.getList().count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -117,8 +113,9 @@ extension ListViewController : UITableViewDelegate, UITableViewDataSource {
    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let contextItem = UIContextualAction(style: .destructive, title: "Delete") { (contextualAction, view, boolValue) in
-            DataManager.instance.deleteListItem(at: indexPath.row)
-            self.updateUI()
+            DataManager.instance.deleteListItem(at: indexPath.row) { listContent, error in
+                self.updateUI()
+            }
         }
         let swipeActions = UISwipeActionsConfiguration(actions: [contextItem])
         return swipeActions
@@ -131,10 +128,9 @@ extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate  
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let item = DataManager.instance.listItem(at: sourceIndexPath.row)
-        DataManager.instance.deleteListItem(at: sourceIndexPath.item)
-        DataManager.instance.insert(listItem: item, at: destinationIndexPath.row)
-        updateUI()
+        DataManager.instance.replaceListItem(from: sourceIndexPath.item, to: destinationIndexPath.row) { listContent, error in
+            self.updateUI()
+        }
     }
     
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
@@ -156,14 +152,17 @@ extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate  
 
 extension ListViewController: ListTableViewCellDelegate {
     func textFieldDidChange(_ textField: UITextField, at indexPath: IndexPath) {
-        if indexPath.item < DataManager.instance.listCount {
+        if indexPath.item < DataManager.instance.getList().count {
             guard let text = textField.text else { return }
-            DataManager.instance.updateListItem(at: indexPath.item, withNewListItem: text)
+            /* TODO: Think how not to send request every time the textfield changes. Too hard!!
+             Maybe send request if there are not saved changes in viewWillDisappear?? */
+            DataManager.instance.updateListItem(at: indexPath.item, withNewListItem: text) { _, _ in }
             
             if text == "" {
-                DataManager.instance.deleteListItem(at: indexPath.row)
-                UIView.transition(with: tableView, duration: 0.4) {
-                    self.updateUI()
+                DataManager.instance.deleteListItem(at: indexPath.row) { listContent, error in
+                    UIView.transition(with: self.tableView, duration: 0.4) {
+                        self.updateUI()
+                    }
                 }
             }
         }

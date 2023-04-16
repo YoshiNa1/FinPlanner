@@ -77,20 +77,23 @@ extension SyncManager {
         }
     }
     
-    func getNote(by date: Date, completion: @escaping (Note?) -> Void) {
+    func getNote(by date: Date, completion: @escaping (Note?, Error?) -> Void) {
+        var complNote: Note?
         if Connectivity.isConnected() {
             let dateString = CalendarHelper().isoDateString(date: date)
             NoteRequests().get(date: dateString) { neNote, error in
-                var note: Note?
                 if let neNote = neNote {
-                    note = Note(neNote: neNote)
+                    complNote = Note(neNote: neNote)
                 }
-                completion(note)
+                completion(complNote, error)
             }
         } else {
-            if let note = notes.first(where: { CalendarHelper().isDate(date: $0.date, equalTo: date) }) {
-                completion(note)
+            let notes = self.realm.objects(NoteCache.self)
+            if let cacheNote = notes.first(where: { CalendarHelper().isDate(date: $0.date, equalTo: date) }) {
+                let note = Note(cache: cacheNote)
+                complNote = note
             }
+            completion(complNote, nil)
         }
     }
     

@@ -58,14 +58,14 @@ extension UserEndpoint: Endpoint {
     
     var parameters: Parameters? {
         switch self {
-//        case .registration(let user), .login(let user):
-        case .registration(let user):
+        case .registration(let user), .login(let user):
+//        case .registration(let user):
             return user.toJSON()
-        case .login(let user):
-            var params = [String:String]()
-            params["email"] = user.email
-            params["password"] = user.password
-            return params
+//        case .login(let user):
+//            var params = [String:String]()
+//            params["email"] = user.email
+//            params["password"] = user.password
+//            return params
         case .changePassword(let oldPassword, let newPassword):
             var params = [String:String]()
             params["oldPassword"] = oldPassword
