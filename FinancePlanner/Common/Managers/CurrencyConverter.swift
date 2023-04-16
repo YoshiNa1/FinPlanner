@@ -180,7 +180,7 @@ private class CurrencyXMLParser : NSObject, XMLParserDelegate {
     }
     
     public func parse(completion : @escaping () -> Void, errorCompletion : @escaping () -> Void) {
-        guard let url = URL(string: xmlURL) else { return }
+        guard let url = Foundation.URL(string: xmlURL) else { return }
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
                 print("Failed to parse the XML!")

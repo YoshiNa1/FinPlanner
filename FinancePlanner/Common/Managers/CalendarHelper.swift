@@ -19,15 +19,6 @@ class CalendarHelper {
         return calendar.monthSymbols
     }
     
-//    func getMonthIndex(by name: String) -> Int {
-//        for i in 0...calendar.monthSymbols.count {
-//            if calendar.monthSymbols[i] == name {
-//                return i
-//            }
-//        }
-//        return 0
-//    }
-    
     func years() -> [Int] {
         let minYear = 1999
         let maxYear = 2030
@@ -45,6 +36,17 @@ class CalendarHelper {
     func dateString(date: Date, long: Bool = false) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = long ? "dd LLL, yyyy" : "dd.MM.yy"
+        return dateFormatter.string(from: date)
+    }
+    
+    func isoDateString(date: Date) -> String {
+        let dateFormatter: DateFormatter = {
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale.current
+            dateFormatter.timeZone = TimeZone.init(identifier: "UTC")
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter
+        }()
         return dateFormatter.string(from: date)
     }
     

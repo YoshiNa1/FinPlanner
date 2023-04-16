@@ -25,8 +25,8 @@ class HomeViewController: UIViewController, ItemViewCellDelegate {
             updateUI()
         }
     }
-    var items = [ItemCache]()
-    var profile: ProfileCache? = DataManager.instance.profile
+    var items = [Item]()
+    var profile: Profile?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -50,14 +50,19 @@ class HomeViewController: UIViewController, ItemViewCellDelegate {
     }
     
     func updateUI() {
-        self.items = DataManager.instance.getItemsBy(date: date)
-        
-        if let profile = self.profile {
-            let defSymbol = ConvCurrency.symbol(for: profile.currency)
-            balanceLabel.text = "\(UIManager.shared.format(amount:profile.balance))\(defSymbol)"
-            savingsLabel.text = "\(UIManager.shared.format(amount:profile.savings))\(defSymbol)"
+        DataManager.instance.getProfile { profile, _ in
+            if let profile = profile {
+                self.profile = profile
+                let defSymbol = ConvCurrency.symbol(for: profile.currency)
+                self.balanceLabel.text = "\(UIManager.shared.format(amount:profile.balance))\(defSymbol)"
+                self.savingsLabel.text = "\(UIManager.shared.format(amount:profile.savings))\(defSymbol)"
+            }
         }
-        collectionView.reloadData()
+        
+        DataManager.instance.getItemsBy(date: date) { items, error in
+            self.items = items
+            self.collectionView.reloadData()
+        }
     }
     
     

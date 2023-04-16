@@ -10,7 +10,6 @@ import RealmSwift
 
 class ListCache: Object {
     @objc dynamic var uuid: String = UUID().uuidString
-    @objc dynamic var userUuid: String = "" // User().uuid
     var content = List<String>()
     
     override class func primaryKey() -> String? {
@@ -21,9 +20,22 @@ class ListCache: Object {
         super.init()
     }
     
-    init(userUuid: String,
-         content: Array<String>) {
-        self.userUuid = userUuid
+    init(content: Array<String>) {
         self.content.append(objectsIn: content)
+    }
+    
+    init(neModel: NEList) {
+        self.uuid = neModel.uuid
+        self.content.append(objectsIn: neModel.content)
+    }
+    
+    init(_ list: FPList) {
+        self.uuid = list.uuid
+        
+        var content = List<String>()
+        list.content.forEach { str in
+            content.append(str)
+        }
+        self.content = content
     }
 }

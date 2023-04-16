@@ -30,20 +30,23 @@ class SignUpViewController: UIViewController {
     @IBAction func continueClicked(_ sender: Any) {
         let password = passwordField.text ?? ""
         let confirmPassword = confirmPasswordField.text ?? ""
-        
-        PreferencesStorage.shared.password = password
-        
-        if DataManager.instance.user.password == password {
-            var identifier = "mainTabbarVC"
-            if PreferencesStorage.shared.currencies.isEmpty {
-                identifier = "setupProfileVC"
-            }
-            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-            sceneDelegate?.changeRootViewController(with: identifier)
-        } else {
-            let alert = UIAlertController(title: "Error", message: "Invalid Password", preferredStyle: .alert)
+        if password != confirmPassword {
+            let alert = UIAlertController(title: "Error", message: "The passwords don't match", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
             present(alert, animated: true)
+            return
+        }
+        
+        let user = User(email: PreferencesStorage.shared.email, password: password)
+        DataManager.instance.registration(user: user) { user, error in
+            if error != nil {
+                let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
+                self.present(alert, animated: true)
+                return
+            }
+            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+            sceneDelegate?.changeRootViewController(with: "setupProfileVC")
         }
     }
     

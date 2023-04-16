@@ -11,7 +11,7 @@ import RealmSwift
 class UserCache: Object {
     @objc dynamic var uuid: String = UUID().uuidString
     @objc dynamic var email: String = ""
-    @objc dynamic var password: String = ""
+    @objc dynamic var password: String? = ""
     
     override class func primaryKey() -> String? {
         return "uuid"
@@ -25,5 +25,11 @@ class UserCache: Object {
          password: String) {
         self.email = email
         self.password = password
+    }
+    
+    init(neModel: NEUser) {
+        self.uuid = neModel.uuid
+        self.email = neModel.email
+        self.password = neModel.password
     }
 }

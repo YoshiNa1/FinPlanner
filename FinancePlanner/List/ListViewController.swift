@@ -99,7 +99,7 @@ class ListViewController: UIViewController {
 
 extension ListViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataManager.instance.list.count
+        return DataManager.instance.listCount
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -156,7 +156,7 @@ extension ListViewController: UITableViewDragDelegate, UITableViewDropDelegate  
 
 extension ListViewController: ListTableViewCellDelegate {
     func textFieldDidChange(_ textField: UITextField, at indexPath: IndexPath) {
-        if indexPath.item < DataManager.instance.list.count {
+        if indexPath.item < DataManager.instance.listCount {
             guard let text = textField.text else { return }
             DataManager.instance.updateListItem(at: indexPath.item, withNewListItem: text)
             

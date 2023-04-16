@@ -15,10 +15,10 @@ enum StatisticsFrequency: String {
 
 class StatiscticsTableSection {
     var title: Date = Date()
-    var childs: [ItemCache] = [ItemCache]()
+    var childs: [Item] = [Item]()
     
     init(title: Date,
-         childs: [ItemCache]) {
+         childs: [Item]) {
         self.title = title
         self.childs = childs
     }
@@ -89,9 +89,9 @@ class StatisticsViewController: UIViewController {
         }
     }
     
-    var items = [ItemCache]()
-    var monthItems = [[Int:[ItemCache]]]()
-    var yearItems = [[ItemCategoryType:[ItemCache]]]()
+    var items = [Item]()
+    var monthItems = [[Int:[Item]]]()
+    var yearItems = [[ItemCategoryType:[Item]]]()
     
     var sections = [StatiscticsTableSection]()
     
@@ -124,65 +124,67 @@ class StatisticsViewController: UIViewController {
         self.sections.removeAll()
         switch frequencyType {
         case .day:
-            self.items = DataManager.instance.getItemsBy(date: selectedDate)
-            self.carouselView.items = items
-            let section = StatiscticsTableSection(title: selectedDate, childs: items)
-            self.sections.append(section)
-            
-            self.emptyCollectionView.isHidden = !items.isEmpty
-            self.carouselView.isHidden = items.isEmpty
-        case .month:
-            self.monthItems = DataManager.instance.getMonthItemsBy(date: selectedDate)
-            self.carouselView.monthItems = monthItems
-            
-            for day in 1...monthItems.count {
-                let dict = monthItems[day - 1]
-                var dayItems = [ItemCache]()
-                dict.values.forEach { (items) in
-                    dayItems.append(contentsOf: items)
-                }
-
-                let date = dayItems.first?.date ?? Date()
-                let section = StatiscticsTableSection(title: date, childs: dayItems)
-                if !section.childs.isEmpty {
-                    self.sections.append(section)
-                }
-            }
-            
-            self.emptyCollectionView.isHidden = !monthItems.isEmpty
-            self.carouselView.isHidden = monthItems.isEmpty
-        case .year:
-            self.yearItems = DataManager.instance.getYearItemsBy(date: selectedDate)
-            self.carouselView.yearItems = yearItems
-            
-            for month in 1...yearItems.count {
-                let dict = yearItems[month - 1]
-                var monthItems = [ItemCache]()
+            DataManager.instance.getItemsBy(date: selectedDate) { items, error in
+                self.items = items
+                let section = StatiscticsTableSection(title: self.selectedDate, childs: items)
+                self.sections.append(section)
                 
-                for (_, items) in dict {
-                    if !items.isEmpty {
-                        let item = DataManager.instance.createYearItem(with: items)
-                        monthItems.append(item)
+                self.emptyCollectionView.isHidden = !items.isEmpty
+                self.carouselView.isHidden = items.isEmpty
+                self.collectionView.reloadData()
+            }
+        case .month:
+            DataManager.instance.getMonthItemsBy(date: selectedDate) { monthItems, error in
+                self.monthItems = monthItems
+                for day in 1...monthItems.count {
+                    let dict = monthItems[day - 1]
+                    var dayItems = [Item]()
+                    dict.values.forEach { (items) in
+                        dayItems.append(contentsOf: items)
+                    }
+
+                    let date = dayItems.first?.created ?? Date()
+                    let section = StatiscticsTableSection(title: date, childs: dayItems)
+                    if !section.childs.isEmpty {
+                        self.sections.append(section)
                     }
                 }
                 
-                let date = monthItems.first?.date ?? Date()
-                let section = StatiscticsTableSection(title: date, childs: monthItems)
-                if !section.childs.isEmpty {
-                    self.sections.append(section)
-                }
+                self.emptyCollectionView.isHidden = !monthItems.isEmpty
+                self.carouselView.isHidden = monthItems.isEmpty
+                self.collectionView.reloadData()
             }
-            
-            self.emptyCollectionView.isHidden = !yearItems.isEmpty
-            self.carouselView.isHidden = yearItems.isEmpty
+        case .year:
+            DataManager.instance.getYearItemsBy(date: selectedDate) { yearItems, error in
+                self.yearItems = yearItems
+                for month in 1...yearItems.count {
+                    let dict = yearItems[month - 1]
+                    var monthItems = [Item]()
+                    
+                    for (_, items) in dict {
+                        if !items.isEmpty {
+                            let item = DataManager.instance.createYearItem(with: items)
+                            monthItems.append(item)
+                        }
+                    }
+                    
+                    let date = monthItems.first?.created ?? Date()
+                    let section = StatiscticsTableSection(title: date, childs: monthItems)
+                    if !section.childs.isEmpty {
+                        self.sections.append(section)
+                    }
+                }
+                
+                self.emptyCollectionView.isHidden = !yearItems.isEmpty
+                self.carouselView.isHidden = yearItems.isEmpty
+                self.collectionView.reloadData()
+            }
         default:
             break
         }
         
-        self.collectionView.reloadData()
-        
-        self.carouselView.frequencyType = frequencyType
-        self.carouselView.date = selectedDate
+        self.carouselView.frequencyType = self.frequencyType
+        self.carouselView.date = self.selectedDate
     }
     
     

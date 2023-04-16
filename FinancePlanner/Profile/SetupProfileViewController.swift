@@ -26,7 +26,7 @@ class SetupProfileViewController: UIViewController {
     
     private var selectedCurrencies: [Currency] = [Currency]()
     
-    var profile: ProfileCache? = DataManager.instance.profile
+    var profile: Profile?
     
     private var isCurrenciesSet: Bool = false {
         didSet {
@@ -41,12 +41,18 @@ class SetupProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        amountsView.isHidden = false
-        if let profile = self.profile {
-            amountsView.isHidden = true
-            let currency = Currency(name: profile.currency, isDefault: true)
-            PreferencesStorage.shared.currencies.append(currency)
-        }
+        DataManager.instance.getProfile(completion: { profile, _ in
+            if let profile = profile {
+                self.profile = profile
+                self.amountsView.isHidden = true
+                if PreferencesStorage.shared.currencies.isEmpty {
+                    let currency = Currency(name: profile.currency, isDefault: true)
+                    PreferencesStorage.shared.currencies.append(currency)
+                }
+            } else {
+                self.amountsView.isHidden = false
+            }
+        })
         
         self.updateUI()
         
@@ -109,7 +115,7 @@ class SetupProfileViewController: UIViewController {
             let savingsCurrency = savingsLabel.text ?? anyCurrency
             
             DataManager.instance.createProfile(with: balanceAmount, balanceCurrency,
-                                               and: savingsAmount, savingsCurrency)
+                                               and: savingsAmount, savingsCurrency) { _, _ in }
         }
         let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
         sceneDelegate?.changeRootViewController(with: "mainTabbarVC")

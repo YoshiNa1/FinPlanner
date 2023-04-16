@@ -10,9 +10,8 @@ import RealmSwift
 
 class NoteCache: Object {
     @objc dynamic var uuid: String = UUID().uuidString
-    @objc dynamic var userUuid: String = "" // User().uuid
     @objc dynamic var date: Date = Date()
-    @objc dynamic var descrpt: String = ""
+    @objc dynamic var content: String = ""
     
     override class func primaryKey() -> String? {
         return "uuid"
@@ -22,11 +21,24 @@ class NoteCache: Object {
         super.init()
     }
     
-    init(userUuid: String,
-         date: Date,
-         description: String) {
-        self.userUuid = userUuid
+    init(date: Date,
+         content: String) {
         self.date = date
-        self.descrpt = description
+        self.content = content
+    }
+    
+    init(neModel: NENote) {
+        self.uuid = neModel.uuid
+        let dateString = neModel.date
+        let dateFormatter = ISO8601DateFormatter()
+        let date = dateFormatter.date(from:dateString)!
+        self.date = date
+        self.content = neModel.content
+    }
+    
+    init(_ model: Note) {
+        self.uuid = model.uuid
+        self.date = model.date
+        self.content = model.content
     }
 }

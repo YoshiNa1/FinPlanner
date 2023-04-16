@@ -15,7 +15,7 @@ class StatisticsViewCell: UICollectionViewCell {
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     
-    var model = ItemCache()
+    var model: Item?
     
     var frequencyType: StatisticsFrequency = .day
     
@@ -40,7 +40,7 @@ class StatisticsViewCell: UICollectionViewCell {
         self.layer.masksToBounds = true
     }
      
-    func configureCell(with model: ItemCache, frequencyType: StatisticsFrequency) {
+    func configureCell(with model: Item, frequencyType: StatisticsFrequency) {
         self.model = model
         self.frequencyType = frequencyType
         
@@ -53,17 +53,18 @@ class StatisticsViewCell: UICollectionViewCell {
         setAmountField()
         
         self.iconViewWidth.constant = frequencyType == .day ? 30 : 0
-        self.subtitleLabel.isHidden = frequencyType != .day || model.descrpt.isEmpty
+        self.subtitleLabel.isHidden = frequencyType != .day || model.description.isEmpty
         self.categoryLabel.isHidden = frequencyType != .day
         
         let categoryString = model.categoryType == .none ? "" : model.categoryType.rawValue
         categoryLabel.text = categoryString
         
         titleLabel.text = frequencyType == .year ? categoryString : model.name
-        subtitleLabel.text = model.descrpt
+        subtitleLabel.text = model.description
     }
     
     func setAmountField() {
+        guard let model = model else { return }
         let amountFormatted = UIManager.shared.format(amount: model.amount)
         var amountString = "\(amountFormatted)\(ConvCurrency.symbol(for: model.currency))"
         

@@ -59,7 +59,7 @@ class SettingsViewController: UIViewController {
         PreferencesStorage.shared.clearSettings()
         
         let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-        sceneDelegate?.changeRootViewController(with: "setupProfileVC") // TODO: CHANGE TO EMAIL PAGE
+        sceneDelegate?.changeRootViewController(with: "loginVC")
     }
     
     @IBAction func didAddNewCurrency(_ sender: Any) {

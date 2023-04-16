@@ -10,7 +10,6 @@ import RealmSwift
 
 class ProfileCache: Object {
     @objc dynamic var uuid: String = UUID().uuidString
-    @objc dynamic var userUuid: String = ""
     @objc dynamic var balance: Double = 0.0
     @objc dynamic var savings: Double = 0.0
     @objc dynamic var currency: String = "" // CHANGE EVERYTIME DEFAULT CURRENCY FROM SETTINGS CHANGED AND UPDATE BALANCE-SAVINGS
@@ -23,13 +22,17 @@ class ProfileCache: Object {
         super.init()
     }
     
-    init(userUuid: String,
-         balance: Double,
-         savings: Double,
-         currency: String) {
-        self.userUuid = userUuid
-        self.balance = balance
-        self.savings = savings
-        self.currency = currency
+    init(_ profile: Profile) {
+        self.uuid = profile.uuid
+        self.balance = profile.balance
+        self.savings = profile.savings
+        self.currency = profile.currency
+    }
+    
+    init(neModel: NEProfile) {
+        self.uuid = neModel.uuid
+        self.balance = neModel.balance
+        self.savings = neModel.savings
+        self.currency = neModel.currency
     }
 }

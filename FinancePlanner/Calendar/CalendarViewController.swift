@@ -25,13 +25,15 @@ class CalendarViewController: UIViewController {
         didSet {
             selectedDateField.text = CalendarHelper().dateString(date: selectedDate)
             navButton.isHidden = selectedDate > Date()
-            currNote = DataManager.instance.getNote(by: selectedDate)
+            DataManager.instance.getNote(by: selectedDate) { note in
+                self.currNote = note
+            }
         }
     }
     
-    var currNote: NoteCache? {
+    var currNote: Note? {
         didSet {
-            noteField.text = currNote?.descrpt
+            noteField.text = currNote?.content
         }
     }
     
@@ -96,9 +98,10 @@ class CalendarViewController: UIViewController {
     
     @IBAction func saveClicked(_ sender: Any) {
         let noteText = noteField.text ?? ""
-        DataManager.instance.setNote(date: selectedDate, description: noteText)
-        reloadUI()
-        saveButton.isHidden = true
+        DataManager.instance.setNote(date: selectedDate, content: noteText) { note, error in
+            self.reloadUI()
+            self.saveButton.isHidden = true
+        }
     }
     
     @IBAction func goClicked(_ sender: Any) {
@@ -110,7 +113,7 @@ class CalendarViewController: UIViewController {
 extension CalendarViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let isEmpty = textView.text.isEmpty
-        let isChanged = textView.text != currNote?.descrpt
+        let isChanged = textView.text != currNote?.content
         saveButton.isHidden = isEmpty || !isChanged
     }
 }

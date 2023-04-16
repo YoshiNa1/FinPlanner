@@ -23,15 +23,18 @@ class CalendarCell: UICollectionViewCell {
             self.selectedImage.isHidden = !isSelected
         }
     }
-
+    
     func configureCell(date: Date) {
         self.date = date
+        self.noteIndicatorView.isHidden = true
         if(date == Date(timeIntervalSince1970: 0)) {
             self.dayLabel.text = ""
         } else {
             let day = CalendarHelper().dayOfMonth(date: date)
             self.dayLabel.text = String(day)
+            DataManager.instance.getNote(by: date, completion: { note in
+                self.hasNote = note != nil
+            })
         }
-        self.hasNote = DataManager.instance.getNote(by: date) != nil
     }
 }

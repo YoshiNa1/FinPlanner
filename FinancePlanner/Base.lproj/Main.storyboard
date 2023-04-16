@@ -1725,6 +1725,7 @@
                     <tabBarItem key="tabBarItem" title="" image="settings_image" id="tsR-l5-sMa"/>
                     <connections>
                         <outlet property="addButton" destination="hu9-Fy-Ywz" id="zwE-K3-cVD"/>
+                        <outlet property="amountsView" destination="mwe-kW-QhD" id="r3I-Wh-7R0"/>
                         <outlet property="balanceButton" destination="LMq-m4-aOB" id="x9R-iS-eoN"/>
                         <outlet property="balanceField" destination="fOv-5d-KlE" id="eOY-F3-Nhi"/>
                         <outlet property="balanceLabel" destination="jN9-uL-nsj" id="vRj-Cz-LsP"/>

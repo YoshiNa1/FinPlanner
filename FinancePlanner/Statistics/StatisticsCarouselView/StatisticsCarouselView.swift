@@ -35,9 +35,9 @@ class StatisticsCarouselView: UIView {
         }
     }
     
-    public var items = [ItemCache]()
-    public var monthItems = [[Int:[ItemCache]]]()
-    public var yearItems = [[ItemCategoryType:[ItemCache]]]()
+//    public var items = [Item]()
+//    public var monthItems = [[Int:[Item]]]()
+//    public var yearItems = [[ItemCategoryType:[Item]]]()
     
     public var frequencyType: StatisticsFrequency!
     public var date = Date() {
@@ -67,26 +67,43 @@ class StatisticsCarouselView: UIView {
     }
      
     func updateUI() {
-        createStatisticsPages()
-        setupStatisticsPages()
-        
-        pageIndicator.numberOfPages = pages.count
-        navigateToPage(0)
+        createStatisticsPages() {
+            self.setupStatisticsPages()
+            self.pageIndicator.numberOfPages = self.pages.count
+            self.navigateToPage(0)
+        }
     }
     
-    func createStatisticsPages() {
+    func createStatisticsPages(completion: @escaping () -> Void) {
         pages.removeAll()
-        
-        let expItems = DataManager.instance.getStatisticsItemsBy(date: date, frequencyType: frequencyType, type: .outcome)
-        let incItems = DataManager.instance.getStatisticsItemsBy(date: date, frequencyType: frequencyType, type: .income)
-        let exp_incItems = DataManager.instance.getStatisticsItemsBy(date: date, frequencyType: frequencyType)
+        var expItems = [String:[Item]](), incItems = [String:[Item]](), exp_incItems = [String:[Item]]()
 
-        pages.append(createStatisticsPage(with: expItems))
-        pages.append(createStatisticsPage(with: incItems))
-        pages.append(createStatisticsPage(with: exp_incItems))
+        let group = DispatchGroup()
+        group.enter()
+        DataManager.instance.getStatisticsItemsBy(date: date, frequencyType: frequencyType, type: .outcome) { items, error in
+            expItems = items
+            group.leave()
+        }
+        group.enter()
+        DataManager.instance.getStatisticsItemsBy(date: date, frequencyType: frequencyType, type: .income) { items, error in
+            incItems = items
+            group.leave()
+        }
+        group.enter()
+        DataManager.instance.getStatisticsItemsBy(date: date, frequencyType: frequencyType) { items, error in
+            exp_incItems = items
+            group.leave()
+        }
+        
+        group.notify(queue: DispatchQueue.main) {
+            self.appendStatisticsPage(with: expItems)
+            self.appendStatisticsPage(with: incItems)
+            self.appendStatisticsPage(with: exp_incItems)
+            completion()
+        }
     }
     
-    func createStatisticsPage(with items: [String:[ItemCache]]) -> StatisticsPage {
+    func appendStatisticsPage(with items: [String:[Item]]) {
         let page: StatisticsPage = StatisticsPage(frame: pagesScrollView.frame)
         
         var chartEntries: [PieChartDataEntry] = [PieChartDataEntry]()
@@ -104,7 +121,7 @@ class StatisticsCarouselView: UIView {
             }
         }
         page.chartEntries = chartEntries
-        return page
+        self.pages.append(page)
     }
     
     func setupStatisticsPages() {

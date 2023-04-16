@@ -52,7 +52,7 @@ class TabbarViewController: UITabBarController {
     }
     
     func didSelectItem(at index: Int, duration: CGFloat = 0.3) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.selectedIndex = index
             let buttons = self.tabBar.subviews.filter { String(describing: type(of: $0)) == "UITabBarButton" }
             UIView.animate(withDuration: duration) {

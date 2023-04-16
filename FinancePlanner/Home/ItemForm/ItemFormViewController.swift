@@ -22,7 +22,7 @@ class ItemFormViewController: UIViewController {
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var currencyButton: UIButton!
     
-    var currItem: ItemCache?
+    var currItem: Item?
     var type: ItemType = .outcome
     let currencies = PreferencesStorage.shared.currencies
 
@@ -42,8 +42,8 @@ class ItemFormViewController: UIViewController {
         
         if let item = currItem {
             nameField.text = item.name
-            descriptionField.text = item.descrpt
-            categoryField.text = item.category
+            descriptionField.text = item.description
+            categoryField.text = item.categoryType.rawValue
             amountField.text = format(item.amount)
             currencyLabel.text = currencies.first(where: {$0.name == item.currency})?.name
         }
@@ -78,6 +78,10 @@ class ItemFormViewController: UIViewController {
     }
     
     @IBAction func saveClicked(_ sender: Any) {
+        let completion: () -> Void = {
+            UIManager.shared.homeViewController?.updateUI()
+            self.dismiss(animated: true)
+        }
         var amount: Double = 0
         if let amountText = amountField.text {
             let formatter = NumberFormatter()
@@ -89,28 +93,27 @@ class ItemFormViewController: UIViewController {
                 amount = Double(amountText) ?? 0
             }
         }
+        let item = Item(type: type,
+                        name: nameField.text ?? "",
+                        description: descriptionField.text ?? "",
+                        amount: amount,
+                        currency: currencyLabel.text ?? "",
+                        category: ItemCategoryType(rawValue: categoryField.text ?? "") ?? .none,
+                        date: UIManager.shared.getHomePageDate())
         
-        let item = DataManager.instance.createItem(type: type,
-                                                   name: nameField.text ?? "",
-                                                   description: descriptionField.text ?? "",
-                                                   amount: amount,
-                                                   currency: currencyLabel.text ?? "",
-                                                   category: ItemCategoryType(rawValue: categoryField.text ?? "") ?? .none,
-                                                   date: UIManager.shared.getHomePageDate())
         if let _item = self.currItem {
             let amountForUpdate = item.amount - _item.amount
-            DataManager.instance.updateProfile(withItem: item, amount: amountForUpdate)
-            
-            DataManager.instance.update(item: _item, withNewItem: item)
+            DataManager.instance.updateProfile(withItem: item, amount: amountForUpdate) { _, _ in }
+            DataManager.instance.update(item: _item, withNewItem: item) { _, _ in
+                completion()
+            }
             
         } else {
-            DataManager.instance.updateProfile(withItem: item, amount: amount)
-            
-            DataManager.instance.add(item: item)
+            DataManager.instance.updateProfile(withItem: item, amount: amount) { _, _ in }
+            DataManager.instance.add(item: item) { _, _ in
+                completion()
+            }
         }
-        
-        UIManager.shared.homeViewController?.updateUI()
-        self.dismiss(animated: true)
     }
     
     @IBAction func closeClicked(_ sender: Any) {

@@ -18,14 +18,22 @@ class BalanceEditFormViewController: UIViewController {
     
     let currencies = PreferencesStorage.shared.currencies
     
-    var profile: ProfileCache! = DataManager.instance.profile
+    var profile: Profile?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addKeyboardRecognizer()
-        
-        amountField.text = (profile.balance == 0.0) ? "" : String(profile.balance)
+        configureUI()
+    }
+
+    func configureUI() {
+        DataManager.instance.getProfile { profile, _ in
+            if let profile = profile {
+                self.profile = profile
+                self.amountField.text = (profile.balance == 0.0) ? "" : String(profile.balance)
+            }
+        }
         amountField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
        
         saveButton.isEnabled = false
@@ -47,12 +55,12 @@ class BalanceEditFormViewController: UIViewController {
     @IBAction func saveClicked(_ sender: Any) {
         if let amountText = amountField.text {
             let amount = Double(amountText) ?? 0
-            if amount != profile.balance {
-                DataManager.instance.updateProfile(withAmount: amount, currency: currencyLabel.text ?? "", isBalance: true)
+            if amount != profile?.balance {
+                DataManager.instance.updateProfile(withAmount: amount, currency: currencyLabel.text ?? "", isBalance: true) { _, _ in
+                    UIManager.shared.homeViewController?.updateUI()
+                }
             }
         }
-        
-        UIManager.shared.homeViewController?.updateUI()
         self.dismiss(animated: true)
     }
     

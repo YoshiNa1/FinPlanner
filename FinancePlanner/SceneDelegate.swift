@@ -18,31 +18,59 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        var identifier = "mainTabbarVC"
-        
+//        PreferencesStorage.shared.clearSettings()
         let storageEmail = PreferencesStorage.shared.email
-        let storagePassword = PreferencesStorage.shared.password
+        let accessToken = PreferencesStorage.shared.accessToken
         if storageEmail.isEmpty {
-            identifier = "loginVC"
+            self.showPage(with: "loginVC")
         } else {
-            if storagePassword.isEmpty {
-                identifier = "signUpVC"
-                if let user = DataManager.instance.user, user.email == storageEmail {
-                    identifier = "signInVC"
+            if accessToken.isEmpty {
+                DataManager.instance.isUserExist(storageEmail) { exists, error in
+                    if let error = error {
+                        self.showLoginPage(with: error)
+                        return
+                    }
+                    self.showPage(with: exists ? "signInVC" : "signUpVC")
                 }
             }
             else {
-                if PreferencesStorage.shared.currencies.isEmpty {
-                    identifier = "setupProfileVC"
-                }
+                DataManager.instance.getProfile(completion: { profile, error in
+                    if let error = error {
+                        self.showLoginPage(with: error)
+                        return
+                    }
+                    
+                    var identifier = "mainTabbarVC"
+                    if let profile = profile, PreferencesStorage.shared.currencies.isEmpty {
+                        let currency = Currency(name: profile.currency, isDefault: true)
+                        PreferencesStorage.shared.currencies.append(currency)
+                        identifier = "setupProfileVC"
+                    }
+                    self.showPage(with: identifier)
+                })
             }
         }
+    }
+
+    func showLoginPage(with error: Error) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(identifier: "loginVC")
         
+        window?.rootViewController = viewController
+        
+//        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
+//        DispatchQueue.main.async {
+//            viewController.present(alert, animated: true)
+//        }
+    }
+    
+    func showPage(with identifier: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(identifier: identifier)
         window?.rootViewController = viewController
     }
-
+    
     func changeRootViewController(with identifier: String) {
         guard let window = self.window else { return }
         

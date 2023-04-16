@@ -22,7 +22,7 @@ class PreferencesStorage {
                 let encoder = JSONEncoder()
                 let data = try encoder.encode(newValue)
                 storage.set(data, forKey: "currencies")
-                DataManager.instance.updateProfile(withCurrency: newValue.first(where: {$0.isDefault})?.name ?? "")
+                DataManager.instance.updateProfile(withCurrency: newValue.first(where: {$0.isDefault})?.name ?? ""){ _, _ in }
             } catch {
                 print(error)
             }
@@ -50,19 +50,19 @@ class PreferencesStorage {
         }
     }
     
-    var password: String {
+    var accessToken: String {
         set {
-            storage.set(newValue, forKey: "password")
+            storage.set(newValue, forKey: "access_token")
         }
         get {
-            return storage.string(forKey: "password") ?? ""
+            return storage.string(forKey: "access_token") ?? ""
         }
     }
     
     public func clearSettings() {
         currencies.removeAll()
         email = ""
-        password = ""
+        accessToken = ""
     }
 }
 

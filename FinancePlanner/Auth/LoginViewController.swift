@@ -26,15 +26,19 @@ class LoginViewController: UIViewController {
     
     @IBAction func continueClicked(_ sender: Any) {
         let email = emailField.text ?? ""
-        PreferencesStorage.shared.email = email
-        
-        var identifier = "signUpVC"
-        if let user = DataManager.instance.user, user.email == email {
-            identifier = "signInVC"
+        DataManager.instance.isUserExist(email) { exists, error in
+            if error != nil {
+                let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
+                self.present(alert, animated: true)
+                return
+            }
+            PreferencesStorage.shared.email = email
+            let identifier = exists ? "signInVC" : "signUpVC"
+                
+            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+            sceneDelegate?.changeRootViewController(with: identifier)
         }
-            
-        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-        sceneDelegate?.changeRootViewController(with: identifier)
     }
     
 }

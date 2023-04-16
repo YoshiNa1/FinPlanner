@@ -25,14 +25,22 @@ class SavingsEditFormViewController: UIViewController {
     
     let currencies = PreferencesStorage.shared.currencies
     
-    var profile: ProfileCache! = DataManager.instance.profile
+    var profile: Profile?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addKeyboardRecognizer()
-        
-        amountField.text = (profile.savings == 0.0) ? "" : String(profile.savings)
+        configureUI()
+    }
+
+    func configureUI() {
+        DataManager.instance.getProfile { profile, _ in
+            if let profile = profile {
+                self.profile = profile
+                self.amountField.text = (profile.savings == 0.0) ? "" : String(profile.savings)
+            }
+        }
         amountField.addTarget(self, action: #selector(amountFieldDidChange(_:)), for: .editingChanged)
         transactionAmountField.addTarget(self, action: #selector(transactionAmountFieldDidChange(_:)), for: .editingChanged)
         
@@ -72,8 +80,8 @@ class SavingsEditFormViewController: UIViewController {
     func save() {
         if let amountText = amountField.text {
             let amount = Double(amountText) ?? 0
-            if amount != profile.savings {
-                DataManager.instance.updateProfile(withAmount: amount, currency: currencyLabel.text ?? "", isBalance: false)
+            if amount != profile?.savings {
+                DataManager.instance.updateProfile(withAmount: amount, currency: currencyLabel.text ?? "", isBalance: false) { _, _ in }
             }
         }
     }
@@ -83,9 +91,10 @@ class SavingsEditFormViewController: UIViewController {
         if let amountText = transactionAmountField.text {
             transactionAmount = Double(amountText) ?? 0
         }
-        DataManager.instance.updateProfile(withTransactionAmount: transactionAmount, currency: transactionCurrencyLabel.text ?? "", isWithdraw: false)
+        DataManager.instance.updateProfile(withTransactionAmount: transactionAmount, currency: transactionCurrencyLabel.text ?? "", isWithdraw: false) { _, _ in
+            UIManager.shared.homeViewController?.updateUI()
+        }
         
-        UIManager.shared.homeViewController?.updateUI()
         self.dismiss(animated: true)
     }
     
@@ -95,9 +104,10 @@ class SavingsEditFormViewController: UIViewController {
         if let amountText = transactionAmountField.text {
             transactionAmount = Double(amountText) ?? 0
         }
-        DataManager.instance.updateProfile(withTransactionAmount: transactionAmount, currency: transactionCurrencyLabel.text ?? "", isWithdraw: true)
+        DataManager.instance.updateProfile(withTransactionAmount: transactionAmount, currency: transactionCurrencyLabel.text ?? "", isWithdraw: true) { _, _ in
+            UIManager.shared.homeViewController?.updateUI()
+        }
         
-        UIManager.shared.homeViewController?.updateUI()
         self.dismiss(animated: true)
     }
     
