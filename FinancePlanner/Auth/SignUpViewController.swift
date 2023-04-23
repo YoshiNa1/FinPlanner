@@ -31,18 +31,14 @@ class SignUpViewController: UIViewController {
         let password = passwordField.text ?? ""
         let confirmPassword = confirmPasswordField.text ?? ""
         if password != confirmPassword {
-            let alert = UIAlertController(title: "Error", message: "The passwords don't match", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
-            present(alert, animated: true)
+            self.showAlert(message: "The passwords don't match")
             return
         }
         
         let user = User(email: PreferencesStorage.shared.email, password: password)
         DataManager.instance.registration(user: user) { user, error in
-            if error != nil {
-                let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
-                self.present(alert, animated: true)
+            if let error = error {
+                self.showAlert(message: error.localizedDescription)
                 return
             }
             let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate

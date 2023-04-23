@@ -39,11 +39,13 @@ class CalendarViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        reloadUI()
+        updateUI()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UIManager.shared.setupCalendarPage(self)
         
         addKeyboardRecognizer()
         
@@ -57,10 +59,10 @@ class CalendarViewController: UIViewController {
         
         selectedDate = currentDate
         
-        reloadUI()
+        updateUI()
     }
     
-    func reloadUI() {
+    func updateUI() {
         setDays()
         monthLabel.text = CalendarHelper().monthString(date: currentDate) + ", " + CalendarHelper().yearString(date: currentDate)
         daysCollectionView.reloadData()
@@ -88,12 +90,12 @@ class CalendarViewController: UIViewController {
     
     @IBAction func nextMonthClicked(_ sender: Any) {
         currentDate = CalendarHelper().plusMonth(date: currentDate)
-        reloadUI()
+        updateUI()
     }
     
     @IBAction func prevMonthClicked(_ sender: Any) {
         currentDate = CalendarHelper().minusMonth(date: currentDate)
-        reloadUI()
+        updateUI()
     }
     
     @IBAction func saveClicked(_ sender: Any) {
@@ -102,7 +104,7 @@ class CalendarViewController: UIViewController {
             self.saveButton.isHidden = true
         } else {
             DataManager.instance.setNote(date: selectedDate, content: noteText) { note, error in
-                self.reloadUI()
+                self.updateUI()
                 self.currNote = note
                 self.saveButton.isHidden = true
             }

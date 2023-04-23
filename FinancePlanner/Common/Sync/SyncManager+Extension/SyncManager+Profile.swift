@@ -26,21 +26,20 @@ extension SyncManager {
         }
     }
     
-    func getCachedProfile() -> ProfileCache? {
-        if let profile = self.realm.objects(ProfileCache.self).first {
-           return profile
-        }
-        return nil
-    }
-    
     func doProfileAction(_ action: SyncAction, profile: Profile, completion: @escaping (Profile?, Error?) -> Void) {
+        let task = SyncTaskCache(profile: profile, actionType: action.rawValue)
+        SyncTaskManager.instance.addTaskInQuery(task: task)
+        
         let requestCompletion: (NEProfile?, Error?) -> Void = { profile, error in
             if let error = error {
                 completion(nil, error)
                 return
             }
             if let profile = profile {
+                SyncTaskManager.instance.removeTaskFromQuery(task: task)
+                
                 let complProfile = Profile(neProfile: profile)
+                self.cache(profile: complProfile, action: action)
                 completion(complProfile, error)
             }
         }
@@ -63,7 +62,14 @@ extension SyncManager {
         
     }
     
-    func cache(profile: Profile, action: SyncAction) {
+    private func getCachedProfile() -> ProfileCache? {
+        if let profile = self.realm.objects(ProfileCache.self).first {
+           return profile
+        }
+        return nil
+    }
+    
+    private func cache(profile: Profile, action: SyncAction) {
         let profileCache = ProfileCache(profile)
         switch action {
         case .createAction:
@@ -76,13 +82,13 @@ extension SyncManager {
         }
     }
     
-    func create(profile: ProfileCache) {
+    private func create(profile: ProfileCache) {
         try! self.realm.write({
-            realm.add(profile, update: .all)
+            self.realm.add(profile, update: .all)
         })
     }
     
-    func updateProfile(profile: ProfileCache) {
+    private func updateProfile(profile: ProfileCache) {
         try! self.realm.write({
             if let cachedProfile = getCachedProfile() {
                 cachedProfile.currency = profile.currency
@@ -92,10 +98,10 @@ extension SyncManager {
         })
     }
     
-    func removeProfile() {
+    private func removeProfile() {
         try! self.realm.write({
             if let profile = getCachedProfile() {
-                realm.delete(profile)
+                self.realm.delete(profile)
             }
         })
     }

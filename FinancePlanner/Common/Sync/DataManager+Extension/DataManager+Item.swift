@@ -12,9 +12,9 @@ extension DataManager {
         syncManager.getAllItems(completion: completion)
     }
     
-    func getItemBy(uuid: String, completion: @escaping (Item?, Error?) -> Void) {
-        syncManager.getItemBy(uuid: uuid, completion: completion)
-    }
+//    func getItemBy(uuid: String, completion: @escaping (Item?, Error?) -> Void) {
+//        syncManager.getItemBy(uuid: uuid, completion: completion)
+//    }
     
     func add(item: Item, completion: @escaping (Item?, Error?) -> Void) {
         syncManager.doItemAction(.createAction, item: item, completion: completion)

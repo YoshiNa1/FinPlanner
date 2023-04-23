@@ -49,9 +49,9 @@ extension NEUser : ImmutableMappable {
         accessToken = try map.value(CodingKeys.accessToken.rawValue)
         refreshToken = try map.value(CodingKeys.refreshToken.rawValue)
         let user: [String : Any]? = try? map.value(CodingKeys.user.rawValue)
-        uuid = user?[CodingKeys.uuid.rawValue] as? String ?? ""
-        email = user?[CodingKeys.email.rawValue] as? String ?? ""
-        isActivated = user?[CodingKeys.isActivated.rawValue] as? Bool ?? false
+        uuid = try map.value(CodingKeys.uuid.rawValue) ?? user?[CodingKeys.uuid.rawValue] as? String ?? ""
+        email = try map.value(CodingKeys.email.rawValue) ?? user?[CodingKeys.email.rawValue] as? String ?? ""
+        isActivated = try map.value(CodingKeys.isActivated.rawValue) ?? user?[CodingKeys.isActivated.rawValue] as? Bool ?? false
         password = try? map.value(CodingKeys.password.rawValue)
     }
     

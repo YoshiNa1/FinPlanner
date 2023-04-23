@@ -27,6 +27,8 @@ class ListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UIManager.shared.setupListPage(self)
+        
         self.addButton.isEnabled = false
         self.newNoteField.addTarget(self, action: #selector(noteFieldDidChange), for: .editingChanged)
         self.doneButton.isHidden = true

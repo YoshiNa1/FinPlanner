@@ -18,9 +18,6 @@ class Connectivity {
 public class DataManager {
     private(set) var syncManager: SyncManager
     
-//    private var user: User?
-//    private var profile: Profile?
-    
     var defaultCurrency: String {
         get { PreferencesStorage.shared.defaultCurrency?.name ?? ""}
     }
@@ -34,7 +31,14 @@ public class DataManager {
         syncManager = SyncManager()
     }
 
-  
+    public func syncAllData(completion: @escaping (Error?) -> Void) {
+        syncManager.syncAllData(completion: completion)
+    }
+    
+    public func refreshSyncState() {
+        syncManager.refreshSyncState()
+    }
+    
 // MARK: - Default Amount
     
     func getDefaultAmount(amount:Double, currency:String) -> Double {

@@ -76,13 +76,18 @@ class CurrencyTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let contextItem = UIContextualAction(style: .destructive, title: "Delete") { (contextualAction, view, boolValue) in
-            PreferencesStorage.shared.currencies.remove(at: indexPath.row)
-            self.updateUI()
-            NotificationCenter.default.post(name: .currencyDidRemoveFromDefaults, object: nil)
+        if !PreferencesStorage.shared.currencies[indexPath.row].isDefault {
+            let contextItem = UIContextualAction(style: .destructive, title: "Delete") { (contextualAction, view, boolValue) in
+                PreferencesStorage.shared.currencies.remove(at: indexPath.row)
+                self.updateUI()
+                NotificationCenter.default.post(name: .currencyDidRemoveFromDefaults, object: nil)
+            }
+            let swipeActions = UISwipeActionsConfiguration(actions: [contextItem])
+            return swipeActions
+        } else {
+            showAlert(message: "Can't delete the default currency")
+            return nil
         }
-        let swipeActions = UISwipeActionsConfiguration(actions: [contextItem])
-        return swipeActions
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {

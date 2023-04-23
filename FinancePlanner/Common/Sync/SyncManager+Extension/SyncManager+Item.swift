@@ -9,13 +9,19 @@ import Foundation
 
 extension SyncManager {
     func doItemAction(_ action: SyncAction, item: Item, newItem: Item? = nil, completion: @escaping (Item?, Error?) -> Void) {
+        let task = SyncTaskCache(item: item, newItem: newItem, actionType: action.rawValue)
+        SyncTaskManager.instance.addTaskInQuery(task: task)
+        
         let requestCompletion: (NEItem?, Error?) -> Void = { item, error in
             if let error = error {
                 completion(nil, error)
                 return
             }
             if let item = item {
+                SyncTaskManager.instance.removeTaskFromQuery(task: task)
+                
                 let complItem = Item(neItem: item)
+                self.cache(item: complItem, action: action)
                 completion(complItem, error)
             }
         }
@@ -42,7 +48,48 @@ extension SyncManager {
         
     }
     
-    func cache(item: Item, newItem: Item? = nil, action: SyncAction) {
+    func getAllItems(completion: @escaping ([Item], Error?) -> Void) {
+        var complItems = [Item]()
+        if Connectivity.isConnected() {
+            ItemRequests().getAll { items, error in
+                items?.forEach({ neItem in
+                    let item = Item(neItem: neItem)
+                    complItems.append(item)
+                })
+                completion(complItems, error)
+            }
+        } else {
+            let items = self.realm.objects(ItemCache.self)
+            items.forEach({ cachedItem in
+                if cachedItem.isActive {
+                    let item = Item(cache: cachedItem)
+                    complItems.append(item)
+                }
+            })
+            completion(complItems, nil)
+        }
+    }
+    
+    
+//    func getItemBy(uuid: String, completion: @escaping (Item?, Error?) -> Void) {
+//        var complItem: Item?
+//        if Connectivity.isConnected() {
+//            ItemRequests().get(uuid: uuid) { item, error in
+//                if let neItem = item {
+//                    complItem = Item(neItem: neItem)
+//                }
+//                completion(complItem, error)
+//            }
+//        } else {
+//            let items = self.realm.objects(ItemCache.self)
+//            if let cachedItem = items.first(where: {$0.uuid == uuid}) {
+//                complItem = Item(cache: cachedItem)
+//            }
+//            completion(complItem, nil)
+//        }
+//    }
+    
+    private func cache(item: Item, newItem: Item? = nil, action: SyncAction) {
         let itemCache = ItemCache(item)
         switch action {
         case .createAction:
@@ -58,57 +105,20 @@ extension SyncManager {
         }
     }
     
-    
-    func getAllItems(completion: @escaping ([Item], Error?) -> Void) {
-        var complItems = [Item]()
-        if Connectivity.isConnected() {
-            ItemRequests().getAll { items, error in
-                items?.forEach({ neItem in
-                    let item = Item(neItem: neItem)
-                    complItems.append(item)
-                })
-                completion(complItems, error)
-            }
-        } else {
-            let items = self.realm.objects(ItemCache.self)
-            items.forEach({ cachedItem in
-                let item = Item(cache: cachedItem)
-                complItems.append(item)
-            })
-            completion(complItems, nil)
-        }
-    }
-    
-    
-    func getItemBy(uuid: String, completion: @escaping (Item?, Error?) -> Void) {
-        var complItem: Item?
-        if Connectivity.isConnected() {
-            ItemRequests().get(uuid: uuid) { item, error in
-                if let neItem = item {
-                    complItem = Item(neItem: neItem)
-                }
-                completion(complItem, error)
-            }
-        } else {
-            let items = self.realm.objects(ItemCache.self)
-            if let cachedItem = items.first(where: {$0.uuid == uuid}) {
-                complItem = Item(cache: cachedItem)
-            }
-            completion(complItem, nil)
-        }
-    }
-    
-    func add(item: ItemCache) {
+    private func add(item: ItemCache) {
         try! self.realm.write({
-            realm.add(item, update: .all)
+            self.realm.add(item, update: .all)
         })
     }
-    func delete(item: ItemCache) {
+    private func delete(item: ItemCache) {
         try! self.realm.write({
-            realm.delete(item)
+            if let itemCache = realm.object(ofType: ItemCache.self, forPrimaryKey: item.uuid) {
+                itemCache.isActive = false
+//                self.realm.delete(item)
+            }
         })
     }
-    func update(item: ItemCache, withNewItem newItem: ItemCache) {
+    private func update(item: ItemCache, withNewItem newItem: ItemCache) {
         try! self.realm.write({
             item.name = newItem.name
             item.descrpt = newItem.descrpt

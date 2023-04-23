@@ -31,7 +31,12 @@ class NoteCache: Object {
         self.uuid = neModel.uuid
         let dateString = neModel.date
         let dateFormatter = ISO8601DateFormatter()
-        let date = dateFormatter.date(from:dateString)!
+        dateFormatter.formatOptions = [.withInternetDateTime,
+                                       .withDashSeparatorInDate,
+                                       .withFullDate,
+                                       .withFractionalSeconds,
+                                       .withColonSeparatorInTimeZone]
+        let date = dateFormatter.date(from:dateString) ?? Date()
         self.date = date
         self.content = neModel.content
     }

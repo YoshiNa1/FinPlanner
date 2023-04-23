@@ -14,6 +14,7 @@
 		5501E16228B8F07C00C486D3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5501E16128B8F07C00C486D3 /* SettingsViewController.swift */; };
 		5504FC7A28CE199F009AA660 /* ItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5504FC7828CE199F009AA660 /* ItemViewCell.swift */; };
 		5504FC7B28CE199F009AA660 /* ItemViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5504FC7928CE199F009AA660 /* ItemViewCell.xib */; };
+		5517FF8029F583DE001A2929 /* NEReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5517FF7F29F583DE001A2929 /* NEReachability.swift */; };
 		552AC2E629055A05004B2AB7 /* BalanceEditFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552AC2E529055A05004B2AB7 /* BalanceEditFormViewController.swift */; };
 		552AC2E929055F5C004B2AB7 /* SavingsEditFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552AC2E829055F5C004B2AB7 /* SavingsEditFormViewController.swift */; };
 		552AC2EC2905759B004B2AB7 /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552AC2EB2905759B004B2AB7 /* ConverterViewController.swift */; };
@@ -61,6 +62,9 @@
 		557A6B312974327500D6F877 /* StatisticsCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557A6B302974327500D6F877 /* StatisticsCarouselView.swift */; };
 		557A6B332974328900D6F877 /* StatisticsCarouselView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557A6B322974328900D6F877 /* StatisticsCarouselView.xib */; };
 		557A6B3629744A0C00D6F877 /* PageIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557A6B3529744A0C00D6F877 /* PageIndicatorView.swift */; };
+		5582935B29F4053A00B0AE77 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5582935A29F4053A00B0AE77 /* UIViewController+Extensions.swift */; };
+		5582935D29F46A6C00B0AE77 /* SyncTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5582935C29F46A6C00B0AE77 /* SyncTaskManager.swift */; };
+		5582935F29F46B1800B0AE77 /* SyncTaskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5582935E29F46B1800B0AE77 /* SyncTaskCache.swift */; };
 		559A8E98293BC3FF0041971E /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559A8E97293BC3FF0041971E /* TabbarViewController.swift */; };
 		559D36EC2969B36400B75D8C /* MainGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559D36EB2969B36400B75D8C /* MainGradientView.swift */; };
 		55B19C29294383E800C2BC69 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B19C27294383E800C2BC69 /* CalendarCell.swift */; };
@@ -109,6 +113,7 @@
 		5501E16128B8F07C00C486D3 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5504FC7828CE199F009AA660 /* ItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewCell.swift; sourceTree = "<group>"; };
 		5504FC7928CE199F009AA660 /* ItemViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemViewCell.xib; sourceTree = "<group>"; };
+		5517FF7F29F583DE001A2929 /* NEReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEReachability.swift; sourceTree = "<group>"; };
 		552AC2E529055A05004B2AB7 /* BalanceEditFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceEditFormViewController.swift; sourceTree = "<group>"; };
 		552AC2E829055F5C004B2AB7 /* SavingsEditFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsEditFormViewController.swift; sourceTree = "<group>"; };
 		552AC2EB2905759B004B2AB7 /* ConverterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +163,9 @@
 		557A6B302974327500D6F877 /* StatisticsCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsCarouselView.swift; sourceTree = "<group>"; };
 		557A6B322974328900D6F877 /* StatisticsCarouselView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsCarouselView.xib; sourceTree = "<group>"; };
 		557A6B3529744A0C00D6F877 /* PageIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIndicatorView.swift; sourceTree = "<group>"; };
+		5582935A29F4053A00B0AE77 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		5582935C29F46A6C00B0AE77 /* SyncTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTaskManager.swift; sourceTree = "<group>"; };
+		5582935E29F46B1800B0AE77 /* SyncTaskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTaskCache.swift; sourceTree = "<group>"; };
 		559A8E97293BC3FF0041971E /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		559D36EB2969B36400B75D8C /* MainGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGradientView.swift; sourceTree = "<group>"; };
 		55B19C27294383E800C2BC69 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
@@ -297,6 +305,7 @@
 		5501E15328B8EDEB00C486D3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5582935A29F4053A00B0AE77 /* UIViewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -367,6 +376,7 @@
 		554D6D2029E4566A00C19F0A /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				5517FF7F29F583DE001A2929 /* NEReachability.swift */,
 				554D6D2829E487A700C19F0A /* RequestManager.swift */,
 				55F72A7929DA0335001A94C5 /* Endpoint.swift */,
 				554D6D2529E4876500C19F0A /* Requests */,
@@ -444,6 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				55F72A6729D9EE94001A94C5 /* SyncManager.swift */,
+				5582935C29F46A6C00B0AE77 /* SyncTaskManager.swift */,
 				552AC2ED2905819D004B2AB7 /* DataManager.swift */,
 				555949FC29E568A500F43B2F /* SyncManager+Extension */,
 				55594A0529E56CE500F43B2F /* DataManager+Extension */,
@@ -607,6 +618,7 @@
 				55F72A5729D9B580001A94C5 /* ItemCache.swift */,
 				55F72A5929D9B5B1001A94C5 /* NoteCache.swift */,
 				55F72A5B29D9B5DD001A94C5 /* ListCache.swift */,
+				5582935E29F46B1800B0AE77 /* SyncTaskCache.swift */,
 			);
 			path = CacheModels;
 			sourceTree = "<group>";
@@ -790,10 +802,12 @@
 				554D6D2929E487A700C19F0A /* RequestManager.swift in Sources */,
 				5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */,
 				55F72A6629D9BE78001A94C5 /* NEList.swift in Sources */,
+				5582935D29F46A6C00B0AE77 /* SyncTaskManager.swift in Sources */,
 				554D6D2729E4878400C19F0A /* UserRequests.swift in Sources */,
 				55B34964299FDE1D00DA3BEA /* ConvCurrencyListViewController.swift in Sources */,
 				554D6D3A29E4972800C19F0A /* User.swift in Sources */,
 				55F72A7A29DA0335001A94C5 /* Endpoint.swift in Sources */,
+				5582935B29F4053A00B0AE77 /* UIViewController+Extensions.swift in Sources */,
 				554D6D3129E48D0500C19F0A /* ListRequests.swift in Sources */,
 				55B19C2C2943843000C2BC69 /* CalendarHelper.swift in Sources */,
 				55B19C29294383E800C2BC69 /* CalendarCell.swift in Sources */,
@@ -825,6 +839,7 @@
 				55F2F9B528C3C4BB00D3BE48 /* ListTextField.swift in Sources */,
 				557A6B2D297417F700D6F877 /* StatisticsViewHeader.swift in Sources */,
 				554D6D2F29E48C6500C19F0A /* NoteRequests.swift in Sources */,
+				5517FF8029F583DE001A2929 /* NEReachability.swift in Sources */,
 				55CD255428D7A57400B50EC5 /* MainTextField.swift in Sources */,
 				5501E16228B8F07C00C486D3 /* SettingsViewController.swift in Sources */,
 				55777AE329699A83002B0000 /* StatisticsViewCell.swift in Sources */,
@@ -840,6 +855,7 @@
 				55594A0729E56CFF00F43B2F /* DataManager+Item.swift in Sources */,
 				55C01ED529ABA87F006D47FF /* SignInViewController.swift in Sources */,
 				55F72A7829DA00B7001A94C5 /* ProfileEndpoint.swift in Sources */,
+				5582935F29F46B1800B0AE77 /* SyncTaskCache.swift in Sources */,
 				55F72A6429D9BE69001A94C5 /* NENote.swift in Sources */,
 				55E95CF0290F042E00C2E4BD /* CurrencyConverter.swift in Sources */,
 				55F72A7629DA00A9001A94C5 /* ListEndpoint.swift in Sources */,
@@ -1016,7 +1032,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.FinancePlanner;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.anastasiia-makarova.FinancePlanner";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1046,7 +1062,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.companyname.FinancePlanner;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.anastasiia-makarova.FinancePlanner";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

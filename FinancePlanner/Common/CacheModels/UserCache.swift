@@ -21,11 +21,11 @@ class UserCache: Object {
         super.init()
     }
     
-    init(email: String,
-         password: String) {
-        self.email = email
-        self.password = password
-    }
+//    init(email: String,
+//         password: String) {
+//        self.email = email
+//        self.password = password
+//    }
     
     init(neModel: NEUser) {
         self.uuid = neModel.uuid

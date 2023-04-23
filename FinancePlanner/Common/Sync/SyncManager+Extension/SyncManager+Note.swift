@@ -9,13 +9,19 @@ import Foundation
 
 extension SyncManager {
     func doNoteAction(_ action: SyncAction, note: Note, newNote: Note? = nil, completion: @escaping (Note?, Error?) -> Void) {
+        let task = SyncTaskCache(note: note, newNote: newNote, actionType: action.rawValue)
+        SyncTaskManager.instance.addTaskInQuery(task: task)
+        
         let requestCompletion: (NENote?, Error?) -> Void = { note, error in
             if let error = error {
                 completion(nil, error)
                 return
             }
             if let note = note {
+                SyncTaskManager.instance.removeTaskFromQuery(task: task)
+                
                 let complNote = Note(neNote: note)
+                self.cache(note: complNote, action: action)
                 completion(complNote, error)
             }
         }
@@ -39,22 +45,6 @@ extension SyncManager {
             completion(note, nil)
         }
         
-    }
-    
-    func cache(note: Note, newNote: Note? = nil, action: SyncAction) {
-        let noteCache = NoteCache(note)
-        switch action {
-        case .createAction:
-            self.add(note: noteCache)
-        case .editAction:
-            if let newNote = newNote {
-                let newNoteCache = NoteCache(newNote)
-                self.update(note: noteCache, withNewNote: newNoteCache)
-            }
-        case .deleteAction:
-            self.delete(note: noteCache)
-        default: break
-        }
     }
     
     func getAllNotes(completion: @escaping ([Note], Error?) -> Void) {
@@ -97,25 +87,41 @@ extension SyncManager {
         }
     }
     
-    func add(note: NoteCache) {
+    private func cache(note: Note, newNote: Note? = nil, action: SyncAction) {
+        let noteCache = NoteCache(note)
+        switch action {
+        case .createAction:
+            self.add(note: noteCache)
+        case .editAction:
+            if let newNote = newNote {
+                let newNoteCache = NoteCache(newNote)
+                self.update(note: noteCache, withNewNote: newNoteCache)
+            }
+        case .deleteAction:
+            self.delete(note: noteCache)
+        default: break
+        }
+    }
+   
+    private func add(note: NoteCache) {
         try! self.realm.write({
-            realm.add(note, update: .all)
+            self.realm.add(note, update: .all)
         })
     }
     
-    func update(note: NoteCache, withNewNote newNote: NoteCache) {
+    private func update(note: NoteCache, withNewNote newNote: NoteCache) {
         try! self.realm.write({
             if(newNote.content == "") {
-                realm.delete(note)
+                self.realm.delete(note)
             } else {
                 note.content = newNote.content
             }
         })
     }
     
-    func delete(note: NoteCache) {
+    private func delete(note: NoteCache) {
         try! self.realm.write({
-            realm.delete(note)
+            self.realm.delete(note)
         })
     }
         

@@ -102,7 +102,9 @@ class StatisticsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        UIManager.shared.setupStatisticsPage(self)
+        
         selectedDate = Date()
         (selectedDay, selectedMonth, selectedYear) = CalendarHelper().componentsByDate(selectedDate)
         

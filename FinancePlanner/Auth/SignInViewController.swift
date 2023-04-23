@@ -28,24 +28,28 @@ class SignInViewController: UIViewController {
         let password = passwordField.text ?? ""
         let user = User(email: PreferencesStorage.shared.email, password: password)
         DataManager.instance.login(user: user) { user, error in
-            if error != nil {
-                let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
-                self.present(alert, animated: true)
+            if let error = error {
+                self.showAlert(message: error.localizedDescription)
                 return
             }
             PreferencesStorage.shared.accessToken = user?.accessToken ?? ""
             
-            var identifier = "mainTabbarVC"
+            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
             DataManager.instance.getProfile(completion: { profile, _ in
                 if let profile = profile, PreferencesStorage.shared.currencies.isEmpty {
                     let currency = Currency(name: profile.currency, isDefault: true)
                     PreferencesStorage.shared.currencies.append(currency)
-                    identifier = "setupProfileVC"
+                    sceneDelegate?.changeRootViewController(with: "setupProfileVC")
+                } else {
+                    DataManager.instance.syncAllData { error in
+                        if let error = error {
+                            print("Sync data error: \(error.localizedDescription)")
+                        }
+                        sceneDelegate?.changeRootViewController(with: "mainTabbarVC")
+                    }
                 }
             })
-            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-            sceneDelegate?.changeRootViewController(with: identifier)
+            
         }
     }
     

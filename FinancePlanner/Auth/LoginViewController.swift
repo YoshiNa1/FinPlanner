@@ -7,6 +7,8 @@
 
 import UIKit
 
+let oath2key = "1087220546550-vqao0uql3qit5dea4bp0e1jfflco7iuh.apps.googleusercontent.com"
+
 class LoginViewController: UIViewController {
     @IBOutlet weak var formBackground: UIView!
     @IBOutlet weak var emailField: UITextField!
@@ -25,20 +27,23 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func continueClicked(_ sender: Any) {
-        let email = emailField.text ?? ""
-        DataManager.instance.isUserExist(email) { exists, error in
-            if error != nil {
-                let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: nil))
-                self.present(alert, animated: true)
-                return
+        if Connectivity.isConnected() {
+            let email = emailField.text ?? ""
+            DataManager.instance.isUserExist(email) { exists, error in
+                if let error = error {
+                    self.showAlert(message: error.localizedDescription)
+                    return
+                }
+                PreferencesStorage.shared.email = email
+                let identifier = exists ? "signInVC" : "signUpVC"
+                    
+                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+                sceneDelegate?.changeRootViewController(with: identifier)
             }
-            PreferencesStorage.shared.email = email
-            let identifier = exists ? "signInVC" : "signUpVC"
-                
-            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-            sceneDelegate?.changeRootViewController(with: identifier)
+        } else {
+            showAlert(message: "No internet connection.")
         }
+        
     }
     
 }

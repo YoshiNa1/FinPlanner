@@ -118,7 +118,12 @@ class SetupProfileViewController: UIViewController {
                                                and: savingsAmount, savingsCurrency) { _, _ in }
         }
         let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-        sceneDelegate?.changeRootViewController(with: "mainTabbarVC")
+        DataManager.instance.syncAllData { error in
+            if let error = error {
+                print("Sync data error: \(error.localizedDescription)")
+            }
+            sceneDelegate?.changeRootViewController(with: "mainTabbarVC")
+        }
     }
     
     func setupCurrenciesViews(field: UITextField, label: UILabel, button: UIButton) {

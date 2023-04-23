@@ -19,6 +19,8 @@ class ItemCache: Object {
     @objc dynamic var category: String = ""
     @objc dynamic var type: String = ""
     
+    @objc dynamic var isActive: Bool = true
+    
     override class func primaryKey() -> String? {
         return "uuid"
     }
