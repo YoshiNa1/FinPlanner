@@ -36,17 +36,21 @@ class SignInViewController: UIViewController {
             
             let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
             DataManager.instance.getProfile(completion: { profile, _ in
-                if let profile = profile, PreferencesStorage.shared.currencies.isEmpty {
-                    let currency = Currency(name: profile.currency, isDefault: true)
-                    PreferencesStorage.shared.currencies.append(currency)
-                    sceneDelegate?.changeRootViewController(with: "setupProfileVC")
-                } else {
-                    DataManager.instance.syncAllData { error in
-                        if let error = error {
-                            print("Sync data error: \(error.localizedDescription)")
+                if let profile = profile {
+                    if PreferencesStorage.shared.currencies.isEmpty { //TODO: ПЕРЕПРОВЕРИТЬ УСЛОВИЕ, ЛОГИЧНО ЛИ ЭТО???
+                        let currency = Currency(name: profile.currency, isDefault: true)
+                        PreferencesStorage.shared.currencies.append(currency)
+                        sceneDelegate?.changeRootViewController(with: "setupProfileVC")
+                    } else {
+                        DataManager.instance.syncAllData { error in
+                            if let error = error {
+                                print("Sync data error: \(error.localizedDescription)")
+                            }
+                            sceneDelegate?.changeRootViewController(with: "mainTabbarVC")
                         }
-                        sceneDelegate?.changeRootViewController(with: "mainTabbarVC")
                     }
+                } else {
+                    sceneDelegate?.changeRootViewController(with: "setupProfileVC")
                 }
             })
             

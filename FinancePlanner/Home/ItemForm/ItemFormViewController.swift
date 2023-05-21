@@ -82,17 +82,7 @@ class ItemFormViewController: UIViewController {
             UIManager.shared.homeViewController?.updateUI()
             self.dismiss(animated: true)
         }
-        var amount: Double = 0
-        if let amountText = amountField.text {
-            let formatter = NumberFormatter()
-            formatter.decimalSeparator = ","
-            let grade = formatter.number(from: amountText)
-            if let doubleGrade = grade?.doubleValue {
-                amount = doubleGrade
-            } else {
-                amount = Double(amountText) ?? 0
-            }
-        }
+        let amount = amountField.getDoubleFromField()
         let item = Item(type: type,
                         name: nameField.text ?? "",
                         description: descriptionField.text ?? "",

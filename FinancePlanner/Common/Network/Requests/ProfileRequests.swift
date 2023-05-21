@@ -25,7 +25,7 @@ class ProfileRequests {
         sendRequest(.update(profile: profile), completion: completion)
     }
     
-    func get(completion: @escaping (NEProfile?, Error?) -> Void) {
+    func getProfile(completion: @escaping (NEProfile?, Error?) -> Void) {
         sendRequest(.get, completion: completion)
     }
     

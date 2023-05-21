@@ -37,8 +37,6 @@ class HomeViewController: UIViewController, ItemViewCellDelegate {
         super.viewDidLoad()
         UIManager.shared.setupHomePage(self)
         
-        DataManager.instance.loadList()
-        
         date = Date()
         
         collectionBackground.layer.backgroundColor = UIColor.init(named: "MainGradient_StartColor")?.cgColor

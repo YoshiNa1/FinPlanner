@@ -82,18 +82,7 @@ class ConverterViewController: UIViewController {
     }
     
     func convertAmount(from firstField: UITextField, to secondField: UITextField, valueCurrency: ConvCurrency, outputCurrency: ConvCurrency) {
-        var amount: Double = 0
-        if let amountText = firstField.text {
-            let formatter = NumberFormatter()
-            formatter.decimalSeparator = ","
-            let grade = formatter.number(from: amountText)
-            if let doubleGrade = grade?.doubleValue {
-                amount = doubleGrade
-            } else {
-                amount = Double(amountText) ?? 0
-            }
-        }
-        
+        let amount = firstField.getDoubleFromField()
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             let convertedAmount = appDelegate.currencyConverter.convertAndFormat(amount, valueCurrency:valueCurrency, outputCurrency: outputCurrency, numberStyle: .none, decimalPlaces: 2)
             secondField.text = convertedAmount

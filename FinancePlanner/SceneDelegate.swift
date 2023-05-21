@@ -17,7 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        window?.windowScene = windowScene
         
 //        PreferencesStorage.shared.clearSettings()
         let storageEmail = PreferencesStorage.shared.email
@@ -61,7 +64,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func showLoginPage(with error: Error) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(identifier: "loginVC")
-        
+        window?.makeKeyAndVisible()
         window?.rootViewController = viewController
 //        DispatchQueue.main.async {
 //            viewController.showAlert(message: error.localizedDescription)
@@ -71,6 +74,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func showPage(with identifier: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(identifier: identifier)
+        window?.makeKeyAndVisible()
         window?.rootViewController = viewController
     }
     
@@ -79,6 +83,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(identifier: identifier)
+        window.makeKeyAndVisible()
         window.rootViewController = viewController
         
         UIView.transition(with: window,

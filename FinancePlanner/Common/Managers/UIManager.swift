@@ -44,6 +44,12 @@ class UIManager {
     }
     
     @objc func reloadUI() {
+        switch DataManager.instance.getSyncStatus() {
+        case .syncInProgress:
+            tabbarViewController?.processing(true)
+        default:
+            tabbarViewController?.processing(false)
+        }
         self.homeViewController?.updateUI()
         self.listViewController?.updateUI()
         self.calendarViewController?.updateUI()

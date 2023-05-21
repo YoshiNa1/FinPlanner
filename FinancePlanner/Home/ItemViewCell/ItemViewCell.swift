@@ -40,8 +40,8 @@ class ItemViewCell: UICollectionViewCell {
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
-        let deleteItem = UIAction(title: "Delete", image: UIImage(named: "")) { (action) in self.delete() }
-        let editItem = UIAction(title: "Edit", image: UIImage(named: "")) { (action) in self.edit() }
+        let deleteItem = UIAction(title: "Delete", image: nil) { (action) in self.delete() }
+        let editItem = UIAction(title: "Edit", image: nil) { (action) in self.edit() }
         let menu = UIMenu(title: "", options: .displayInline, children: [deleteItem, editItem])
         moreButton.menu = menu
         moreButton.showsMenuAsPrimaryAction = true

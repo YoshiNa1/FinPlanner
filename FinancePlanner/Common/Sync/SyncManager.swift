@@ -33,6 +33,7 @@ enum SyncAction: Int {
 
 class SyncManager {
     let realm = try! Realm()
+    private(set) public var syncState: SyncStatus = .synced
     
     private var user: User? {
         var retUser: User?
@@ -67,7 +68,7 @@ class SyncManager {
     var list : Array<String> = Array<String>()
     
     public init() {
-//        self.loadList() // TODO: moved to homePage
+        self.loadList() // don't remove!
     }
     
     func syncAllData(completion: @escaping (Error?) -> Void) {
@@ -100,7 +101,7 @@ class SyncManager {
                 }
                 
                 group.enter()
-                ProfileRequests().get { profile, error in
+                ProfileRequests().getProfile { profile, error in
                     try! self.realm.write({
                         // clear old cache
                         let profileCache = self.realm.objects(ProfileCache.self)
@@ -117,7 +118,7 @@ class SyncManager {
                 }
                 
                 group.enter()
-                ListRequests().get { list, error in
+                ListRequests().update(content: self.list) { list, error in //TODO: ХУЕТА, ЭТО НЕ РАБОТАЕТ ПРИ ОЧИСТКЕ КЭША (удаление приложа)
                     try! self.realm.write({
                         // clear old cache
                         let listCache = self.realm.objects(ListCache.self)
@@ -126,8 +127,6 @@ class SyncManager {
                         if let list = list {
                             let listCache = ListCache(neModel: list)
                             self.realm.add(listCache, update: .all)
-                        } else {
-                            completion(error)
                         }
                     })
                     group.leave()
@@ -190,6 +189,7 @@ class SyncManager {
     }
     
     private func postSyncNotification(status: SyncStatus) {
+        syncState = status
         NotificationCenter.default.post(name: .syncStatusChanged,
                                         object: self,
                                         userInfo: [fpSyncState: status])

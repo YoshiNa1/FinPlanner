@@ -11,9 +11,9 @@ extension DataManager {
     func getList() -> Array<String> {
         return syncManager.list
     }
-    func loadList() {
-        return syncManager.loadList()
-    }
+//    func loadList() {
+//        return syncManager.loadList()
+//    }
     
     func listItem(at index: Int) -> String {
         return syncManager.listItem(at: index)

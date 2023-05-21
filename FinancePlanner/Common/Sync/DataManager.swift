@@ -39,19 +39,15 @@ public class DataManager {
         syncManager.refreshSyncState()
     }
     
+    public func getSyncStatus() -> SyncStatus {
+        return syncManager.syncState
+    }
+    
 // MARK: - Default Amount
     
     func getDefaultAmount(amount:Double, currency:String) -> Double {
-        var _amount: Double = 0
         let amountText = convertAmountToDefault(amount:amount, currency:currency, style: .none)
-        let formatter = NumberFormatter()
-        formatter.decimalSeparator = ","
-        let grade = formatter.number(from: amountText)
-        if let doubleGrade = grade?.doubleValue {
-            _amount = doubleGrade
-        } else {
-            _amount = Double(amountText) ?? 0
-        }
+        let _amount: Double = amountText.getDoubleFromText()
         return _amount
     }
     

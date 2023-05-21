@@ -21,8 +21,8 @@ extension SyncManager {
                 SyncTaskManager.instance.removeTaskFromQuery(task: task)
                 
                 let complNote = Note(neNote: note)
-                self.cache(note: complNote, action: action)
                 completion(complNote, error)
+//                self.cache(note: complNote, action: action, completion: completion) // TODO: Зачем оно здесь?
             }
         }
         if Connectivity.isConnected() {
@@ -41,8 +41,7 @@ extension SyncManager {
                 request.delete(date: noteDate, completion: requestCompletion)
             }
         } else {
-            self.cache(note: note, newNote: newNote, action: action)
-            completion(note, nil)
+            self.cache(note: note, newNote: newNote, action: action, completion: completion)
         }
         
     }
@@ -79,7 +78,7 @@ extension SyncManager {
             }
         } else {
             let notes = self.realm.objects(NoteCache.self)
-            if let cacheNote = notes.first(where: { CalendarHelper().isDate(date: $0.date, equalTo: date) }) {
+            if let cacheNote = notes.first(where: { CalendarHelper().isDate(date: $0.date, equalTo: date) && $0.isActive }) {
                 let note = Note(cache: cacheNote)
                 complNote = note
             }
@@ -87,18 +86,21 @@ extension SyncManager {
         }
     }
     
-    private func cache(note: Note, newNote: Note? = nil, action: SyncAction) {
+    private func cache(note: Note, newNote: Note? = nil, action: SyncAction, completion: @escaping (Note?, Error?) -> Void) {
         let noteCache = NoteCache(note)
         switch action {
         case .createAction:
             self.add(note: noteCache)
+            completion(note, nil)
         case .editAction:
             if let newNote = newNote {
                 let newNoteCache = NoteCache(newNote)
                 self.update(note: noteCache, withNewNote: newNoteCache)
+                completion(newNote, nil)
             }
         case .deleteAction:
             self.delete(note: noteCache)
+            completion(nil, nil)
         default: break
         }
     }
@@ -111,17 +113,18 @@ extension SyncManager {
     
     private func update(note: NoteCache, withNewNote newNote: NoteCache) {
         try! self.realm.write({
-            if(newNote.content == "") {
-                self.realm.delete(note)
-            } else {
-                note.content = newNote.content
+            if let noteCache = realm.object(ofType: NoteCache.self, forPrimaryKey: note.uuid) {
+                noteCache.content = newNote.content
             }
         })
     }
     
     private func delete(note: NoteCache) {
         try! self.realm.write({
-            self.realm.delete(note)
+            if let noteCache = realm.object(ofType: NoteCache.self, forPrimaryKey: note.uuid) {
+//                self.realm.delete(noteCache)
+                noteCache.isActive = false
+            }
         })
     }
         

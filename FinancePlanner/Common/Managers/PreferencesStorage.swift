@@ -22,7 +22,8 @@ class PreferencesStorage {
                 let encoder = JSONEncoder()
                 let data = try encoder.encode(newValue)
                 storage.set(data, forKey: "currencies")
-                DataManager.instance.updateProfile(withCurrency: newValue.first(where: {$0.isDefault})?.name ?? ""){ profile, error in
+                let defaultCurrency = newValue.first(where: {$0.isDefault})?.name ?? ""
+                DataManager.instance.updateProfile(withCurrency: defaultCurrency){ profile, error in
                     UIManager.shared.homeViewController?.updateUI()
                 }
             } catch {

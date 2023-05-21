@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-let URL = "http://192.168.32.11:5000/api/"
+let URL = "http://45.95.235.40:5000/api/"
 
 protocol Endpoint {
     var path: String { get }

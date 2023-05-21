@@ -53,15 +53,16 @@ class BalanceEditFormViewController: UIViewController {
     }
 
     @IBAction func saveClicked(_ sender: Any) {
-        if let amountText = amountField.text {
-            let amount = Double(amountText) ?? 0
-            if amount != profile?.balance {
-                DataManager.instance.updateProfile(withAmount: amount, currency: currencyLabel.text ?? "", isBalance: true) { _, _ in
-                    UIManager.shared.homeViewController?.updateUI()
-                }
+        let amount = amountField.getDoubleFromField()
+        let currency = currencyLabel.text ?? ""
+        if amount != profile?.balance {
+            DataManager.instance.updateProfile(withAmount: amount, currency: currency, isBalance: true) { _, _ in
+                UIManager.shared.homeViewController?.updateUI()
+                self.dismiss(animated: true)
             }
+        } else {
+            self.dismiss(animated: true)
         }
-        self.dismiss(animated: true)
     }
     
     @IBAction func closeClicked(_ sender: Any) {

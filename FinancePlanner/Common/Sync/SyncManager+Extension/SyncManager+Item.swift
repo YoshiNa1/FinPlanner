@@ -70,25 +70,6 @@ extension SyncManager {
         }
     }
     
-    
-//    func getItemBy(uuid: String, completion: @escaping (Item?, Error?) -> Void) {
-//        var complItem: Item?
-//        if Connectivity.isConnected() {
-//            ItemRequests().get(uuid: uuid) { item, error in
-//                if let neItem = item {
-//                    complItem = Item(neItem: neItem)
-//                }
-//                completion(complItem, error)
-//            }
-//        } else {
-//            let items = self.realm.objects(ItemCache.self)
-//            if let cachedItem = items.first(where: {$0.uuid == uuid}) {
-//                complItem = Item(cache: cachedItem)
-//            }
-//            completion(complItem, nil)
-//        }
-//    }
-    
     private func cache(item: Item, newItem: Item? = nil, action: SyncAction) {
         let itemCache = ItemCache(item)
         switch action {
@@ -120,12 +101,18 @@ extension SyncManager {
     }
     private func update(item: ItemCache, withNewItem newItem: ItemCache) {
         try! self.realm.write({
-            item.name = newItem.name
-            item.descrpt = newItem.descrpt
-            item.amount = newItem.amount
-            item.currency = newItem.currency
-            item.category = newItem.category
+            if let itemCache = realm.object(ofType: ItemCache.self, forPrimaryKey: item.uuid) {
+                itemCache.name = newItem.name
+                itemCache.descrpt = newItem.descrpt
+                itemCache.amount = newItem.amount
+                itemCache.currency = newItem.currency
+                itemCache.category = newItem.category
+                
+           }
         })
+        /* Прикол в том, что из-за свойства newItem в SyncTaskCache
+         в оффлайне при апдейте происходит 'дубликат' записей
+         (кэш объектов ItemCache содержит объект из SyncTaskCache) */
+        self.delete(item: newItem) // TODO: HARDCODE. CHANGE OFFLINE UPDATE LOGIC
     }
-        
 }

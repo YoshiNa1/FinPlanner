@@ -71,44 +71,47 @@ class SavingsEditFormViewController: UIViewController {
     }
     
     @IBAction func saveClicked(_ sender: Any) {
-        save()
-        
-        UIManager.shared.homeViewController?.updateUI()
-        self.dismiss(animated: true)
+        let amount = amountField.getDoubleFromField()
+        let currency = currencyLabel.text ?? ""
+        if amount != profile?.savings {
+            DataManager.instance.updateProfile(withAmount: amount, currency: currency, isBalance: false) { _, _ in
+                UIManager.shared.homeViewController?.updateUI()
+                self.dismiss(animated: true)
+            }
+        } else {
+            self.dismiss(animated: true)
+        }
     }
    
-    func save() {
-        if let amountText = amountField.text {
-            let amount = Double(amountText) ?? 0
-            if amount != profile?.savings {
-                DataManager.instance.updateProfile(withAmount: amount, currency: currencyLabel.text ?? "", isBalance: false) { _, _ in }
+    func save(completion: @escaping (Profile?, Error?) -> Void) {
+        let amount = amountField.getDoubleFromField()
+        let currency = currencyLabel.text ?? ""
+        if amount != profile?.savings {
+            DataManager.instance.updateProfile(withAmount: amount, currency: currency, isBalance: false, completion: completion)
+        }
+        completion(profile, nil)
+    }
+    
+    @IBAction func replenishClicked(_ sender: Any) {
+        save() { _, _ in
+            let currency = self.transactionCurrencyLabel.text ?? ""
+            let transactionAmount = self.transactionAmountField.getDoubleFromField()
+            DataManager.instance.updateProfile(withTransactionAmount: transactionAmount, currency: currency, isWithdraw: false) { _, _ in
+                UIManager.shared.homeViewController?.updateUI()
+                self.dismiss(animated: true)
             }
         }
     }
-    @IBAction func replenishClicked(_ sender: Any) {
-        save()
-        var transactionAmount = 0.0
-        if let amountText = transactionAmountField.text {
-            transactionAmount = Double(amountText) ?? 0
-        }
-        DataManager.instance.updateProfile(withTransactionAmount: transactionAmount, currency: transactionCurrencyLabel.text ?? "", isWithdraw: false) { _, _ in
-            UIManager.shared.homeViewController?.updateUI()
-        }
-        
-        self.dismiss(animated: true)
-    }
     
     @IBAction func withdrawClicked(_ sender: Any) {
-        save()
-        var transactionAmount = 0.0
-        if let amountText = transactionAmountField.text {
-            transactionAmount = Double(amountText) ?? 0
+        save() { _, _ in
+            let currency = self.transactionCurrencyLabel.text ?? ""
+            let transactionAmount = self.transactionAmountField.getDoubleFromField()
+            DataManager.instance.updateProfile(withTransactionAmount: transactionAmount, currency: currency, isWithdraw: true) { _, _ in
+                UIManager.shared.homeViewController?.updateUI()
+                self.dismiss(animated: true)
+            }
         }
-        DataManager.instance.updateProfile(withTransactionAmount: transactionAmount, currency: transactionCurrencyLabel.text ?? "", isWithdraw: true) { _, _ in
-            UIManager.shared.homeViewController?.updateUI()
-        }
-        
-        self.dismiss(animated: true)
     }
     
     @IBAction func closeClicked(_ sender: Any) {

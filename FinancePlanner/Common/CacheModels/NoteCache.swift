@@ -13,6 +13,8 @@ class NoteCache: Object {
     @objc dynamic var date: Date = Date()
     @objc dynamic var content: String = ""
     
+    @objc dynamic var isActive: Bool = true
+    
     override class func primaryKey() -> String? {
         return "uuid"
     }

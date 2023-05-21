@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 extension UIViewController {
     func showAlert(with title: String = "", message: String, actions: [String] = [String]()) {
@@ -20,3 +21,18 @@ extension UIViewController {
         present(alert, animated: true)
     }
 }
+
+extension UIViewController {
+    func processing(_ processing: Bool) {
+        DispatchQueue.main.async {
+            if processing {
+                let hud = MBProgressHUD.showAdded(to: self.view,
+                                                  animated: true)
+                hud.isUserInteractionEnabled = false
+            } else {
+                MBProgressHUD.hide(for: self.view, animated: true)
+            }
+        }
+    }
+}
+

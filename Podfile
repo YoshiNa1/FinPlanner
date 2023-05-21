@@ -11,5 +11,5 @@ target 'FinancePlanner' do
   pod 'ObjectMapper'
   pod 'AlamofireObjectMapper'
   pod 'Charts', '~> 4.1'
-  
+  pod 'MBProgressHUD', '~> 1.2.0'  
 end

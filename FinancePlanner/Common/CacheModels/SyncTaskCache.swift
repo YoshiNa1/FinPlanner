@@ -13,12 +13,6 @@ public class SyncTaskCache: Object {
     
     @objc dynamic var profile: ProfileCache?
     
-//    @objc dynamic var list: ListCache? = ListCache()
-    @objc dynamic var isListTask: Bool = false
-    @objc dynamic var listItem: String? = ""
-    dynamic var listIdx: Int? = 0
-    dynamic var listDestIdx: Int? = 0
-    
     @objc dynamic var item: ItemCache?
     @objc dynamic var updItem: ItemCache?
     
@@ -39,17 +33,6 @@ public class SyncTaskCache: Object {
                 actionType: Int) {
         self.profile = ProfileCache(profile)
         self.actionType = actionType
-    }
-    
-    public init(idx: Int?,
-                listItem: String?,
-                destIdx: Int?,
-                actionType: Int) {
-        self.listItem = listItem
-        self.listIdx = idx
-        self.listDestIdx = destIdx
-        self.actionType = actionType
-        self.isListTask = true
     }
     
     public init(item: Item,

@@ -50,47 +50,36 @@ public class SyncTaskManager {
             let group = DispatchGroup()
             
             for task in tasks {
-                if task.isListTask {
-                    guard let syncListAction = SyncListAction(rawValue: task.actionType) else { completion(); return}
-                    let listItem = task.listItem ?? ""
-                    let listIndex = task.listIdx ?? 0
-                    let listDestIdx =  task.listDestIdx ?? 0
+                guard let syncAction = SyncAction(rawValue: task.actionType) else { completion(); return}
+                if let itemCache = task.item {
+                    let item = Item(cache: itemCache)
+                    var newItem: Item?
+                    if let updatedItem = task.updItem {
+                        newItem = Item(cache: updatedItem)
+                    }
                     group.enter()
-                    syncManager.doListAction(syncListAction, idx: listIndex, item: listItem, destIdx: listDestIdx) { listContent, error in
+                    syncManager.doItemAction(syncAction, item: item, newItem: newItem) { item, error in
                         group.leave()
                     }
-                } else {
-                    guard let syncAction = SyncAction(rawValue: task.actionType) else { completion(); return}
-                    if let itemCache = task.item {
-                        let item = Item(cache: itemCache)
-                        var newItem: Item?
-                        if let updatedItem = task.updItem {
-                            newItem = Item(cache: updatedItem)
-                        }
-                        group.enter()
-                        syncManager.doItemAction(syncAction, item: item, newItem: newItem) { item, error in
-                            group.leave()
-                        }
+                }
+                
+                if let noteCache = task.note {
+                    let note = Note(cache: noteCache)
+                    var newNote: Note?
+                    if let updatedNote = task.updNote {
+                        newNote = Note(cache: updatedNote)
                     }
-                    
-                    if let noteCache = task.note {
-                        let note = Note(cache: noteCache)
-                        var newNote: Note?
-                        if let updatedNote = task.updNote {
-                            newNote = Note(cache: updatedNote)
-                        }
-                        group.enter()
-                        syncManager.doNoteAction(syncAction, note: note, newNote: newNote) { note, error in
-                            group.leave()
-                        }
+                    group.enter()
+                    syncManager.doNoteAction(syncAction, note: note, newNote: newNote) { note, error in
+                        group.leave()
                     }
-                    
-                    if let profileCache = task.profile {
-                        let profile = Profile(cache: profileCache)
-                        group.enter()
-                        syncManager.doProfileAction(syncAction, profile: profile) { profile, error in
-                            group.leave()
-                        }
+                }
+                
+                if let profileCache = task.profile {
+                    let profile = Profile(cache: profileCache)
+                    group.enter()
+                    syncManager.doProfileAction(syncAction, profile: profile) { profile, error in
+                        group.leave()
                     }
                 }
             }

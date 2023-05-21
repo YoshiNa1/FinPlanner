@@ -83,5 +83,6 @@ extension NEItem: ImmutableMappable {
         category >>> map[CodingKeys.category.rawValue]
         amount >>> map[CodingKeys.amount.rawValue]
         currency >>> map[CodingKeys.currency.rawValue]
+        createdAt >>> map[CodingKeys.createdAt.rawValue]
     }
 }

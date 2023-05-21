@@ -11,7 +11,7 @@ extension SyncManager {
     
     func getProfile(completion: @escaping (Profile?, Error?) -> Void) {
         if Connectivity.isConnected() {
-            ProfileRequests().get { profile, error in
+            ProfileRequests().getProfile { profile, error in
                 var complProfile: Profile?
                 if let profile = profile {
                     complProfile = Profile(neProfile: profile)

@@ -46,6 +46,10 @@ extension NEUser : ImmutableMappable {
     }
       
     public init(map: Map) throws {
+        let errorMessage:String? = try map.value("message")
+        if let error = errorMessage {
+            debugPrint("Error message: ", error)
+        }
         accessToken = try map.value(CodingKeys.accessToken.rawValue)
         refreshToken = try map.value(CodingKeys.refreshToken.rawValue)
         let user: [String : Any]? = try? map.value(CodingKeys.user.rawValue)

@@ -106,12 +106,10 @@ class SetupProfileViewController: UIViewController {
         if self.profile == nil {
             let anyCurrency = PreferencesStorage.shared.currencies.first?.name ?? ""
             
-            let balanceText = balanceField.text ?? ""
-            let balanceAmount = Double(balanceText) ?? 0
+            let balanceAmount = balanceField.getDoubleFromField()
             let balanceCurrency = balanceLabel.text ?? anyCurrency
             
-            let savingsText = savingsField.text ?? ""
-            let savingsAmount = Double(savingsText) ?? 0
+            let savingsAmount = savingsField.getDoubleFromField()
             let savingsCurrency = savingsLabel.text ?? anyCurrency
             
             DataManager.instance.createProfile(with: balanceAmount, balanceCurrency,
