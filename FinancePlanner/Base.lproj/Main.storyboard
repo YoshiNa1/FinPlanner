@@ -1006,11 +1006,27 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1tp-1y-Jev">
+                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="dzp-Wv-Ydb">
                                         <rect key="frame" x="32" y="44" width="220" height="19"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1tp-1y-Jev" customClass="RadioButton" customModule="FinancePlanner" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="102" height="19"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="19" id="kZZ-um-FsV"/>
+                                                    <constraint firstAttribute="width" constant="102" id="n6e-lY-UKx"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sh7-hn-53C" customClass="RadioButton" customModule="FinancePlanner" customModuleProvider="target">
+                                                <rect key="frame" x="118" y="0.0" width="102" height="19"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="102" id="P0f-Cp-H5Y"/>
+                                                    <constraint firstAttribute="height" constant="19" id="mBz-Yj-wAK"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHd-gu-h4e">
                                         <rect key="frame" x="32" y="262" width="314" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1053,7 +1069,9 @@
                         <outlet property="currencyButton" destination="gVc-XC-kn0" id="OYm-wu-0dm"/>
                         <outlet property="currencyLabel" destination="mt7-nm-uhc" id="tZY-uf-Uzt"/>
                         <outlet property="descriptionField" destination="pno-yc-4RC" id="Oxa-Pe-knP"/>
+                        <outlet property="expenseButton" destination="1tp-1y-Jev" id="9PR-bc-pIW"/>
                         <outlet property="formBackground" destination="OdN-sJ-RhC" id="ijf-aT-54i"/>
+                        <outlet property="incomeButton" destination="sh7-hn-53C" id="BtV-od-BJa"/>
                         <outlet property="nameField" destination="GmS-5S-Q50" id="kFY-0X-i2N"/>
                         <outlet property="saveButton" destination="X2q-AL-DWs" id="Prc-Ck-bgU"/>
                     </connections>
@@ -1757,7 +1775,7 @@
                                 <rect key="frame" x="18" y="200" width="378" height="270"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="or continue with:" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMI-Zc-xs5">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="or continue with:" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMI-Zc-xs5">
                                         <rect key="frame" x="124" y="184" width="130" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -1802,7 +1820,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c7M-9H-wSh">
+                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c7M-9H-wSh">
                                         <rect key="frame" x="122" y="206" width="130" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>

@@ -24,7 +24,11 @@
 		553DBFAE28B930B30030E6C4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553DBFAD28B930B30030E6C4 /* Images.xcassets */; };
 		553DBFB428B937900030E6C4 /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553DBFB228B937900030E6C4 /* ListItemCell.swift */; };
 		553DBFB528B937900030E6C4 /* ListItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553DBFB328B937900030E6C4 /* ListItemCell.xib */; };
+		553EE6882A48867100F93D2C /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553EE6872A48867100F93D2C /* RadioButton.swift */; };
+		553EE68A2A48887C00F93D2C /* RadioButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553EE6892A48887C00F93D2C /* RadioButton.xib */; };
 		553F40D128C4E8BF0056760C /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553F40D028C4E8BF0056760C /* ListViewController.swift */; };
+		5549A4FE2A1A3FBB00A61B3D /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5549A4FD2A1A3FBB00A61B3D /* UITextField+Extensions.swift */; };
+		5549A5002A1A424900A61B3D /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5549A4FF2A1A424900A61B3D /* String+Extensions.swift */; };
 		554D6D2729E4878400C19F0A /* UserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554D6D2629E4878400C19F0A /* UserRequests.swift */; };
 		554D6D2929E487A700C19F0A /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554D6D2829E487A700C19F0A /* RequestManager.swift */; };
 		554D6D2B29E488F900C19F0A /* ProfileRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554D6D2A29E488F900C19F0A /* ProfileRequests.swift */; };
@@ -122,7 +126,11 @@
 		553DBFAD28B930B30030E6C4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		553DBFB228B937900030E6C4 /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
 		553DBFB328B937900030E6C4 /* ListItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListItemCell.xib; sourceTree = "<group>"; };
+		553EE6872A48867100F93D2C /* RadioButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		553EE6892A48887C00F93D2C /* RadioButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RadioButton.xib; sourceTree = "<group>"; };
 		553F40D028C4E8BF0056760C /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		5549A4FD2A1A3FBB00A61B3D /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
+		5549A4FF2A1A424900A61B3D /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		554D6D2629E4878400C19F0A /* UserRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequests.swift; sourceTree = "<group>"; };
 		554D6D2829E487A700C19F0A /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		554D6D2A29E488F900C19F0A /* ProfileRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRequests.swift; sourceTree = "<group>"; };
@@ -292,6 +300,7 @@
 		5501E15228B8EDC700C486D3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				553EE6862A48867100F93D2C /* RadioButton */,
 				55B34962299FDC7900DA3BEA /* ConvCurrencyList */,
 				559546ED29992D3A00DD5473 /* CurrenciesTableView_Defaults */,
 				55B7DA3B29982130001586CC /* CurrencyTableViewCell */,
@@ -306,6 +315,8 @@
 			isa = PBXGroup;
 			children = (
 				5582935A29F4053A00B0AE77 /* UIViewController+Extensions.swift */,
+				5549A4FD2A1A3FBB00A61B3D /* UITextField+Extensions.swift */,
+				5549A4FF2A1A424900A61B3D /* String+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -371,6 +382,15 @@
 				553DBFB328B937900030E6C4 /* ListItemCell.xib */,
 			);
 			path = ListItemCell;
+			sourceTree = "<group>";
+		};
+		553EE6862A48867100F93D2C /* RadioButton */ = {
+			isa = PBXGroup;
+			children = (
+				553EE6872A48867100F93D2C /* RadioButton.swift */,
+				553EE6892A48887C00F93D2C /* RadioButton.xib */,
+			);
+			path = RadioButton;
 			sourceTree = "<group>";
 		};
 		554D6D2029E4566A00C19F0A /* Network */ = {
@@ -729,6 +749,7 @@
 				5576F63E28C4F77200C6CED3 /* ListTableViewCell.xib in Resources */,
 				55B19C2A294383E800C2BC69 /* CalendarCell.xib in Resources */,
 				553DBFB528B937900030E6C4 /* ListItemCell.xib in Resources */,
+				553EE68A2A48887C00F93D2C /* RadioButton.xib in Resources */,
 				553DBFAE28B930B30030E6C4 /* Images.xcassets in Resources */,
 				557A6B2E297417F700D6F877 /* StatisticsViewHeader.xib in Resources */,
 				55F9989C2974687600A186D9 /* StatisticsPage.xib in Resources */,
@@ -803,6 +824,8 @@
 				5576F63D28C4F77200C6CED3 /* ListTableViewCell.swift in Sources */,
 				55F72A6629D9BE78001A94C5 /* NEList.swift in Sources */,
 				5582935D29F46A6C00B0AE77 /* SyncTaskManager.swift in Sources */,
+				5549A5002A1A424900A61B3D /* String+Extensions.swift in Sources */,
+				553EE6882A48867100F93D2C /* RadioButton.swift in Sources */,
 				554D6D2729E4878400C19F0A /* UserRequests.swift in Sources */,
 				55B34964299FDE1D00DA3BEA /* ConvCurrencyListViewController.swift in Sources */,
 				554D6D3A29E4972800C19F0A /* User.swift in Sources */,
@@ -813,6 +836,7 @@
 				55B19C29294383E800C2BC69 /* CalendarCell.swift in Sources */,
 				55594A0F29E56D4700F43B2F /* DataManager+User.swift in Sources */,
 				552AC2F12905B3EF004B2AB7 /* UIManager.swift in Sources */,
+				5549A4FE2A1A3FBB00A61B3D /* UITextField+Extensions.swift in Sources */,
 				554D6D3C29E4973200C19F0A /* Profile.swift in Sources */,
 				559A8E98293BC3FF0041971E /* TabbarViewController.swift in Sources */,
 				552AC2EC2905759B004B2AB7 /* ConverterViewController.swift in Sources */,

@@ -10,7 +10,8 @@ import UIKit
 class ItemFormViewController: UIViewController {
     @IBOutlet weak var formBackground: UIView!
     
-//    @IBOutlet weak var radioControl: RadioControll!
+    @IBOutlet weak var expenseButton: RadioButton!
+    @IBOutlet weak var incomeButton: RadioButton!
     
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var descriptionField: UITextField!
@@ -23,7 +24,6 @@ class ItemFormViewController: UIViewController {
     @IBOutlet weak var currencyButton: UIButton!
     
     var currItem: Item?
-    var type: ItemType = .outcome
     let currencies = PreferencesStorage.shared.currencies
 
     @IBOutlet weak var saveButton: UIButton!
@@ -39,6 +39,7 @@ class ItemFormViewController: UIViewController {
         
         setCurrenciesView()
         setCategoriesView()
+        setRadioButtons()
         
         if let item = currItem {
             nameField.text = item.name
@@ -77,12 +78,29 @@ class ItemFormViewController: UIViewController {
         categoryField.text = ItemCategoryType.others.rawValue
     }
     
+    func setRadioButtons() {
+        var type: ItemType = .outcome
+        if let item = currItem {
+            type = item.itemType
+        }
+        expenseButton.isSelected = type == .outcome
+        incomeButton.isSelected = type == .income
+       
+        expenseButton.alternateButtons = [incomeButton]
+        incomeButton.alternateButtons = [expenseButton]
+        
+        expenseButton.titleLabel.text = "Expense"
+        incomeButton.titleLabel.text = "Income"
+    }
+    
     @IBAction func saveClicked(_ sender: Any) {
         let completion: () -> Void = {
             UIManager.shared.homeViewController?.updateUI()
             self.dismiss(animated: true)
         }
         let amount = amountField.getDoubleFromField()
+        
+        let type: ItemType = expenseButton.isSelected ? .outcome : .income
         let item = Item(type: type,
                         name: nameField.text ?? "",
                         description: descriptionField.text ?? "",
